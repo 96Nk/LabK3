@@ -19135,10 +19135,10 @@ return jQuery;
 
 /***/ }),
 
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
+/***/ "./resources/sass/bootstraps.scss":
+/*!****************************************!*\
+  !*** ./resources/sass/bootstraps.scss ***!
+  \****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -22698,7 +22698,7 @@ if (typeof this !== 'undefined' && this.Sweetalert2){  this.swal = this.sweetAle
 /******/ 			"/js/app": 0,
 /******/ 			"css/signin": 0,
 /******/ 			"css/style": 0,
-/******/ 			"css/app": 0
+/******/ 			"css/bootstraps": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -22748,10 +22748,10 @@ if (typeof this !== 'undefined' && this.Sweetalert2){  this.swal = this.sweetAle
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/signin","css/style","css/app"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/signin","css/style","css/app"], () => (__webpack_require__("./resources/sass/app.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/signin","css/style","css/app"], () => (__webpack_require__("./resources/css/style.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/signin","css/style","css/app"], () => (__webpack_require__("./resources/css/signin.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/signin","css/style","css/bootstraps"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/signin","css/style","css/bootstraps"], () => (__webpack_require__("./resources/sass/bootstraps.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/signin","css/style","css/bootstraps"], () => (__webpack_require__("./resources/css/style.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/signin","css/style","css/bootstraps"], () => (__webpack_require__("./resources/css/signin.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
