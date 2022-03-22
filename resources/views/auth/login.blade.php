@@ -22,13 +22,15 @@
                 <div class="login-card radius-left">
 
                     <form action="{{route('login')}}" method="post" class="theme-form login-form">
+                        @csrf
                         <h4>Login</h4>
                         <h6>Welcome back! Log in to your account.</h6>
                         <div class="form-group">
                             <label>Email Address</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                <input class="form-control" type="text" name="username" placeholder="username">
+                                <input class="form-control" autofocus type="text" name="username"
+                                       placeholder="username">
                             </div>
                         </div>
                         <div class="form-group">
@@ -76,8 +78,10 @@
             input.attr("type") === "password" ? input.attr("type", "text") : input.attr("type", "password");
         }
     });
-    $('.form-login').submit(function (event) {
+    $('.login-form').submit(function (event) {
         event.preventDefault();
+        console.log($(this).serialize());
+
         $.ajax({
             type: 'POST',
             url: $(this).attr('action'),
