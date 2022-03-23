@@ -22,3 +22,7 @@ Route::middleware('guest')->group(function () {
     });
     Route::get('/', HomeController::class)->name('home');
 });
+
+Route::middleware('auth')->prefix('auth')->controller(AuthController::class)->group(function () {
+    Route::post('logout', 'logout')->name('logout');
+});

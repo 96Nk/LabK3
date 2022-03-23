@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\ResponseHelper;
 use App\Http\Services\AuthService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -28,6 +29,17 @@ class AuthController extends Controller
             $response = $authService->validation($attributes['username'], $attributes['password']);
         } catch (\Exception $exception) {
             $response = ResponseHelper::error($exception->getMessage());
+        }
+        return response()->json($response);
+    }
+
+    public final function logout()
+    {
+        try {
+            Auth::logout();
+            $response = ResponseHelper::success('Berhasil Logout.');
+        } catch (\Exception $e) {
+            $response = ResponseHelper::error($e->getMessage());
         }
         return response()->json($response);
     }

@@ -4,10 +4,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="viho admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords"
+          content="admin template, viho admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="pixelstrap">
     <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
     <title>Form Login</title>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstraps.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+    @include('css.global')
+    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}">
 </head>
 <body>
 <!-- Loader starts-->
@@ -46,8 +51,8 @@
                         </div>
                         <div class="d-flex justify-content-between mb-3">
                             <a class="link" href="#">Forgot password?</a>
-                            <button class="btn btn-primary btn-block" type="submit"><i
-                                    class="bi bi-box-arrow-in-right"></i> Sign in
+                            <button class="btn btn-primary btn-block" type="submit">
+                                <i class="bi bi-box-arrow-in-right"></i> Sign in
                             </button>
                         </div>
                         <div class="login-social-title">
@@ -64,12 +69,7 @@
         </div>
     </div>
 </section>
-<!-- page-wrapper end-->
-<!-- latest jquery-->
-<script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('assets/js/script.js') }}"></script>
-<!-- login js-->
-<!-- Plugin used-->
+@include('js.global')
 <script>
     $('.toggle-password').click(function () {
         let input = $($(this).attr("toggle"));
