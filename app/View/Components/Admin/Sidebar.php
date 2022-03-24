@@ -2,8 +2,8 @@
 
 namespace App\View\Components\Admin;
 
+use App\Models\UserLevel;
 use Illuminate\View\Component;
-use Modules\Settings\Entities\UserLevel;
 use function view;
 
 class Sidebar extends Component

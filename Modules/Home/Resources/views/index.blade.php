@@ -26,7 +26,6 @@
     @include('js.global')
     @slot('script')
         <script>
-
         </script>
     @endslot
 </x-admin.app-layout>
