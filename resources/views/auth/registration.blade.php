@@ -34,7 +34,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Provinsi</label>
-                                        <select class="form-select select-province select2" name="prov_id">
+                                        <select class="form-select select-province select2" name="prov_id" required>
                                             <option selected value="">.: Provinsi :.</option>
                                             @foreach($provinces as $province)
                                                 <option
@@ -44,13 +44,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Kabupaten</label>
-                                        <select class="form-select select-city" name="city_id">
+                                        <select class="form-select select-city select2" name="city_id" required>
                                             <option selected disabled value="">.: Kabupaten :.</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Kecamatan</label>
-                                        <select class="form-select select-district" name="district_id" required>
+                                        <select class="form-select select-district select2" name="district_id" required>
                                             <option selected disabled value="">.: Kecamatan :.</option>
                                         </select>
                                     </div>
@@ -79,14 +79,43 @@
             </div>
         </div>
     </div>
-
+    @include('js.global')
     @slot('script')
         <script>
-            $('.select-province').change(function () {
+
+            $('.select-province').change(async function () {
                 const prov_id = $(this).val()
-                console.log(prov_id)
-            });
+                const htmls = await selectCity(prov_id)
+                $('.select-city').html(htmls)
+            })
+
+            $('.select-city').change(async function () {
+                const city_id = $(this).val()
+                const loadDistrict = await getDistrict(city_id);
+                console.log(loadDistrict)
+            })
+
+            async function selectCity(prov_id, cityID = null) {
+                const loadCity = await getCity(prov_id);
+                const cities = loadCity.data;
+                let htmls = '<option selected value="">.: Pilih Kabupaten :.</option>';
+                if (cities.length) {
+                    cities.forEach((city) => {
+                        const attr = cityID === city.city_id ? 'selected' : '';
+                        htmls += `<option ${attr} value="${city.city_id}">${city.city_name}</option>`;
+                    });
+                }
+                return htmls;
+            }
+
+            const getCity = (prov_id) => {
+                return $.getJSON(BASEURL(`referensi/city/load-city/${prov_id}`))
+            }
+            const getDistrict = (city_id) => {
+                return $.getJSON(BASEURL(`referensi/district/load-district/${city_id}`))
+            }
+
         </script>
     @endslot
-    @include('js.global')
+
 </x-auth.app-layout>

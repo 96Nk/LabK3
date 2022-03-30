@@ -1,0 +1,13 @@
+{
+    "name": "Referensi",
+    "alias": "referensi",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Referensi\\Providers\\ReferensiServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

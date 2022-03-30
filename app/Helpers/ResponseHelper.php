@@ -13,7 +13,7 @@ class ResponseHelper
         return array('message' => $message, 'status' => false, 'statusCode' => $statusCode, 'data' => $data);
     }
 
-    public static function success(string $message, int $statusCode = Response::HTTP_OK, array $data = []): array
+    public static function success(string $message = 'Success', int $statusCode = Response::HTTP_OK, array $data = []): array
     {
         return array('message' => $message, 'status' => true, 'statusCode' => $statusCode, 'data' => $data);
     }
