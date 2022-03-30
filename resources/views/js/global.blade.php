@@ -18,6 +18,8 @@
 <script src="{{ asset('assets/js/jarallax_libs/libs.min.js') }}"></script>
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
+<script src="{{ asset('assets/js/select2/select2.full.min.js') }}"></script>
+{{--<script src="{{ asset('assets/js/select2/select2-custom.js') }}"></script>--}}
 <script src="{{ asset('assets/js/script.js') }}"></script>
 <!-- login js-->
 <!-- Plugin used-->
@@ -25,9 +27,16 @@
     const BASEURL = (pathUrl = '') => {
         return `{{ url('') }}/${pathUrl}`
     };
+
+    $(document).on('select2:open', () => {
+        document.querySelector('.select2-search__field').focus();
+    });
+
+    $('.select2').select2()
+
+
     $('.btn-logout').click(function () {
         const urlData = $(this).data('url');
-        console.log(urlData)
         $.ajax({
             type: "POST",
             url: urlData,

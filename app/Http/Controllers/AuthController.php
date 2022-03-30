@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\ResponseHelper;
 use App\Http\Services\AuthService;
+use App\Models\RefProvince;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,6 +17,12 @@ class AuthController extends Controller
     public final function login()
     {
         return view('auth.login');
+    }
+
+    public final function registration()
+    {
+        $get['provinces'] = RefProvince::all();
+        return view('auth.registration', $get);
     }
 
 

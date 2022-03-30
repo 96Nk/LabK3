@@ -19,6 +19,8 @@ Route::middleware('guest')->group(function () {
     Route::prefix('auth')->controller(AuthController::class)->group(function () {
         Route::get('login', 'login')->name('login');
         Route::post('login', 'validation');
+        Route::get('registration', 'registration')->name('registration');
+        Route::post('registration', 'send');
     });
     Route::get('/', HomeController::class)->name('home');
 });

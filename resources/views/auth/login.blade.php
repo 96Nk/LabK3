@@ -1,27 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-          content="viho admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-    <meta name="keywords"
-          content="admin template, viho admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="pixelstrap">
-    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
-    <title>Form Login</title>
-    @include('css.global')
-    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}">
-</head>
-<body>
-<!-- Loader starts-->
-<x-loader-theme/>
-<section>
+<x-auth.app-layout title="Form Login">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl-6">
-                <img class="bg-img-cover bg-center" src="{{ asset('assets/img/background-auth.jpg') }}"></div>
+                <img class="bg-img-cover bg-center" src="{{ asset('assets/images/background-auth.jpg') }}"></div>
             {{--                <img class="bg-img-cover bg-center" src="{{ asset('assets/images/login/3.jpg') }}"></div>--}}
             <div class="col-xl-6 p-0">
                 <div class="login-card radius-left">
@@ -58,7 +39,7 @@
                         <div class="login-social-title">
                             <h5>Sign Up Company</h5>
                         </div>
-                        <p>Don't have account?<a class="ms-2" href="#">Create Account</a></p>
+                        <p>Don't have account?<a class="ms-2" href="{{ route('registration') }}">Create Account</a></p>
                         <br>
                         <a class="btn btn-outline-danger btn-block" href="{{ route('home') }}">
                             <i class="bi bi-arrow-bar-left"></i> Back to Home
@@ -68,44 +49,44 @@
             </div>
         </div>
     </div>
-</section>
-@include('js.global')
-<script>
-    $('.toggle-password').click(function () {
-        let input = $($(this).attr("toggle"));
-        if (input.length > 0) {
-            $(this).toggleClass("bi-eye bi-eye-slash");
-            input.attr("type") === "password" ? input.attr("type", "text") : input.attr("type", "password");
-        }
-    });
-    $('.login-form').submit(function (event) {
-        event.preventDefault();
-        console.log($(this).serialize());
-
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            success: (response) => {
-                if (response.status) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: response.message,
-                        showConfirmButton: false,
-                        timer: 2000
-                    }).then((result) => {
-                        window.location.reload();
-                    })
-                } else {
-                    Swal.fire('Failed', response.message, 'error')
+    @include('js.global')
+    @slot('script')
+        <script>
+            $('.toggle-password').click(function () {
+                let input = $($(this).attr("toggle"));
+                if (input.length > 0) {
+                    $(this).toggleClass("bi-eye bi-eye-slash");
+                    input.attr("type") === "password" ? input.attr("type", "text") : input.attr("type", "password");
                 }
-            },
-            error: (jqXHR, textStatus, errorThrown) => {
-                Swal.fire('The Internet?', 'That thing is still around?', 'error');
-            }
-        })
-        return false;
-    });
-</script>
-</body>
-</html>
+            });
+            $('.login-form').submit(function (event) {
+                event.preventDefault();
+                console.log($(this).serialize());
+
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: (response) => {
+                        if (response.status) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: response.message,
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then((result) => {
+                                window.location.reload();
+                            })
+                        } else {
+                            Swal.fire('Failed', response.message, 'error')
+                        }
+                    },
+                    error: (jqXHR, textStatus, errorThrown) => {
+                        Swal.fire('The Internet?', 'That thing is still around?', 'error');
+                    }
+                })
+                return false;
+            });
+        </script>
+    @endslot
+</x-auth.app-layout>
