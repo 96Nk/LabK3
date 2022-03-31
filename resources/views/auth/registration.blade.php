@@ -3,9 +3,13 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card rounded-3">
-                    <form action="{{route('registration')}}" method="post" class="theme-form">
+                    <form action="{{url('auth/registration-store')}}" method="post" class="theme-form">
                         @csrf
                         <div class="card-body">
+                            @if(session('message'))
+                                <x-alert-session type="{{session('type')}}" status="{{session('status')}}"
+                                                 title="{{session('message')}}"/>
+                            @endif
                             <h4 class="text-center">Form Registration</h4>
                             <hr>
                             <div class="row">
@@ -27,7 +31,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Address</label>
-                                        <textarea class="form-control" rows="3" name="company_adress"
+                                        <textarea class="form-control" rows="3" name="company_address"
                                                   required></textarea>
                                     </div>
                                 </div>
@@ -56,7 +60,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Kelurahan / Desa</label>
-                                        <select class="form-select select-village" name="village_id" required>
+                                        <select class="form-select select-village select2" name="village_id" required>
                                             <option selected disabled value="">.: Kelurahan / Desa :.</option>
                                         </select>
                                     </div>
@@ -74,7 +78,6 @@
                             <p>Already have an account? <a class="ms-2" href="{{ route('login') }}">Sign in</a></p>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
@@ -82,7 +85,6 @@
     @include('js.global')
     @slot('script')
         <script>
-
             $('.select-province').change(async function () {
                 const prov_id = $(this).val()
                 const htmls = await selectCity(prov_id)
@@ -91,8 +93,14 @@
 
             $('.select-city').change(async function () {
                 const city_id = $(this).val()
-                const loadDistrict = await getDistrict(city_id);
-                console.log(loadDistrict)
+                const htmls = await selectDistrict(city_id)
+                $('.select-district').html(htmls)
+            })
+
+            $('.select-district').change(async function () {
+                const district_id = $(this).val()
+                const htmls = await selectVillage(district_id)
+                $('.select-village').html(htmls)
             })
 
             async function selectCity(prov_id, cityID = null) {
@@ -108,11 +116,43 @@
                 return htmls;
             }
 
+
+            async function selectDistrict(city_id, districtID = null) {
+                const loadDistrict = await getDistrict(city_id);
+                const districts = loadDistrict.data;
+                let htmls = '<option  selected value="">.: Pilih Kecamatan :.</option>';
+                if (districts.length) {
+                    districts.forEach((district) => {
+                        const attr = districtID === district.district_id ? 'selected' : '';
+                        htmls += `<option ${attr} value="${district.district_id}">${district.district_name}</option>`;
+                    });
+                }
+                return htmls;
+            }
+
+            async function selectVillage(district_id, villageID = null) {
+                const loadVillage = await getVillage(district_id);
+                const villages = loadVillage.data;
+                let htmls = '<option selected value="">.: Pilih Kelurahan / Desa :.</option>';
+                if (villages.length) {
+                    villages.forEach((village) => {
+                        const attr = villageID === village.village_id ? 'selected' : '';
+                        htmls += `<option ${attr} value="${village.village_id}">${village.village_name}</option>`;
+                    });
+                }
+                return htmls;
+            }
+
             const getCity = (prov_id) => {
                 return $.getJSON(BASEURL(`referensi/city/load-city/${prov_id}`))
             }
+
             const getDistrict = (city_id) => {
                 return $.getJSON(BASEURL(`referensi/district/load-district/${city_id}`))
+            }
+
+            const getVillage = (district_id) => {
+                return $.getJSON(BASEURL(`referensi/village/load-village/${district_id}`))
             }
 
         </script>

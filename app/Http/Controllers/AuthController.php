@@ -40,6 +40,21 @@ class AuthController extends Controller
         return response()->json($response);
     }
 
+    public final function registrationStore(Request $request, AuthService $authService)
+    {
+        try {
+            $authService->registration($request);
+            $response = ResponseHelper::success('Registration complete.');
+            $this->setFlash($response['message'], $response['status']);
+            return redirect()->route('login');
+        } catch (\Exception $exception) {
+            $response = ResponseHelper::error($exception->getMessage());
+            $this->setFlash($response['message'], $response['status']);
+            return redirect()->back();
+        }
+
+    }
+
     public final function logout()
     {
         try {

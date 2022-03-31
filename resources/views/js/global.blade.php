@@ -8,7 +8,7 @@
 <script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
 <script src="{{ asset('assets/js/config.js') }}"></script>
 <!-- Bootstrap js-->
-{{--<script src="{{ asset('assets/js/bootstrap/popper.min.js') }}"></script>--}}
+<script src="{{ asset('assets/js/bootstrap/popper.min.js') }}"></script>
 {{--<script src="{{ asset('assets/js/bootstrap/bootstrap.min.js') }}"></script>--}}
 <!-- Plugins JS start-->
 <script src="{{ asset('assets/js/owlcarousel/owl.carousel.js') }}"></script>
@@ -21,8 +21,9 @@
 <script src="{{ asset('assets/js/select2/select2.full.min.js') }}"></script>
 {{--<script src="{{ asset('assets/js/select2/select2-custom.js') }}"></script>--}}
 <script src="{{ asset('assets/js/script.js') }}"></script>
-<!-- login js-->
-<!-- Plugin used-->
+<script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/js/datatable/datatables/datatable.custom.js') }}"></script>
+<script src="{{ asset('assets/js/tooltip-init.js') }}"></script>
 <script>
     const BASEURL = (pathUrl = '') => {
         return `{{ url('') }}/${pathUrl}`
@@ -33,6 +34,25 @@
     });
 
     $('.select2').select2()
+
+    $(document).ready(function () {
+        $('.table-1').DataTable({
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: false,
+            info: true,
+            autoWidth: true,
+            pageLength: 25
+        });
+        $('.table-2').DataTable({
+            scrollY: '85vh',
+            scrollX: true,
+            scrollCollapse: true,
+            paging: false,
+            ordering: false
+        });
+    })
 
 
     $('.btn-logout').click(function () {

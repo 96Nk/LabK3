@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')->group(function () {
     Route::prefix('auth')->controller(AuthController::class)->group(function () {
         Route::get('login', 'login')->name('login');
-        Route::post('login', 'validation');
+        Route::post('login', 'validation')->name('login');
         Route::get('registration', 'registration')->name('registration');
-        Route::post('registration', 'send');
+        Route::post('registration-store', 'registrationStore');
     });
     Route::get('/', HomeController::class)->name('home');
 });

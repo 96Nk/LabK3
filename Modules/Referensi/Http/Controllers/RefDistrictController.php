@@ -20,6 +20,7 @@ class RefDistrictController extends Controller
     {
         try {
             $data = RefDistrict::where('city_id', $city_id)->get();
+            RefDistrict::where('city_code')->get();
             $response = ResponseHelper::success(data: $data->toArray());
         } catch (\Exception $exception) {
             $response = ResponseHelper::error($exception->getMessage());

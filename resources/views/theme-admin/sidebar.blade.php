@@ -27,7 +27,7 @@
                             @if($menuParent['link'] != '#' )
                                 <li class="dropdown">
                                     <a class="nav-link menu-title link-nav active"
-                                       href="{{ $menuChild['link'] }}">
+                                       href="{{ $menuParent['link'] }}">
                                         <i class="{{$menuParent['icon']}}"></i><span> {{$menuParent['name']}}</span>
                                     </a>
                                 </li>

@@ -13,6 +13,7 @@
 
 use Modules\Referensi\Http\Controllers\RefCityController;
 use Modules\Referensi\Http\Controllers\RefDistrictController;
+use Modules\Referensi\Http\Controllers\RefVillageController;
 
 Route::prefix('referensi/city')->group(function () {
     Route::controller(RefCityController::class)->group(function () {
@@ -23,5 +24,12 @@ Route::prefix('referensi/city')->group(function () {
 Route::prefix('referensi/district')->group(function () {
     Route::controller(RefDistrictController::class)->group(function () {
         Route::get('load-district/{city_id}', 'loadDistricts');
+    });
+});
+
+
+Route::prefix('referensi/village')->group(function () {
+    Route::controller(RefVillageController::class)->group(function () {
+        Route::get('load-village/{refVillage:district_id}', 'loadVillage');
     });
 });

@@ -2,6 +2,7 @@
 
 namespace Modules\Referensi\Providers;
 
+use App\Models\RefVillage;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 

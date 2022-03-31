@@ -20,7 +20,7 @@
                         <pre>{{ json_encode(auth()->user()) }}</pre>
                     </div>
                 </div>
-            </div>
+            </div>\
         </div>
     </div>
     @include('js.global')

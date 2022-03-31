@@ -6,9 +6,12 @@
             {{--                <img class="bg-img-cover bg-center" src="{{ asset('assets/images/login/3.jpg') }}"></div>--}}
             <div class="col-xl-6 p-0">
                 <div class="login-card radius-left">
-
                     <form action="{{route('login')}}" method="post" class="theme-form login-form">
                         @csrf
+                        @if(session('message'))
+                            <x-alert-session type="{{session('type')}}" status="{{session('status')}}"
+                                             title="{{session('message')}}"/>
+                        @endif
                         <h4>Login</h4>
                         <h6>Welcome back! Log in to your account.</h6>
                         <div class="form-group">

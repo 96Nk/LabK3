@@ -10,4 +10,10 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public final function setFlash(string $message, bool $status = false): void
+    {
+        session()->flash('message', $message);
+        session()->flash('status', $status);
+    }
 }
