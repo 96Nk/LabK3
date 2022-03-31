@@ -1,34 +1,20 @@
 <!-- latest jquery-->
 <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
-<!-- feather icon js-->
 <script src="{{ asset('assets/js/icons/feather-icon/feather.min.js') }}"></script>
 <script src="{{ asset('assets/js/icons/feather-icon/feather-icon.js') }}"></script>
-<!-- Sidebar jquery-->
+<script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
 <script src="{{ asset('assets/js/config.js') }}"></script>
-<!-- Bootstrap js-->
 <script src="{{ asset('assets/js/bootstrap/popper.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/prism/prism.min.js') }}"></script>
 <script src="{{ asset('assets/js/clipboard/clipboard.min.js') }}"></script>
 <script src="{{ asset('assets/js/custom-card/custom-card.js') }}"></script>
-
-<!-- Plugins JS start-->
-<script src="{{ asset('assets/js/owlcarousel/owl.carousel.js') }}"></script>
-<script src="{{ asset('assets/js/owlcarousel/owl-custom.js') }}"></script>
-<script src="{{ asset('assets/js/landing_sticky.js') }}"></script>
-<script src="{{ asset('assets/js/landing.js') }}"></script>
-<script src="{{ asset('assets/js/jarallax_libs/libs.min.js') }}"></script>
-<!-- Plugins JS Ends-->
-<!-- Theme js-->
 <script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
-
 <script src="{{ asset('assets/js/select2/select2.full.min.js') }}"></script>
-{{--<script src="{{ asset('assets/js/select2/select2-custom.js') }}"></script>--}}
 <script src="{{ asset('assets/js/script.js') }}"></script>
-{{--<script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script>--}}
-
-
+<script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 <script>
     const BASEURL = (pathUrl = '') => {
         return `{{ url('') }}/${pathUrl}`
@@ -45,7 +31,7 @@
             paging: true,
             lengthChange: true,
             searching: true,
-            ordering: true,
+            ordering: false,
             info: true,
             autoWidth: true,
             pageLength: 25
@@ -84,4 +70,38 @@
 
         });
     })
+
+    const swalAction = (url, data, paramt = {}) => {
+        const btnAction = paramt.textBtn ?? 'Delete ';
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+        return swalWithBootstrapButtons.fire({
+            title: paramt.title ?? `Apa anda yakin ?`,
+            text: `Silahkan Klik Tombol ${btnAction} Untuk melakukan Aksi`,
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: btnAction,
+            cancelButtonText: 'Cancel',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    dataType: 'json',
+                    data: data,
+                    success: (res) => {
+                        notifSmartAlert(res.status, res.message)
+                    },
+                });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire('Cancel', `Tidak ada aksi ${btnAction} data`, 'error')
+            }
+        })
+    }
 </script>

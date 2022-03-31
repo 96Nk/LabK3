@@ -4,47 +4,94 @@
     <!-- Container-fluid starts-->
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-12">
                 <x-card>
-                    <p>Ini Card Body</p>
-                </x-card>
-            </div>
-            <div class="col-md-8">
-                <x-card>
-                    <div class="table-responsive-sm">
-                        <table class="table table-bordered table-xs table-1" style="width: 100%;">
+                    @slot('header')
+                        <h5>Data Company</h5>
+                    @endslot
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-2" style="width: 100%">
                             <thead>
                             <tr>
-                                <th>No</th>
+                                <th width="5%">No</th>
                                 <th>Nama</th>
                                 <th>Email</th>
                                 <th>Telpon</th>
                                 <th>Alamat</th>
-                                <th><i class="bi bi-gear"></i></th>
+                                <th width="15%"><i class="bi bi-gear"></i></th>
+                                <th width="5%"><i class="bi bi-trash"></i></th>
                             </tr>
                             </thead>
                             <tbody>
-                            @for($i =1; $i < 100; $i++)
+                            @foreach($companies as $i => $company)
+                                @php($params = "data-params='".json_encode($company)."'" )
                                 <tr>
-                                    <td>No</td>
-                                    <td>Nama</td>
-                                    <td>Email</td>
-                                    <td>Telpon</td>
-                                    <td>Alamat</td>
-                                    <td><i class="bi bi-gear"></i></td>
+                                    <td class="text-center">{{ $i+1 }}</td>
+                                    <td>{{ $company->company_name }}</td>
+                                    <td>{{ $company->company_email }}</td>
+                                    <td>{{ $company->company_phone }}</td>
+                                    <td>{{ $company->company_address }}</td>
+                                    <td class="text-center">
+                                        {!! btnAction('add', attrBtn:$params, labelBtn: ' Verification', classBtn: 'btn-pill btn-verification', icon: 'pencil') !!}
+                                    </td>
+                                    <td class="text-center">
+                                        {!! btnAction('delete', classBtn: 'btn-delete') !!}
+                                    </td>
                                 </tr>
-                            @endfor
-
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
+
                 </x-card>
             </div>
         </div>
     </div>
-    @include('js.global')
+    <div class="modal fade" id="modal-verification" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"
+                            data-bs-original-title="" title=""></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-borderless">
+                            <tbody>
+                            <tr>
+                                <td>Nama</td>
+                                <td>:</td>
+                                <td><span class="company-name"></span></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-success"><i class="fa fa-save"></i> Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @include('js.admin')
     @slot('script')
         <script>
+            $('.btn-verification').click(function () {
+                const params = $(this).data('params')
+                console.log(params)
+                const tagModal = $('#modal-verification');
+                tagModal.modal('show');
+                tagModal.find('.modal-title').text('Form Verification Company')
+                tagModal.find('.company-name').text(params.company_name)
+            })
+
+            $('.btn-delete').click(function () {
+                swalAction(BASEURL('admin/company'))
+            })
+
         </script>
     @endslot
 </x-admin.app-layout>
