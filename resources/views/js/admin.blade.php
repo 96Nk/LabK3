@@ -104,4 +104,8 @@
             }
         })
     }
+
+    setTimeout(function () {
+        $('#session-notif').fadeOut('slow');
+    }, 2500);
 </script>

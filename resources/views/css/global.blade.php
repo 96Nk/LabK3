@@ -24,3 +24,12 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 {{--<link rel="stylesheet" type="text/css" href="">--}}
 
+<style>
+    #session-notif {
+        width: 100%;
+        float: right;
+        position: absolute;
+        z-index: 1;
+        top: 10px;
+    }
+</style>

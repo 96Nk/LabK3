@@ -7,6 +7,7 @@ use App\Http\Services\AuthService;
 use App\Models\RefProvince;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Modules\Company\Http\Services\CompanyService;
 
 class AuthController extends Controller
 {
@@ -14,18 +15,23 @@ class AuthController extends Controller
     {
     }
 
-    public final function login()
+    public final function login(): \Illuminate\Contracts\View\View
     {
         return view('auth.login');
     }
 
-    public final function registration()
+    public final function registration(): \Illuminate\Contracts\View\View
     {
         $get['provinces'] = RefProvince::all();
         return view('auth.registration', $get);
     }
 
 
+    /**
+     * @param Request $request
+     * @param AuthService $authService
+     * @return \Illuminate\Http\JsonResponse|array
+     */
     public final function validation(Request $request, AuthService $authService): \Illuminate\Http\JsonResponse|array
     {
         try {
@@ -40,10 +46,15 @@ class AuthController extends Controller
         return response()->json($response);
     }
 
-    public final function registrationStore(Request $request, AuthService $authService)
+    /**
+     * @param Request $request
+     * @param CompanyService $companyService
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public final function registrationStore(Request $request, CompanyService $companyService): \Illuminate\Http\RedirectResponse
     {
         try {
-            $authService->registration($request);
+            $companyService->addCompany($request);
             $response = ResponseHelper::success('Registration complete.');
             $this->setFlash($response['message'], $response['status']);
             return redirect()->route('login');
@@ -52,10 +63,9 @@ class AuthController extends Controller
             $this->setFlash($response['message'], $response['status']);
             return redirect()->back();
         }
-
     }
 
-    public final function logout()
+    public final function logout(): \Illuminate\Http\JsonResponse
     {
         try {
             Auth::logout();

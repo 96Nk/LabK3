@@ -17,6 +17,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('setting')->group(function () {
         Route::prefix('user')->controller(UserController::class)->group(function () {
             Route::get('/', 'index');
+            Route::post('/', 'store')->name('user.store');
         });
     });
 });

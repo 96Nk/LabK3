@@ -24,19 +24,4 @@ class AuthService
         return ResponseHelper::success('Login Berhasil');
     }
 
-    public final function registration(Request $request): \Illuminate\Database\Eloquent\Model|Company
-    {
-        $attributes = $request->validate([
-            'company_name' => ['required'],
-            'company_email' => ['required', 'unique:companies', 'email'],
-            'company_phone' => ['required'],
-            'company_address' => ['required'],
-            'city_id' => ['required'],
-            'district_id' => ['required'],
-            'prov_id' => ['required'],
-            'village_id' => ['required'],
-        ]);
-        return Company::create($attributes);
-    }
-
 }

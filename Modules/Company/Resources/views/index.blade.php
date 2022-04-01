@@ -2,6 +2,9 @@
     <x-loader-theme/>
     <x-admin.page-header title="Company Page" items="Company"/>
     <!-- Container-fluid starts-->
+    @if(session('message'))
+        <x-alert-session col="6" status="{{session('status')}}" title="{{session('message')}}"/>
+    @endif
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -9,6 +12,7 @@
                     @slot('header')
                         <h5>Data Company</h5>
                     @endslot
+                    {{ json_encode($companies, 128) }}
                     <div class="table-responsive">
                         <table class="table table-bordered table-2" style="width: 100%">
                             <thead>
@@ -32,10 +36,19 @@
                                     <td>{{ $company->company_phone }}</td>
                                     <td>{{ $company->company_address }}</td>
                                     <td class="text-center">
-                                        {!! btnAction('add', attrBtn:$params, labelBtn: ' Verification', classBtn: 'btn-pill btn-verification', icon: 'pencil') !!}
+                                        @if (!$company->user)
+                                            {!! btnAction('add', attrBtn:$params, labelBtn: ' Verification', classBtn: 'btn-pill btn-verification', icon: 'pencil') !!}
+                                        @else
+
+                                        @endif
+
                                     </td>
                                     <td class="text-center">
-                                        {!! btnAction('delete', classBtn: 'btn-delete') !!}
+                                        @if (!$company->user)
+                                            {!! btnAction('delete', classBtn: 'btn-delete') !!}
+                                        @else
+
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -50,29 +63,32 @@
     <div class="modal fade" id="modal-verification" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"></h5>
-                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"
-                            data-bs-original-title="" title=""></button>
-                </div>
-                <div class="modal-body">
-                    <div class="table-responsive">
-                        <table class="table table-borderless">
-                            <tbody>
-                            <tr>
-                                <td>Nama</td>
-                                <td>:</td>
-                                <td><span class="company-name"></span></td>
-                            </tr>
-
-                            </tbody>
-                        </table>
+                <form class="form-verification" method="post" action="{{ route('company.verification') }}">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"
+                                data-bs-original-title="" title=""></button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button class="btn btn-success"><i class="fa fa-save"></i> Simpan</button>
-                </div>
+                    <div class="modal-body">
+                        <h5 class="company-name"></h5>
+                        <p>
+                            Verifikasi akan mengirim data username dan password ke Email
+                            <span style="font-weight: bold" class="company-email"></span>.
+                        </p>
+                        <input type="hidden" class="form-control company_id" name="company_id" required>
+                        <input type="hidden" class="form-control company_email" name="username" required>
+                        <input type="hidden" class="form-control company_name" name="name" required>
+                        <input type="hidden" class="form-control" name="password" value="{{ $random }}" required>
+                        <input type="hidden" class="form-control" name="level_id" value="3" required>
+                        <input type="hidden" class="form-control" name="is_active" value="1" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
@@ -86,11 +102,12 @@
                 tagModal.modal('show');
                 tagModal.find('.modal-title').text('Form Verification Company')
                 tagModal.find('.company-name').text(params.company_name)
+                tagModal.find('.company-email').text(params.company_email)
+                tagModal.find('.company_id').val(params.company_id)
+                tagModal.find('.company_email').val(params.company_email)
+                tagModal.find('.company_name').val(params.company_name)
             })
 
-            $('.btn-delete').click(function () {
-                swalAction(BASEURL('admin/company'))
-            })
 
         </script>
     @endslot
