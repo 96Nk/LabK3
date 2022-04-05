@@ -95,8 +95,19 @@
                     url: url,
                     dataType: 'json',
                     data: data,
-                    success: (res) => {
-                        notifSmartAlert(res.status, res.message)
+                    success: (response) => {
+                        if (response.status) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: response.message,
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then((result) => {
+                                window.location.reload();
+                            })
+                        } else {
+                            Swal.fire('Failed', response.message, 'error')
+                        }
                     },
                 });
             } else if (result.dismiss === Swal.DismissReason.cancel) {

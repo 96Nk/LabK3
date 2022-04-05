@@ -12,7 +12,6 @@
                     @slot('header')
                         <h5>Data Company</h5>
                     @endslot
-                    {{ json_encode($companies, 128) }}
                     <div class="table-responsive">
                         <table class="table table-bordered table-2" style="width: 100%">
                             <thead>
@@ -23,7 +22,7 @@
                                 <th>Telpon</th>
                                 <th>Alamat</th>
                                 <th width="15%"><i class="bi bi-gear"></i></th>
-                                <th width="5%"><i class="bi bi-trash"></i></th>
+                                <th width="15%"><i class="bi bi-trash"></i></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -39,15 +38,15 @@
                                         @if (!$company->user)
                                             {!! btnAction('add', attrBtn:$params, labelBtn: ' Verification', classBtn: 'btn-pill btn-verification', icon: 'pencil') !!}
                                         @else
-
+                                            <span class="badge badge-success">Selesai Validasi</span>
                                         @endif
 
                                     </td>
                                     <td class="text-center">
                                         @if (!$company->user)
-                                            {!! btnAction('delete', classBtn: 'btn-delete') !!}
+                                            {!! btnAction('delete', attrBtn: "data-company_id='{$company['company_id']}'", classBtn: 'btn-delete') !!}
                                         @else
-
+                                            {!! btnAction('update', attrBtn:$params, labelBtn: 'Resending', classBtn: 'btn-resending') !!}
                                         @endif
                                     </td>
                                 </tr>
@@ -92,6 +91,34 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modal-resending" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form class="form-verification" method="post" action="{{ route('company.resending') }}">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"
+                                data-bs-original-title="" title=""></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 class="company-name"></h5>
+                        <p>
+                            Mengirim ulang Username dan Password ke Email
+                            <span style="font-weight: bold" class="company-email"></span>.
+                        </p>
+                        <input type="" class="form-control company_email" name="username" required>
+                        <input type="hidden" class="form-control" name="password" value="{{ $random }}" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-success"><i class="bi bi-send"></i> Send Mail</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
     @include('js.admin')
     @slot('script')
         <script>
@@ -108,7 +135,21 @@
                 tagModal.find('.company_name').val(params.company_name)
             })
 
+            $('.btn-resending').click(function () {
+                const params = $(this).data('params')
+                const tagModal = $('#modal-resending');
+                tagModal.modal('show');
+                tagModal.find('.modal-title').text('Form Resending User Company')
+                tagModal.find('.company-name').text(params.company_name)
+                tagModal.find('.company-email').text(params.company_email)
+                tagModal.find('.company_id').val(params.company_id)
+                tagModal.find('.company_email').val(params.company_email)
+            })
 
+            $('.btn-delete').click(function () {
+                const company_id = $(this).data('company_id')
+                swalAction(BASEURL(`admin/company/delete/${company_id}`), {_token: "{{ csrf_token() }}"})
+            });
         </script>
     @endslot
 </x-admin.app-layout>

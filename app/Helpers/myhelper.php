@@ -9,7 +9,7 @@ function btnAction($action = '', $attrBtn = '', $labelBtn = '', $classBtn = '', 
             break;
         case 'update':
             $type = 'warning-gradien';
-            $iconBtn = 'highlighter';
+            $iconBtn = 'pencil';
             break;
         case 'delete':
             $type = 'danger-gradien';

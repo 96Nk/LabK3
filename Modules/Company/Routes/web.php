@@ -17,6 +17,8 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('admin/company')->controller(CompanyController::class)->group(function () {
         Route::get('/', 'index')->name('company');
         Route::post('verification', 'verification')->name('company.verification');
+        Route::post('resending', 'resending')->name('company.resending');
+        Route::post('delete/{company}', 'destroy');
     });
 });
 

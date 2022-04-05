@@ -22,5 +22,6 @@
         <td>{{ $mailData['password'] }}</td>
     </tr>
 </table>
+<p>Link login : {{url('auth/login')}}</p>
 </body>
 </html>

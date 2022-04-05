@@ -1,6 +1,6 @@
 <x-admin.app-layout title="Home">
     <x-loader-theme/>
-    <x-admin.page-header title="Home Page" items="Home"/>
+    <x-admin.page-header title="Home Page" items="Home" />
     <!-- Container-fluid starts-->
     <div class="container-fluid">
         <div class="row">
@@ -26,6 +26,7 @@
     @include('js.admin')
     @slot('script')
         <script>
+
         </script>
     @endslot
 </x-admin.app-layout>

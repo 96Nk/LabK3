@@ -28,13 +28,14 @@ class CompanyController extends Controller
     public final function verification(Request $request, UserService $userService): \Illuminate\Http\RedirectResponse
     {
         try {
-            $mailData = [
-                'title' => 'Notifikasi User Perusahaan',
-                'body' => 'Tidak untuk di balas.',
-                'username' => $request->post('username'),
-                'password' => $request->post('password'),
-            ];
-            Mail::to($mailData['username'])->send(new NotifUserMail($mailData));
+//            $mailData = [
+//                'title' => 'Notifikasi User Perusahaan',
+//                'body' => 'Tidak untuk di balas.',
+//                'username' => $request->post('username'),
+//                'password' => $request->post('password'),
+//            ];
+//            Mail::to($mailData['username'])->send(new NotifUserMail($mailData));
+            $userService->sendMailUser($request);
             $userService->addUser($request);
             $response = ResponseHelper::success('Berhasil Verifikasi Data Perusahaan');
         } catch (\Exception $exception) {
@@ -42,5 +43,30 @@ class CompanyController extends Controller
         }
         $this->setFlash($response['message'], $response['status']);
         return back();
+    }
+
+    public final function resending(Request $request, UserService $userService)
+    {
+        try {
+            $userService->sendMailUser($request);
+            $userService->forgetPasswordUser($request);
+            $response = ResponseHelper::success('Berhasil mengirim ulang email');
+        } catch (\Exception $exception) {
+            $response = ResponseHelper::error($exception->getMessage());
+        }
+        $this->setFlash($response['message'], $response['status']);
+        return back();
+    }
+
+    public final function destroy(Company $company)
+    {
+        try {
+            $bool = $company->destroy($company['company_id']);
+            if (!$bool) throw new \Exception('Gagal Menghapus Data');
+            $response = ResponseHelper::success('Berhasil delete data');
+        } catch (\Exception $exception) {
+            $response = ResponseHelper::error($exception->getMessage());
+        }
+        return response()->json($response);
     }
 }
