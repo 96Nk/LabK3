@@ -1,7 +1,7 @@
 <header class="main-nav">
     <div class="sidebar-user text-center">
         <img class="img-90 rounded-circle" src="{{ asset('assets/images/dashboard/boy-2.png') }}" alt="">
-        <h6 class="mt-3 f-w-600">PT. Angin Ribut</h6>
+        <h6 class="f-w-600">{{ Str::upper(auth()->user()->name) }}</h6>
     </div>
     <nav>
         <div class="main-navbar">
@@ -13,9 +13,7 @@
                             <i class="fa fa-angle-right ps-2" aria-hidden="true"></i>
                         </div>
                     </li>
-                    <li class="sidebar-main-title">
-                        <div><h6>Navigation</h6></div>
-                    </li>
+
                     <li class="dropdown">
                         <a class="nav-link menu-title link-nav active"
                            href="{{ route('home') }}">

@@ -4,6 +4,8 @@ namespace Modules\Settings\Http\Controllers;
 
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Models\RefEmployee;
+use App\Models\User;
 use App\Models\UserLevel;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -27,7 +29,9 @@ class UserController extends Controller
     {
         $get = [
             'level_id' => $request->get('level'),
-            'user_levels' => $this->userLevel->get()
+            'user_levels' => $this->userLevel->get(),
+            'users' => User::where('level_id', $request->get('level'))->get(),
+            'employees' => RefEmployee::all()
         ];
         return view('settings::user.index', $get);
     }
@@ -41,7 +45,7 @@ class UserController extends Controller
             $response = ResponseHelper::error($exception->getMessage());
         }
         $this->setFlash($response['message'], $response['status']);
-        return redirect()->route('login');
+        return back();
     }
 
 }

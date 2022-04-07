@@ -30,7 +30,7 @@
         <x-admin.footer/>
     </div>
 </div>
-@stack('after-script')
 {{$script}}
+@stack('after-script')
 </body>
 </html>

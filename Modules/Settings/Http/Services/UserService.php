@@ -26,7 +26,7 @@ class UserService
             'password' => $attr['password'],
             'name' => $attr['name'],
             'level_id' => $request->post('level_id'),
-            'is_active' => $request->post('is_active'),
+            'is_active' => $request->post('is_active') ?? 1,
             'company_id' => $request->post('company_id'),
             'employee_id' => $request->post('employee_id'),
         ];

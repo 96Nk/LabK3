@@ -3411,8 +3411,8 @@ table tbody .border-bottom-warning td {
     position: absolute;
     top: 0;
     left: 0;
-    -webkit-animation: loader 2s linear infinite;
-    animation: loader 2s linear infinite;
+    -webkit-animation: loader 1s linear infinite;
+    animation: loader 1s linear infinite;
     opacity: 0;
     -webkit-animation-delay: 0.5s;
     animation-delay: 0.5s;
@@ -3427,8 +3427,8 @@ table tbody .border-bottom-warning td {
     position: absolute;
     top: 0;
     left: 0;
-    -webkit-animation: loader 2s linear infinite;
-    animation: loader 2s linear infinite;
+    -webkit-animation: loader 1s linear infinite;
+    animation: loader 1s linear infinite;
     opacity: 0;
 }
 

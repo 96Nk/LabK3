@@ -91,7 +91,7 @@
         }).then((result) => {
             if (result.value) {
                 $.ajax({
-                    type: "POST",
+                    type: paramt.method ?? "POST",
                     url: url,
                     dataType: 'json',
                     data: data,

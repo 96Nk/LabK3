@@ -46,7 +46,7 @@
                                         @if (!$company->user)
                                             {!! btnAction('delete', attrBtn: "data-company_id='{$company['company_id']}'", classBtn: 'btn-delete') !!}
                                         @else
-                                            {!! btnAction('update', attrBtn:$params, labelBtn: 'Resending', classBtn: 'btn-resending') !!}
+                                            {!! btnAction('update', attrBtn:$params, labelBtn: 'Resend', classBtn: 'btn-resending', icon: 'send') !!}
                                         @endif
                                     </td>
                                 </tr>
