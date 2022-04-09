@@ -3,9 +3,7 @@
     <x-admin.page-header title="Setting User" items="Setting|User"/>
     <!-- Container-fluid starts-->
     <div class="container-fluid">
-        @if(session('message'))
-            <x-alert-session col="6" status="{{session('status')}}" title="{{session('message')}}"/>
-        @endif
+        <x-alert-session col="6"/>
         <div class="row">
             <div class="col-md-4">
                 <x-card>
@@ -24,7 +22,7 @@
                     <hr>
                     @if ($level_id)
                         @if ($level_id != 2)
-                            <form method="post" action="{{ route('user.store') }}">
+                            <form method="post" action="{{ route('setting.user') }}">
                                 @csrf
                                 <div class="form-group">
                                     <x-input title="Username" name="username" placeholder="Username"/>
@@ -32,11 +30,12 @@
                                     @if($level_id != 1 or $level_id != 2)
                                         <div class="mb-3">
                                             <label>Pegawai</label>
-                                            <select class="form-select select2" name="employee_id" required>
+                                            <select class="form-select select2 select-employee" name="employee_id"
+                                                    required>
                                                 <option value="">.: Pilih Pegawai :.</option>
                                                 @foreach($employees as $employee)
-                                                    <option
-                                                        value="{{ $employee['employee_id'] }}">{{ $employee->position->position_name }}
+                                                    <option data-position_name="{{$employee->position->position_name}}"
+                                                            value="{{ $employee['employee_id'] }}">{{ $employee->position->position_name }}
                                                         ({{ $employee['employee_name'] }})
                                                     </option>
                                                 @endforeach
@@ -77,13 +76,13 @@
                                     <td>{{ $user['name'] }}</td>
                                     <td class="text-center">
                                         @if($user['is_active']  == 1)
-                                            {!! btnAction('add', labelBtn: 'Active', classBtn: 'btn-active', icon: 'lock') !!}
+                                            {!! btnAction('add', attrBtn: "data-id='{$user['id']}'", labelBtn: 'Active', classBtn: 'btn-active', icon: 'lock') !!}
                                         @else
-                                            {!! btnAction('update', labelBtn: 'Not Active', classBtn: 'btn-active', icon: 'unlock') !!}
+                                            {!! btnAction('update', attrBtn: "data-id='{$user['id']}'", labelBtn: 'Not Active', classBtn: 'btn-active', icon: 'unlock') !!}
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        {!! btnAction('delete', classBtn: 'btn-delete') !!}
+                                        {!! btnAction('delete', attrBtn: "data-id='{$user['id']}'", classBtn: 'btn-delete') !!}
                                     </td>
                                 </tr>
                             @endforeach
@@ -99,7 +98,27 @@
     @include('js.admin')
     @slot('script')
         <script>
+            $('.btn-delete').click(function () {
+                const id = $(this).data('id')
+                swalAction(BASEURL(`setting/user/${id}`),
+                    {_token: "{{ csrf_token() }}"},
+                    {method: 'DELETE'}
+                )
+            });
 
+            $('.btn-active').click(function () {
+                const id = $(this).data('id')
+                console.log(id)
+                swalAction(BASEURL(`setting/user/${id}`),
+                    {_token: "{{ csrf_token() }}"},
+                    {method: 'PUT', textBtn: 'Update'}
+                )
+            });
+
+            $('.select-employee').change(function () {
+                const position_name = $(this).find('option:selected').data('position_name')
+                $('.name').val(position_name)
+            })
         </script>
     @endslot
 </x-admin.app-layout>

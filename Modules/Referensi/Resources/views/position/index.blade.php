@@ -3,9 +3,7 @@
     <x-admin.page-header title="Referensi Page" items="Referensi|Position"/>
     <!-- Container-fluid starts-->
     <div class="container-fluid">
-        @if(session('message'))
-            <x-alert-session col="4" status="{{session('status')}}" title="{{session('message')}}"/>
-        @endif
+        <x-alert-session col="6"/>
         <div class="row">
             <div class="col-md-4">
                 <x-card>

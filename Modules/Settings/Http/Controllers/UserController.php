@@ -21,11 +21,7 @@ class UserController extends Controller
     {
     }
 
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-    public function index(Request $request)
+    public final function index(Request $request)
     {
         $get = [
             'level_id' => $request->get('level'),
@@ -36,7 +32,12 @@ class UserController extends Controller
         return view('settings::user.index', $get);
     }
 
-    public function store(Request $request, UserService $userService)
+    /**
+     * @param Request $request
+     * @param UserService $userService
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public final function store(Request $request, UserService $userService): \Illuminate\Http\RedirectResponse
     {
         try {
             $userService->addUser($request);
@@ -46,6 +47,37 @@ class UserController extends Controller
         }
         $this->setFlash($response['message'], $response['status']);
         return back();
+    }
+
+    /**
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public final function updateActive(User $user): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $data = ['is_active' => $user->is_active == 1 ? 0 : 1];
+            $status = $user->update($data);
+            $response = ResponseHelper::statusAction('Update Is Active User.', $status);
+        } catch (\Exception $exception) {
+            $response = ResponseHelper::error($exception->getMessage());
+        }
+        return response()->json($response);
+    }
+
+    /**
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public final function destroy(User $user): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $user->delete();
+            $response = ResponseHelper::success();
+        } catch (\Exception $exception) {
+            $response = ResponseHelper::error($exception->getMessage());
+        }
+        return response()->json($response);
     }
 
 }

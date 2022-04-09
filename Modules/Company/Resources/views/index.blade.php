@@ -2,9 +2,7 @@
     <x-loader-theme/>
     <x-admin.page-header title="Company Page" items="Company"/>
     <!-- Container-fluid starts-->
-    @if(session('message'))
-        <x-alert-session col="6" status="{{session('status')}}" title="{{session('message')}}"/>
-    @endif
+    <x-alert-session col="6"/>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
