@@ -11,6 +11,7 @@
 |
 */
 
+use Modules\Services\Http\Controllers\BodyDetailController;
 use Modules\Services\Http\Controllers\HeadController;
 
 Route::middleware(['auth'])->prefix('services')->group(function () {
@@ -18,5 +19,13 @@ Route::middleware(['auth'])->prefix('services')->group(function () {
         Route::get('/', 'index')->name('service.head');
         Route::post('/', 'store');
         Route::delete('/{serviceHead}', 'destroy');
+    });
+    Route::prefix('body-details')->controller(BodyDetailController::class)->group(function () {
+        Route::get('/', 'index')->name('service.body');
+        Route::post('/', 'storeBody');
+        Route::delete('/{serviceBody}', 'destroyBody');
+        //Details
+//        Route::post('/', 'storeDetail')->name('service.detail');
+//        Route::delete('/{serviceBody}', 'destroyDetail')->name('service.detail');
     });
 });

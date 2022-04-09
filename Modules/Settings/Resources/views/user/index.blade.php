@@ -1,5 +1,5 @@
 <x-admin.app-layout title="Home">
-    {{--        <x-loader-theme/>--}}
+    <x-loader-theme/>
     <x-admin.page-header title="Setting User" items="Setting|User"/>
     <!-- Container-fluid starts-->
     <div class="container-fluid">
