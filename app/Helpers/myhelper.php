@@ -44,3 +44,9 @@ function btnAction($action = '', $attrBtn = '', $labelBtn = '', $classBtn = '', 
     $typeBtn = $typeBtn ?: $type;
     return "<button $attrBtn class='btn btn-$typeBtn btn-sm $classBtn'><i class='bi bi-$icon me-0'></i> $labelBtn</button>";
 }
+
+
+function numberFormat(int $number, $decimals = 0): string
+{
+    return number_format($number, $decimals, ',', '.');
+}

@@ -14,7 +14,11 @@ class DetailRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'service_body_id' => 'required',
+            'service_head_id' => 'required',
+            'service_detail_name' => 'required',
+            'service_detail_unit' => 'required',
+            'service_detail_cost' => 'required|numeric',
         ];
     }
 
