@@ -13,6 +13,7 @@
 
 use Modules\Services\Http\Controllers\BodyDetailController;
 use Modules\Services\Http\Controllers\HeadController;
+use Modules\Services\Http\Controllers\ViewsController;
 
 Route::middleware(['auth'])->prefix('services')->group(function () {
     Route::prefix('head')->controller(HeadController::class)->group(function () {
@@ -28,4 +29,6 @@ Route::middleware(['auth'])->prefix('services')->group(function () {
         Route::post('detail', 'storeDetail')->name('service.detail');
         Route::delete('detail/{serviceDetail}', 'destroyDetail');
     });
+
+    Route::get('views', ViewsController::class);
 });
