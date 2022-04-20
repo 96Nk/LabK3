@@ -13,7 +13,7 @@
 
 use Modules\Settings\Http\Controllers\UserController;
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'check-user', 'administrator'])->group(function () {
     Route::prefix('setting')->group(function () {
         Route::prefix('user')->controller(UserController::class)->group(function () {
             Route::get('/', 'index')->name('setting.user');

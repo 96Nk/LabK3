@@ -1,6 +1,6 @@
-<x-admin.app-layout title="Services">
-    <x-loader-theme/>
-    <x-admin.page-header title="Services" items="Services|Head"/>
+<x-admin.app-layout title="Home">
+    {{--    <x-loader-theme/>--}}
+    <x-admin.page-header title="Setting User" items="Setting|User"/>
     <!-- Container-fluid starts-->
     <div class="container-fluid">
         <x-alert-session col="6"/>
@@ -10,11 +10,13 @@
                     @slot('header')
                         <h5>Form Input</h5>
                     @endslot
-                    <form method="post" action="{{ route('service.head') }}">
+                    <form method="post" action="{{ route('utility.signer') }}">
                         @csrf
                         <div class="form-group">
-                            <x-input title="Name Head" name="service_head_name" placeholder="Name Head"/>
-                            <x-input type="" name="service_head_id"/>
+                            <x-input title="NIP" name="nip" placeholder="NIP"/>
+                            <x-input title="Nama Penandatangan" name="signer_name" placeholder="Penandatangan"/>
+                            <x-input title="Nama Jabatan" name="signer_position" placeholder="Jabatan"/>
+                            <x-input type="" name="signer_id" required="false"/>
                         </div>
                         {!! btnAction('save', labelBtn: 'Save') !!}
                     </form>
@@ -23,26 +25,33 @@
             <div class="col-md-8">
                 <x-card>
                     @slot('header')
-                        <h5>Data Head</h5>
+                        <h5>Data Signer Letter</h5>
                     @endslot
                     <table class="table table-bordered table-1">
                         <thead>
                         <tr>
                             <th width="5%">NO</th>
+                            <th>NIP</th>
                             <th>Nama</th>
-                            <th><i class="bi bi-search"></i></th>
+                            <th>Jabatan</th>
+                            <th>Status</th>
                             <th><i class="bi bi-arrow-counterclockwise"></i></th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($heads as $i => $head)
-                            @php($params = "data-params='".json_encode($head)."'")
+                        @foreach($signers as $signer)
+                            @php($params = "data-params='".json_encode($signer)."'")
                             <tr>
-                                <td class="text-center">{{ $i+1 }}</td>
-                                <td>{{ $head['service_head_name'] }}</td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $signer['nip'] }}</td>
+                                <td>{{ $signer['signer_name'] }}</td>
+                                <td>{{ $signer['signer_position'] }}</td>
                                 <td class="text-center">
-                                    <a href="{{ url("services/body-details?head={$head['service_head_id']}") }}"
-                                       class="btn btn-primary"><i class="bi bi-search"></i> View Body</a>
+                                    @if($signer['signer_status']  == 1)
+                                        {!! btnAction('add', attrBtn: "data-id='{$signer['signer_id']}'", labelBtn: 'Active', classBtn: 'btn-active', icon: 'lock') !!}
+                                    @else
+                                        {!! btnAction('update', attrBtn: "data-id='{$signer['signer_id']}'", labelBtn: 'Not Active', classBtn: 'btn-active', icon: 'unlock') !!}
+                                    @endif
                                 </td>
                                 <td class="text-center">
                                     {!! btnAction('update', attrBtn: $params, classBtn: 'btn-xs btn-update') !!}
@@ -61,15 +70,17 @@
         <script>
             $('.btn-delete').click(function () {
                 const params = $(this).data('params')
-                swalAction(BASEURL(`services/head/${params.service_head_id}`),
+                swalAction(BASEURL(`utility/signer/${params.signer_id}`),
                     {_token: "{{ csrf_token() }}"},
                     {method: 'DELETE'}
                 )
             });
             $('.btn-update').click(function () {
                 const params = $(this).data('params')
-                $('.service_head_name').val(params.service_head_name)
-                $('.service_head_id').val(params.service_head_id)
+                $('.signer_id').val(params.signer_id)
+                $('.nip').val(params.nip)
+                $('.signer_name').val(params.signer_name)
+                $('.signer_position').val(params.signer_position)
             })
         </script>
     @endslot

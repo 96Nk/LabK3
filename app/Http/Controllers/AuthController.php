@@ -36,7 +36,7 @@ class AuthController extends Controller
     {
         try {
             $attributes = $request->validate([
-                'username' => ['required', 'alpha_num'],
+                'username' => ['required'],
                 'password' => ['required', 'min:3'],
             ]);
             $response = $authService->validation($attributes['username'], $attributes['password']);

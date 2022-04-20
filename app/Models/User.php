@@ -53,7 +53,19 @@ class User extends Authenticatable
         'employee_id',
     ];
 
-    protected $hidden = ['password'];
+    protected $with = ['company'];
+
+    protected $hidden = ['password', 'created_at', 'updated_at'];
+
+    public final function company(): \Illuminate\Database\Eloquent\Relations\hasOne
+    {
+        return $this->hasOne(Company::class, 'company_id', 'company_id');
+    }
+
+//    public function employee()
+//    {
+//        return $this->hasOne(RefEmployee::class, 'employee_id', 'employee_id');
+//    }
 
 
     protected function password(): Attribute

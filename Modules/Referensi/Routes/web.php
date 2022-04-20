@@ -37,7 +37,7 @@ Route::prefix('referensi/village')->group(function () {
 });
 
 
-Route::middleware(['auth'])->prefix('referensi')->group(function () {
+Route::middleware(['auth', 'check-user', 'administrator'])->prefix('referensi')->group(function () {
     Route::prefix('employee')->controller(EmployeeController::class)->group(function () {
         Route::get('/', 'index')->name('referensi.employee');
         Route::post('/', 'store');

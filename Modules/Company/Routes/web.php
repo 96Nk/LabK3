@@ -13,7 +13,7 @@
 
 use Modules\Company\Http\Controllers\CompanyController;
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'check-user', 'administrator'])->group(function () {
     Route::prefix('admin/company')->controller(CompanyController::class)->group(function () {
         Route::get('/', 'index')->name('company');
         Route::post('verification', 'verification')->name('company.verification');

@@ -15,7 +15,7 @@ use Modules\Services\Http\Controllers\BodyDetailController;
 use Modules\Services\Http\Controllers\HeadController;
 use Modules\Services\Http\Controllers\ViewsController;
 
-Route::middleware(['auth'])->prefix('services')->group(function () {
+Route::middleware(['auth', 'check-user', 'administrator'])->prefix('services')->group(function () {
     Route::prefix('head')->controller(HeadController::class)->group(function () {
         Route::get('/', 'index')->name('service.head');
         Route::post('/', 'store');

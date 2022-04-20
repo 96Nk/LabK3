@@ -77,7 +77,7 @@
                         <input type="hidden" class="form-control company_email" name="username" required>
                         <input type="hidden" class="form-control company_name" name="name" required>
                         <input type="hidden" class="form-control" name="password" value="{{ $random }}" required>
-                        <input type="hidden" class="form-control" name="level_id" value="3" required>
+                        <input type="hidden" class="form-control" name="level_id" value="2" required>
                         <input type="hidden" class="form-control" name="is_active" value="1" required>
                     </div>
                     <div class="modal-footer">
