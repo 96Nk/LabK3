@@ -1,5 +1,5 @@
 <x-admin.app-layout title="Services">
-    {{--    <x-loader-theme/>--}}
+        <x-loader-theme/>
     <x-admin.page-header title="Services" items="Services|Head"/>
     <!-- Container-fluid starts-->
     <div class="container-fluid">
