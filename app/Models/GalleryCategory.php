@@ -14,4 +14,13 @@ class GalleryCategory extends Model
     protected $guarded = ['gallery_category_id'];
     protected $hidden = ['created_at', 'updated_at'];
 
+    public final function scopeActive($query)
+    {
+        return $query->where('gallery_category_status', 1);
+    }
+
+    public function gallery(){
+        return $this->hasMany('', '','');
+    }
+
 }

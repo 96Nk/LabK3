@@ -8,7 +8,7 @@ use App\Models\GalleryCategory;
 use Illuminate\Http\Request;
 use Modules\Gallery\Http\Services\GalleryService;
 
-class GalleryController extends Controller
+class CategoryController extends Controller
 {
 
     public function __construct(
@@ -20,7 +20,7 @@ class GalleryController extends Controller
     public function index()
     {
         $get = [
-            'categories' => GalleryCategory::all(),
+            'categories' => GalleryCategory::active()->get(),
         ];
         return view('gallery::index', $get);
     }

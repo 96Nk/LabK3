@@ -26,4 +26,15 @@ class GalleryService
                 'gallery_category_name' => $request->gallery_category_name
             ]);
     }
+
+    public final function addItem(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|file|max:4096',
+        ]);
+
+
+        return GalleryCategory::create($attributes);
+    }
+
 }

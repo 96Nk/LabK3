@@ -13,7 +13,7 @@
                     <form action="{{ route('gallery.category') }}" method="post">
                         @csrf
                         <x-input title="Nama Kategori" name="gallery_category_name" placeholder="Nama Kategori"/>
-                        <x-input type="" name="gallery_category_id" required="false"/>
+                        <x-input type="hidden" name="gallery_category_id" required="false"/>
                         {!! btnAction('save', labelBtn: 'Save') !!}
                     </form>
                 </x-card>
@@ -42,7 +42,10 @@
                                     <td>{{ $category->gallery_category_name }}</td>
                                     <td>{{ $category->gallery_category_status }}</td>
                                     <td class="text-center">
-                                        {!! btnAction('add', labelBtn: 'Items') !!}
+                                        <a href="/gallery/items/{{$category->gallery_category_id}}"
+                                           class="btn btn-primary btn-xs"><i
+                                                class="bi bi-plus-circle"></i>
+                                            Items</a>
                                     </td>
                                     <td class="text-center">
                                         {!! btnAction('update', attrBtn: $params, classBtn: 'btn-xs btn-update') !!}
