@@ -9,7 +9,10 @@
                     <ul class="landing-menu nav nav-pills">
                         <li class="nav-item menu-back">back<i class="fa fa-angle-right"></i></li>
                         <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#demo">Demo</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#perusahaan">Perusahan</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
                     </ul>
                     <div class="buy-block">
                         <a class="btn-landing" href="{{ route('login') }}"><i class="bi bi-box-arrow-in-right"></i>
@@ -21,3 +24,4 @@
         </div>
     </div>
 </header>
+
