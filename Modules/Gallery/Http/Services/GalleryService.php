@@ -3,6 +3,7 @@
 namespace Modules\Gallery\Http\Services;
 
 use App\Models\GalleryCategory;
+use App\Models\GalleryItem;
 use Illuminate\Http\Request;
 
 class GalleryService
@@ -27,14 +28,14 @@ class GalleryService
             ]);
     }
 
-    public final function addItem(Request $request)
+    public final function addItem(Request $request): \Illuminate\Database\Eloquent\Model|GalleryItem
     {
         $request->validate([
             'image' => 'required|image|file|max:4096',
         ]);
-
-
-        return GalleryCategory::create($attributes);
+        $data['gallery_category_id'] = $request->post('gallery_category_id');
+        $data['gallery_item_image'] = $request->file('image')->store('gallery');
+        return GalleryItem::create($data);
     }
 
 }

@@ -12,5 +12,6 @@ Route::middleware(['auth', 'check-user', 'administrator'])->prefix('gallery')->g
     });
     Route::prefix('items')->controller(ItemController::class)->group(function () {
         Route::get('/{category}', 'index')->name('gallery.items');
+        Route::post('/', 'store');
     });
 });

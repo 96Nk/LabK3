@@ -10,7 +10,7 @@
                     @slot('header')
                         <h5>Form Input</h5>
                     @endslot
-                    <form action="{{ route('gallery.category') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ url('gallery/items') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="formFile" class="form-label">Upload File Images</label>
@@ -30,6 +30,14 @@
                     @slot('header')
                         <h5>Data Gallery Item</h5>
                     @endslot
+                    <pre>
+                    {{ json_encode($category, 128) }}
+                    </pre>
+                    @forelse($category->items as $item)
+                        <img src="{{ asset('storage/'.$item->gallery_item_image) }}">
+                    @empty
+                        <x-alert type="warning" status="false" title="Data Items Gallery Is Empty"/>
+                    @endforelse
                 </x-card>
             </div>
         </div>

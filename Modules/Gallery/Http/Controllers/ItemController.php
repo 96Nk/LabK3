@@ -2,10 +2,10 @@
 
 namespace Modules\Gallery\Http\Controllers;
 
+use App\Helpers\ResponseHelper;
+use App\Http\Controllers\Controller;
 use App\Models\GalleryCategory;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Modules\Gallery\Http\Services\GalleryService;
 
 class ItemController extends Controller
@@ -20,16 +20,16 @@ class ItemController extends Controller
         return view('gallery::items.index', compact('category'));
     }
 
-    public function store(Request $request)
+    public final function store(Request $request)
     {
         try {
-            $path = 'gallery';
-            $request->file('image')->store($path);
-            $data['gallery_item_name'] = $request->file('image');
-            $data['gallery_item_path'] = $path . '/';
+            $status = (bool)$this->galleryService->addItem($request);
+            $response = ResponseHelper::statusAction('Input data Gallery', $status);
         } catch (\Exception $exception) {
-
+            $response = ResponseHelper::statusAction($exception->getMessage(), false);
         }
+        $this->setFlash($response['message'], $response['status']);
+        return back();
     }
 
 
