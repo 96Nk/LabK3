@@ -28,13 +28,6 @@ class CompanyController extends Controller
     public final function verification(Request $request, UserService $userService): \Illuminate\Http\RedirectResponse
     {
         try {
-//            $mailData = [
-//                'title' => 'Notifikasi User Perusahaan',
-//                'body' => 'Tidak untuk di balas.',
-//                'username' => $request->post('username'),
-//                'password' => $request->post('password'),
-//            ];
-//            Mail::to($mailData['username'])->send(new NotifUserMail($mailData));
             $userService->sendMailUser($request);
             $userService->addUser($request);
             $response = ResponseHelper::success('Berhasil Verifikasi Data Perusahaan');

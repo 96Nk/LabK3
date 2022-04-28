@@ -105,7 +105,7 @@
                             Mengirim ulang Username dan Password ke Email
                             <span style="font-weight: bold" class="company-email"></span>.
                         </p>
-                        <input type="" class="form-control company_email" name="username" required>
+                        <input type="hidden" class="form-control company_email" name="username" required>
                         <input type="hidden" class="form-control" name="password" value="{{ $random }}" required>
                     </div>
                     <div class="modal-footer">
