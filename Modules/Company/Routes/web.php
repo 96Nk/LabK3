@@ -13,12 +13,17 @@
 
 use Modules\Company\Http\Controllers\CompanyController;
 
-Route::middleware(['auth', 'check-user', 'administrator'])->group(function () {
+Route::middleware(['auth', 'check-user'])->group(function () {
     Route::prefix('admin/company')->controller(CompanyController::class)->group(function () {
-        Route::get('/', 'index')->name('company');
-        Route::post('verification', 'verification')->name('company.verification');
-        Route::post('resending', 'resending')->name('company.resending');
-        Route::post('delete/{company}', 'destroy');
+        Route::middleware(['administrator'])->group(function () {
+            Route::get('/', 'index')->name('company');
+            Route::post('verification', 'verification')->name('company.verification');
+            Route::post('resending', 'resending')->name('company.resending');
+            Route::put('/{company}', 'update');
+            Route::delete('/{company}', 'destroy');
+        });
+        Route::put('/{company}', 'update');
     });
 });
+
 

@@ -33,6 +33,11 @@ class UserService
         return User::create($data);
     }
 
+    public final function deleteUserCompany(string $username): ?bool
+    {
+        return User::where('username', $username)->delete();
+    }
+
     /**
      * @throws \Exception
      */

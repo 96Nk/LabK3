@@ -5,7 +5,7 @@
                 <a href="{{ route('home') }}">
                     <img class="img-fluid w-25" src="{{ asset('assets/images/logo-k3.png') }}"
                          alt="">
-                    <span style="font-size: 14pt">Lab. K3</span>
+                    <span style="font-size: 14pt">Application</span>
                 </a>
             </div>
             <div class="toggle-sidebar">
@@ -14,6 +14,9 @@
         </div>
         <div class="left-menu-header col">
             <ul>
+                <li class="m-r-5">
+                    <a href="{{ route('setting.profile-user') }}" class="btn btn-primary-light">Profile User</a>
+                </li>
                 <li>
                     <form class="form-inline search-form">
                         <div class="search-bg"><i class="fa fa-search"></i>
@@ -22,6 +25,7 @@
                     </form>
                     <span class="d-sm-none mobile-search search-bg"><i class="fa fa-search"></i></span>
                 </li>
+
             </ul>
         </div>
         <div class="nav-right col pull-right right-menu p-0">
@@ -30,8 +34,6 @@
                     <a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()">
                         <i data-feather="maximize"></i></a>
                 </li>
-
-
                 <li>
                     <div class="mode"><i class="fa fa-moon-o"></i></div>
                 </li>

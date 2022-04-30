@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\UserLevel;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Modules\Settings\Http\Services\UserService;
 
 class UserController extends Controller
@@ -30,6 +31,12 @@ class UserController extends Controller
             'employees' => RefEmployee::all()
         ];
         return view('settings::user.index', $get);
+    }
+
+    public function edit()
+    {
+        $get['user'] = User::where('id', auth()->user()->id)->first();
+        return view('settings::user.profile', $get);
     }
 
     /**
@@ -78,6 +85,23 @@ class UserController extends Controller
             $response = ResponseHelper::error($exception->getMessage());
         }
         return response()->json($response);
+    }
+
+    public final function updatePassword(Request $request)
+    {
+        try {
+            $user = User::where('username', $request->username)->first();
+            if (!$user) throw new \Exception('user is not found');
+            if (!password_verify($request->password_old, $user['password'])) throw new \Exception('password does not match');
+            $bool = User::where('id', auth()->user()->id)->update([
+                'password' => Hash::make($request->password_new)
+            ]);
+            $response = ResponseHelper::success('Update Password', $bool);
+        } catch (\Exception $exception) {
+            $response = ResponseHelper::error($exception->getMessage());
+        }
+        $this->setFlash($response['message'], $response['status']);
+        return back();
     }
 
 }

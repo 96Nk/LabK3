@@ -1,7 +1,18 @@
+@php($dataUser = auth()->user())
 <header class="main-nav">
     <div class="sidebar-user text-center">
-        <img class="img-90 rounded-circle" src="{{ asset('assets/images/dashboard/boy-2.png') }}" alt="">
-        <h6 class="f-w-600">{{ Str::upper(auth()->user()->name) }}</h6>
+        @if($dataUser->level_id == 2)
+            @if($dataUser->company->logo_file)
+                <img class="img-90 rounded-circle" src="{{ asset('storage/'.$dataUser->company->logo_file) }}"
+                     width="75px" height="75px"
+                     alt="">
+            @else
+                <img class="img-90 rounded-circle" src="{{ asset('assets/images/logo-k3.png') }}" alt="">
+            @endif
+        @else
+            <img class="img-90 rounded-circle" src="{{ asset('assets/images/logo-k3.png') }}" alt="">
+        @endif
+        <h6 class="f-w-600 mt-3">{{ Str::upper($dataUser->name) }}</h6>
     </div>
     <nav>
         <div class="main-navbar">

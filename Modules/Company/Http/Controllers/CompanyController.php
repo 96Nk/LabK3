@@ -4,15 +4,23 @@ namespace Modules\Company\Http\Controllers;
 
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
-use App\Mail\NotifUserMail;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Mail;
+use Modules\Company\Http\Services\CompanyService;
 use Modules\Settings\Http\Services\UserService;
 
 class CompanyController extends Controller
 {
+
+    public function __construct(
+        private CompanyService $companyService,
+        private UserService    $userService
+    )
+    {
+    }
+
     public function index()
     {
         $get['companies'] = Company::get();
@@ -20,16 +28,11 @@ class CompanyController extends Controller
         return view('company::index', $get);
     }
 
-    /**
-     * @param Request $request
-     * @param UserService $userService
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public final function verification(Request $request, UserService $userService): \Illuminate\Http\RedirectResponse
+    public final function verification(Request $request): \Illuminate\Http\RedirectResponse
     {
         try {
-            $userService->sendMailUser($request);
-            $userService->addUser($request);
+            $this->userService->sendMailUser($request);
+            $this->userService->addUser($request);
             $response = ResponseHelper::success('Berhasil Verifikasi Data Perusahaan');
         } catch (\Exception $exception) {
             $response = ResponseHelper::error($exception->getMessage());
@@ -38,11 +41,11 @@ class CompanyController extends Controller
         return back();
     }
 
-    public final function resending(Request $request, UserService $userService)
+    public final function resending(Request $request)
     {
         try {
-            $userService->sendMailUser($request);
-            $userService->forgetPasswordUser($request);
+            $this->userService->sendMailUser($request);
+            $this->userService->forgetPasswordUser($request);
             $response = ResponseHelper::success('Berhasil mengirim ulang email');
         } catch (\Exception $exception) {
             $response = ResponseHelper::error($exception->getMessage());
@@ -51,14 +54,37 @@ class CompanyController extends Controller
         return back();
     }
 
+    public final function update(Request $request, Company $company)
+    {
+        try {
+            $bool = $this->companyService->updateCompany($request, $company['company_id']);
+            if (!$bool) throw new \Exception('Gagal Update Data');
+            $response = ResponseHelper::success('Berhasil Update data');
+        } catch (\Exception $exception) {
+            $response = ResponseHelper::error($exception->getMessage());
+        }
+        $this->setFlash($response['message'], $response['status']);
+        return back();
+    }
+
+    /**
+     * @throws \Throwable
+     */
     public final function destroy(Company $company)
     {
+        DB::beginTransaction();
         try {
             $bool = $company->destroy($company['company_id']);
             if (!$bool) throw new \Exception('Gagal Menghapus Data');
+            $this->userService->deleteUserCompany($company['company_email']);
+            DB::commit();
             $response = ResponseHelper::success('Berhasil delete data');
         } catch (\Exception $exception) {
+            DB::rollBack();
             $response = ResponseHelper::error($exception->getMessage());
+        } catch (\Throwable $e) {
+            DB::rollback();
+            $response = ResponseHelper::error($e->getMessage());
         }
         return response()->json($response);
     }

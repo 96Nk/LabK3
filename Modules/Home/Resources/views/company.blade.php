@@ -4,7 +4,8 @@
     <!-- Container-fluid starts-->
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-md-12">
+                <x-alert-session col="6"/>
                 <x-card>
                     @slot('header')
                         <div class="text-center">
@@ -15,23 +16,49 @@
                     <div class="row">
                         <div class="col-md-6">
                             <x-card>
-                                <h5>Selayang Pandang</h5>
+                                <h5>Description :</h5>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cumque ipsa
                                     ipsam laborum magni, nisi ratione soluta voluptatem. Cum eius facere itaque
                                     laborum
                                     magnam minus nulla officia, possimus temporibus voluptatibus?</p>
                             </x-card>
+                            <x-card>
+                                <h3>Test Application</h3>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-bordered table-1">
+                                        <thead>
+                                        <tr>
+                                            <th>Application</th>
+                                            <th>About</th>
+                                            <th>Date</th>
+                                            <th>Signer</th>
+                                            <th>Status</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </x-card>
                         </div>
                         <div class="col-md-6">
                             <x-card>
                                 <h5>Profile Company</h5>
-                                <form action="#" method="post">
+                                <form action="{{ url('admin/company/'. $data_user->company->company_id) }}"
+                                      method="post" enctype="multipart/form-data">
                                     @csrf
+                                    @method('put')
                                     <div class="row mb-3">
                                         <label class="col-md-4">Name Company</label>
                                         <div class="col-md-8">
-                                            <input class="form-control" name="company_name"
+                                            <input class="form-control" name="company_name" required
                                                    value="{{ $data_user->company->company_name }}">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-md-4">Email Company</label>
+                                        <div class="col-md-8">
+                                            <input class="form-control" name="company_email" readonly required
+                                                   value="{{ $data_user->company->company_email }}">
+                                            <span style="font-size: 10pt; color: red">not to be replaced</span>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -39,7 +66,7 @@
                                         <div class="col-md-8">
                                             <div class="input-group">
                                                 <span class="input-group-text"><i class="bi bi-phone"></i></span>
-                                                <input type="text" class="form-control"
+                                                <input type="text" class="form-control" name="company_phone" required
                                                        value="{{ $data_user->company->company_phone }}">
                                             </div>
                                         </div>
@@ -47,7 +74,7 @@
                                     <div class="row mb-3">
                                         <label class="col-md-4">NPWP</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" name="company_npwp"
+                                            <input type="text" class="form-control" name="company_npwp" required
                                                    value="{{ $data_user->company->company_npwp }}">
                                         </div>
                                     </div>
@@ -116,34 +143,50 @@
                                         <label class="col-md-4">Address</label>
                                         <div class="col-md-8">
                                         <textarea class="form-control"
-                                                  name="company_address">{{ $data_user->company->company_address }}</textarea>
+                                                  name="company_address"
+                                                  required>{{ $data_user->company->company_address }}</textarea>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label class="col-md-4">Description Company</label>
                                         <div class="col-md-8">
                                         <textarea class="form-control"
-                                                  name="company_description">{{ $data_user->company->company_description }}</textarea>
+                                                  name="company_description"
+                                                  required>{{ $data_user->company->company_description }}</textarea>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label class="col-md-4">Singer Name</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" name="signer_name"
+                                            <input type="text" class="form-control" name="signer_name" required
                                                    value="{{ $data_user->company->signer_name }}">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label class="col-md-4">Singer Position</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" name="signer_position"
+                                            <input type="text" class="form-control" name="signer_position" required
                                                    value="{{ $data_user->company->signer_position }}">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-md-4">Singer Position</label>
+                                        <label class="col-md-4">Logo Company</label>
                                         <div class="col-md-8">
-                                            <input class="form-control" type="file" id="formFile">
+                                            <div class="mb-3">
+                                                <label for="formFile" class="form-label">Upload File Images</label>
+                                                <input class="form-control custom-file-input" name="image"
+                                                       onchange="previewImg()"
+                                                       type="file" id="formFile">
+                                                <note>Note : The uploaded file format must be an image</note>
+                                                <div class="file-preview mt-3">
+                                                    @if ($data_user->company->logo_file)
+                                                        <img
+                                                            src="{{ asset('storage/'.$data_user->company->logo_file) }}"
+                                                            width="150" height="150" alt="">
+
+                                                    @endif
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     {!! btnAction('save', labelBtn: 'Save') !!}
@@ -167,7 +210,15 @@
     @include('js.admin')
     @slot('script')
         <script>
-
+            function previewImg() {
+                const file = document.querySelector('#formFile');
+                const filePreview = document.querySelector('.file-preview');
+                const filePdf = new FileReader();
+                filePdf.readAsDataURL(file.files[0]);
+                filePdf.onload = function (e) {
+                    filePreview.innerHTML = `<img src="${e.target.result}" width="150" height="150" alt="">`;
+                };
+            }
         </script>
     @endslot
 </x-admin.app-layout>
