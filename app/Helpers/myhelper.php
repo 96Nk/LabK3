@@ -25,7 +25,7 @@ function btnAction($action = '', $attrBtn = '', $labelBtn = '', $classBtn = '', 
             break;
         case 'posting':
             $type = 'danger-gradien';
-            $iconBtn = 'power-off';
+            $iconBtn = 'send';
             break;
         case 'print':
             $type = 'warning-gradien';

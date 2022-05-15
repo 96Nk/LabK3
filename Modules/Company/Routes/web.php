@@ -12,6 +12,8 @@
 */
 
 use Modules\Company\Http\Controllers\CompanyController;
+use Modules\Company\Http\Controllers\TestApplicationController;
+use Modules\Company\Http\Controllers\TestFormController;
 
 Route::middleware(['auth', 'check-user'])->group(function () {
     Route::prefix('admin/company')->controller(CompanyController::class)->group(function () {
@@ -24,6 +26,18 @@ Route::middleware(['auth', 'check-user'])->group(function () {
         });
         Route::put('/{company}', 'update');
     });
+
+    Route::prefix('company')->middleware(['company'])->group(function () {
+        Route::prefix('test-form')->controller(TestFormController::class)->group(function () {
+            Route::get('/', 'index')->name('test.form');
+            Route::post('/', 'store');
+        });
+        Route::prefix('test-application')->controller(TestApplicationController::class)->group(function () {
+            Route::get('/', 'index')->name('test.application');
+        });
+    });
+
+
 });
 
 

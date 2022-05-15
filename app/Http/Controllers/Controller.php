@@ -16,4 +16,9 @@ class Controller extends BaseController
         session()->flash('message', $message);
         session()->flash('status', $status);
     }
+
+    protected function getDataUser()
+    {
+
+    }
 }
