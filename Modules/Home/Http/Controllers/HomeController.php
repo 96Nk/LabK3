@@ -2,6 +2,7 @@
 
 namespace Modules\Home\Http\Controllers;
 
+use App\Models\Form;
 use App\Models\RefCity;
 use App\Models\RefDistrict;
 use App\Models\RefProvince;
@@ -19,6 +20,7 @@ class HomeController extends Controller
             $data['cities'] = RefCity::all();
             $data['districts'] = RefDistrict::all();
             $data['villages'] = RefVillage::all();
+            $data['applications'] = Form::where('company_id', $data['data_user']['company']['company_id'])->latest()->get();
             return view('home::company', $data);
         } else {
             return view('home::index', $data);

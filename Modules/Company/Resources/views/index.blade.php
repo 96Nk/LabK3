@@ -113,7 +113,6 @@
                         <button class="btn btn-success"><i class="bi bi-send"></i> Send Mail</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>

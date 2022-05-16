@@ -44,7 +44,7 @@ class FormDetailService
         return Form::create($data);
     }
 
-    public function addFormService(Request $request)
+    public final function addFormService(Request $request): bool
     {
         $postsFilter = array_filter($request->post('point_sample'));
         $postsKey = array_keys($postsFilter);
@@ -56,6 +56,8 @@ class FormDetailService
                 if ($i == $service->service_detail_id) $pointSample = $point;
             }
             $dd['form_code'] = $request->form_code;
+            $dd['service_head_id'] = $service->service_head_id;
+            $dd['service_body_id'] = $service->service_body_id;
             $dd['service_detail_id'] = $service->service_detail_id;
             $dd['service_detail_name'] = $service->service_detail_name;
             $dd['service_detail_unit'] = $service->service_detail_unit;
@@ -65,5 +67,10 @@ class FormDetailService
         }
         FormService::where('form_code', $request->form_code)->delete();
         return FormService::insert($data);
+    }
+
+    public final function getFormServiceHead(): FormService|\Illuminate\Database\Query\Builder
+    {
+        return FormService::join('service_head', 'service_head_id', '=', 'service_head_id');
     }
 }

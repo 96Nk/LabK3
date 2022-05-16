@@ -50,3 +50,8 @@ function numberFormat(int $number, $decimals = 0): string
 {
     return number_format($number, $decimals, ',', '.');
 }
+
+function formatDateIndo(string $date): string
+{
+    return \Carbon\Carbon::parse($date)->format('d-m-Y');
+}

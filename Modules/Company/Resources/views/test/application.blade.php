@@ -15,7 +15,6 @@
                         <table class="table table-bordered table-sm table-1">
                             <thead>
                             <tr>
-                                <th width="5%">No</th>
                                 <th>Application</th>
                                 <th>Signer Name</th>
                                 <th>Signer Position</th>
@@ -28,23 +27,34 @@
                             <tbody>
                             @foreach($applications as $application)
                                 <tr>
-                                    <td>{{ $application->incrementing }}</td>
                                     <td>
-                                        <a href="#"
-                                           class="btn btn-link btn-xs">{{ $application->application_number }}</a>
+                                        <a href="{{ url("company/test-application/detail/$application->form_code") }}"
+                                           class="btn btn-link">{{ $application->application_number }}</a>
                                     </td>
                                     <td>{{ $application->signer_name }}</td>
                                     <td>{{ $application->signer_position }}</td>
                                     <td>{{ $application->application_about }}</td>
-                                    <td>{{ $application->application_date }}</td>
+                                    <td>{{ formatDateIndo($application->application_date) }}</td>
                                     <td>
-                                        <a href="#" class="btn btn-danger-gradien btn-xs">
-                                            <i class="bi bi-send"></i> Posting
-                                        </a>
+                                        @if($application->form_status == 0)
+                                            <a href="{{ url("company/test-application/detail/$application->form_code") }}"
+                                               class="btn btn-danger-gradien btn-xs">
+                                                <i class="bi bi-send"></i> Posting
+                                            </a>
+                                        @else
+                                            <span class="badge badge-primary"><i class="bi bi-check2-all"></i> Selesai Posting</span>
+                                        @endif
+
                                     </td>
                                     <td>
-                                        {!! btnAction('update', classBtn: 'btn-xs') !!}
-                                        {!! btnAction('delete', classBtn: 'btn-xs') !!}
+                                        @if($application->form_status == 0)
+                                            {!! btnAction('update', classBtn: 'btn-xs') !!}
+                                            {!! btnAction('delete', classBtn: 'btn-xs') !!}
+                                        @else
+                                            <button class="btn btn-primary-gradien btn-sm"><i class="fa fa-search"></i>
+                                                Tracking
+                                            </button>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

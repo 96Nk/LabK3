@@ -31,10 +31,30 @@
                                             <th>Application</th>
                                             <th>About</th>
                                             <th>Date</th>
-                                            <th>Signer</th>
                                             <th>Status</th>
                                         </tr>
                                         </thead>
+                                        <tbody>
+                                        @foreach($applications as $application)
+                                            <tr>
+                                                <td>
+                                                    <a href="{{ url("company/test-application/detail/$application->form_code") }}"
+                                                       class="btn btn-link btn-sm">{{ $application->application_number }}</a>
+                                                </td>
+                                                <td>{{ $application->application_about }}</td>
+                                                <td>{{ formatDateIndo($application->application_date) }}</td>
+                                                <td>
+                                                    @if($application->form_status == 0)
+                                                        <span class="badge badge-danger">Belum Posting</span>
+                                                    @else
+                                                        <span class="badge badge-primary"><i
+                                                                class="bi bi-check2-all"></i> Selesai Posting</span>
+                                                    @endif
+
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
                                     </table>
                                 </div>
                             </x-card>

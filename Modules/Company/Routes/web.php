@@ -34,6 +34,8 @@ Route::middleware(['auth', 'check-user'])->group(function () {
         });
         Route::prefix('test-application')->controller(TestApplicationController::class)->group(function () {
             Route::get('/', 'index')->name('test.application');
+            Route::put('/{form}', 'updatePosting');
+            Route::get('detail/{form:form_code}', 'detail');
         });
     });
 
