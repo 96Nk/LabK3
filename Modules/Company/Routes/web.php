@@ -28,10 +28,15 @@ Route::middleware(['auth', 'check-user'])->group(function () {
     });
 
     Route::prefix('company')->middleware(['company'])->group(function () {
+
         Route::prefix('test-form')->controller(TestFormController::class)->group(function () {
             Route::get('/', 'index')->name('test.form');
+            Route::get('edit/{form:form_code}', 'edit');
+            Route::put('/{form}', 'update');
             Route::post('/', 'store');
+            Route::delete('/{form}', 'destroy');
         });
+
         Route::prefix('test-application')->controller(TestApplicationController::class)->group(function () {
             Route::get('/', 'index')->name('test.application');
             Route::put('/{form}', 'updatePosting');

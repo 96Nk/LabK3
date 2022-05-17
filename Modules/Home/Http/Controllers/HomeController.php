@@ -22,6 +22,8 @@ class HomeController extends Controller
             $data['villages'] = RefVillage::all();
             $data['applications'] = Form::where('company_id', $data['data_user']['company']['company_id'])->latest()->get();
             return view('home::company', $data);
+        } elseif ($data['data_user']->level_id == 4) {
+            return view('home::manager_teknis', $data);
         } else {
             return view('home::index', $data);
         }

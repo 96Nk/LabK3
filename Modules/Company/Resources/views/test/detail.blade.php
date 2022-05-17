@@ -38,6 +38,12 @@
                                 <td>{{ formatDateIndo($form->application_date) }}</td>
                             </tr>
                             <tr>
+                                <td>Tanggal Pengujian</td>
+                                <td>
+                                    {{ formatDateIndo($form->test_date_plan) }}
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>File</td>
                                 <td>
                                     <a target="_blank" href="{{ asset('storage/'.$form->application_file) }}"
@@ -63,6 +69,11 @@
                                 Kembali</a>
                         </div>
 
+                    @endslot
+                </x-card>
+                <x-card>
+                    @slot('header')
+                        <h5>Tracking Application</h5>
                     @endslot
                 </x-card>
             </div>
@@ -120,6 +131,7 @@
                         </div>
                     @endforeach
                 </x-card>
+
             </div>
         </div>
     </div>

@@ -48,8 +48,11 @@
                                     </td>
                                     <td>
                                         @if($application->form_status == 0)
-                                            {!! btnAction('update', classBtn: 'btn-xs') !!}
-                                            {!! btnAction('delete', classBtn: 'btn-xs') !!}
+                                            <a href="{{ url("company/test-form/edit/$application->form_code") }}"
+                                               class="btn btn-warning-gradien btn-xs">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            {!! btnAction('delete', attrBtn: "data-form_code='{$application['form_code']}'", classBtn: 'btn-xs btn-delete') !!}
                                         @else
                                             <button class="btn btn-primary-gradien btn-sm"><i class="fa fa-search"></i>
                                                 Tracking
@@ -68,7 +71,14 @@
     @include('js.admin')
     @slot('script')
         <script>
-
+            $('.btn-delete').click(function () {
+                const form_code = $(this).data('form_code')
+                swalAction(
+                    BASEURL(`company/test-form/${form_code}`),
+                    {_token: "{{ csrf_token() }}"},
+                    {method: 'DELETE'}
+                )
+            })
         </script>
     @endslot
 </x-admin.app-layout>

@@ -15,14 +15,16 @@
                         <div class="row">
                             <div class="col-6">
                                 <x-input title="Signer Name" name="signer_name"
-                                         value="{{ $company['signer_name'] }}"/>
+                                         value="{{ $company['signer_name'] }}" required="true"/>
                                 <x-input title="Signer Name" name="signer_position"
-                                         value="{{ $company['signer_position'] }}"/>
+                                         value="{{ $company['signer_position'] }}" required="true"/>
+                                <x-input type="date" title="Test Date Plan" name="test_date_plan" required="true"/>
                             </div>
                             <div class="col-6">
-                                <x-input type="date" title="Date Application" name="application_date"/>
-                                <x-input title="Number Application" name="application_number"/>
-                                <x-input title="About Application" name="application_about"/>
+
+                                <x-input type="date" title="Date Application" name="application_date" required="true"/>
+                                <x-input title="Number Application" name="application_number" required="true"/>
+                                <x-input title="About Application" name="application_about" required="true"/>
 
                                 <div class="mb-3">
                                     <label>File Application</label>

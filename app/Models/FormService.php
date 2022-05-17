@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
 
 class FormService extends Model
 {
@@ -34,6 +33,8 @@ class FormService extends Model
 //    {
 //        return $this->service_detail_cost * $this->point_sample;
 //    }
+
+
 
 
 }

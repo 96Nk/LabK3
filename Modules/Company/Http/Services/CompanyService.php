@@ -34,7 +34,7 @@ class CompanyService
 
     public final function updateCompany(Request $request, int $id): bool|int
     {
-        $attributes = $request->validate([
+        $request->validate([
             'company_name' => 'required',
             'company_phone' => 'required',
             'company_address' => 'required',
