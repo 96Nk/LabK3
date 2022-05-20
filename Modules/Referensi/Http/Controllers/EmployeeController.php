@@ -26,6 +26,17 @@ class EmployeeController extends Controller
         return view('referensi::employee.index', $get);
     }
 
+    public function loadEmployeeJson()
+    {
+        try {
+            $employees = RefEmployee::all();
+            $response = ResponseHelper::success(data: $employees->toArray());
+        } catch (\Exception $exception) {
+            $response = ResponseHelper::error($exception->getMessage());
+        }
+        return response()->json($response);
+    }
+
     public function store(EmployeeRequest $request)
     {
         try {

@@ -12,6 +12,7 @@ class RefEmployee extends Model
     protected $table = 'ref_employees';
     protected $primaryKey = 'employee_id';
     protected $guarded = ['employee_id'];
+    protected $hidden = ['created_at', 'updated_at'];
 
     protected $with = ['position'];
 

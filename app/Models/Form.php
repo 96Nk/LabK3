@@ -17,6 +17,11 @@ class Form extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
+    public final function review()
+    {
+        return $this->hasOne(Review::class, 'form_code', 'form_code');
+    }
+
     public final function form_services(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(FormService::class, 'form_code', 'form_code');
@@ -47,5 +52,10 @@ class Form extends Model
     public final function getRouteKeyName(): string
     {
         return 'form_code';
+    }
+
+    public function scopeFormStatus($query)
+    {
+        return $query->where('form_status', 1);
     }
 }

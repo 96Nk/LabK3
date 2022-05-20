@@ -1,16 +1,13 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use Modules\Reviews\Http\Controllers\TestApplicationController;
 
-Route::prefix('reviews')->group(function() {
-    Route::get('/', 'ReviewsController@index');
+Route::middleware(['auth', 'check-user'])->group(function () {
+    Route::prefix('reviews/test-application')->controller(TestApplicationController::class)->group(function () {
+        Route::get('/', 'index')->name('reviews.test-application');
+        Route::post('/officer-temp', 'storeOfficerTemp');
+        Route::delete('/officer-temp/{temp}', 'deleteOfficerTemp');
+        Route::get('/{form}', 'form_verification');
+    });
 });
+

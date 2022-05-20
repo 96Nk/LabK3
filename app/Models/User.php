@@ -53,13 +53,18 @@ class User extends Authenticatable
         'employee_id',
     ];
 
-    protected $with = ['company'];
+    protected $with = ['company', 'employee'];
 
     protected $hidden = ['password', 'created_at', 'updated_at'];
 
     public final function company(): \Illuminate\Database\Eloquent\Relations\hasOne
     {
         return $this->hasOne(Company::class, 'company_id', 'company_id');
+    }
+
+    public final function employee(): \Illuminate\Database\Eloquent\Relations\hasOne
+    {
+        return $this->hasOne(RefEmployee::class, 'employee_id', 'employee_id');
     }
 
 //    public function employee()

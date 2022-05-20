@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RefPosition extends Model
+class Review extends Model
 {
     use HasFactory;
 
-    protected $table = 'ref_positions';
-    protected $primaryKey = 'position_id';
-    protected $guarded = ['position_id'];
+    protected $table = 'reviews';
+    protected $primaryKey = 'review_id';
+    protected $guarded = ['review_id'];
     protected $hidden = ['created_at', 'updated_at'];
+
 }

@@ -36,10 +36,14 @@ Route::prefix('referensi/village')->group(function () {
     });
 });
 
+Route::prefix('employee')->controller(EmployeeController::class)->group(function () {
+    Route::get('load-employee', 'loadEmployeeJson');
+});
 
 Route::middleware(['auth', 'check-user', 'administrator'])->prefix('referensi')->group(function () {
     Route::prefix('employee')->controller(EmployeeController::class)->group(function () {
         Route::get('/', 'index')->name('referensi.employee');
+        Route::get('load-employee', 'loadEmployeeJson');
         Route::post('/', 'store');
         Route::delete('/{refEmployee}', 'destroy');
     });

@@ -56,20 +56,20 @@
                             </tbody>
                         </table>
                     </div>
-                    @slot('footer')
-                        <div class="d-flex justify-content-between">
-                            @if($form->form_status == 0)
+                    @if($form->form_status == 0)
+                        @slot('footer')
+                            <div class="d-flex justify-content-between">
+
                                 <button data-form_code="{{ $form->form_code }}"
                                         class="btn btn-primary btn-sm btn-posting">
                                     <i class="bi bi-send"></i> Posting
                                 </button>
-                            @endif
-                            <a href="{{ route('test.application') }}" class="btn btn-danger-gradien btn-sm"><i
-                                    class="bi bi-skip-backward"></i>
-                                Kembali</a>
-                        </div>
-
-                    @endslot
+                                <a href="{{ route('test.application') }}" class="btn btn-danger-gradien btn-sm"><i
+                                        class="bi bi-skip-backward"></i>
+                                    Kembali</a>
+                            </div>
+                        @endslot
+                    @endif
                 </x-card>
                 <x-card>
                     @slot('header')
