@@ -8,6 +8,7 @@ use App\Models\Form;
 use App\Models\RefEmployee;
 use App\Models\ReviewOfficerTemp;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Modules\Reviews\Http\Services\ReviewService;
 
 
@@ -20,11 +21,27 @@ class TestApplicationController extends Controller
         return view('reviews::reviews.index', compact('applications'));
     }
 
-    public function form_verification(Form $form)
+    public function formVerification(Form $form)
     {
         $employees = RefEmployee::all();
         $officers = ReviewOfficerTemp::where('form_code', $form->form_code)->get();
         return view('reviews::reviews.form_verification', compact('form', 'employees', 'officers'));
+    }
+
+    public function reviewForm(Request $request, Form $form, ReviewService $reviewService)
+    {
+        try {
+            DB::beginTransaction();
+            $reviewService->reviewFormUpdate($request, $form);
+            $reviewService->addReviewOfficers($request);
+            $response = ResponseHelper::success();
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            $response = ResponseHelper::error($exception->getMessage());
+        }
+        $this->setFlash($response['message'], $response['status']);
+        return to_route('reviews.test-application');
     }
 
     public function storeOfficerTemp(Request $request, ReviewService $reviewService)

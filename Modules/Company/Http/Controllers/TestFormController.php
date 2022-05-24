@@ -48,6 +48,7 @@ class TestFormController extends Controller
             DB::rollBack();
             $response = ResponseHelper::error($exception->getMessage());
             $this->setFlash($response['message'], $response['status']);
+            return back();
         }
     }
 
