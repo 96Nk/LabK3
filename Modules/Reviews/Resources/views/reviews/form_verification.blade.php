@@ -62,7 +62,7 @@
                             <hr>
                             <x-input type="date" title="Tanggal Penetapan Pengujian" name="test_date_review"
                                      value="{{ old('test_date_review') ?? $form->test_date_review }}" required="true"/>
-                            <input type="" class="form-control" name="form_code" value="{{ $form->form_code }}">
+                            <input type="hidden" class="form-control" name="form_code" value="{{ $form->form_code }}">
                         </div>
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>

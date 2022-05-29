@@ -22,7 +22,6 @@
                                 <th>Date</th>
                                 <th>Plan Date</th>
                                 <th>Review Date</th>
-                                <th><i class="bi bi-plus-circle"></i></th>
                                 <th><i class="bi bi-send-check"></i></th>
                             </tr>
                             </thead>
@@ -41,17 +40,10 @@
                                     <td>{{ formatDateIndo($application->test_date_plan) }}</td>
                                     <td>{{ formatDateIndo($application->test_date_review) }}</td>
                                     <td class="text-center">
-                                        <a href="{{ url("reviews/test-application/$application->form_code") }}"
+                                        <a href="{{ url("reviews/verification/$application->form_code") }}"
                                            class="btn btn-primary-gradien btn-sm">
-                                            <i class="bi bi-search"></i> Reviews
+                                            <i class="bi bi-search"></i> Verification
                                         </a>
-                                    </td>
-                                    <td class="text-center">
-                                        @php($disabled = '')
-                                        @if($application->test_date_review == null)
-                                            @php($disabled = 'disabled')
-                                        @endif
-                                        {!! btnAction('posting', attrBtn: "data-params='$params' $disabled", labelBtn: 'Posting', classBtn: 'btn-posting') !!}
                                     </td>
                                 </tr>
                             @endforeach
@@ -82,7 +74,7 @@
                                 Hubungi Administrator.
                             </li>
                         </ul>
-                        <x-input type="hidden" name="form_code" required="true"/>
+                        <x-input type="" name="form_code"/>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

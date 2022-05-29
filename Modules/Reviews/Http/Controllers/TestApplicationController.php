@@ -17,7 +17,7 @@ class TestApplicationController extends Controller
 
     public function index()
     {
-        $applications = Form::formStatus()->with(['review'])->latest()->get();
+        $applications = Form::where(['review_status' => '0'])->formStatus()->latest()->get();
         return view('reviews::reviews.index', compact('applications'));
     }
 
@@ -28,20 +28,33 @@ class TestApplicationController extends Controller
         return view('reviews::reviews.form_verification', compact('form', 'employees', 'officers'));
     }
 
-    public function reviewForm(Request $request, Form $form, ReviewService $reviewService)
+    public final function reviewForm(Request $request, Form $form, ReviewService $reviewService)
     {
         try {
-            DB::beginTransaction();
             $reviewService->reviewFormUpdate($request, $form);
-            $reviewService->addReviewOfficers($request);
             $response = ResponseHelper::success();
-            DB::commit();
         } catch (\Exception $exception) {
-            DB::rollBack();
             $response = ResponseHelper::error($exception->getMessage());
         }
         $this->setFlash($response['message'], $response['status']);
         return to_route('reviews.test-application');
+    }
+
+    public function posting(Request $request, ReviewService $reviewService)
+    {
+//        echo json_encode($reviewService->addReviewOfficers($request));
+//        die();
+        try {
+            DB::beginTransaction();
+            $reviewService->addReviewOfficers($request);
+            $reviewService->reviewFormStatus($request);
+            $this->setFlash('Berhasil Posting', true);
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            $this->setFlash($exception->getMessage());
+        }
+        return back();
     }
 
     public function storeOfficerTemp(Request $request, ReviewService $reviewService)

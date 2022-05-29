@@ -17,10 +17,6 @@ class Form extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    public final function review()
-    {
-        return $this->hasOne(Review::class, 'form_code', 'form_code');
-    }
 
     public final function form_services(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -57,5 +53,10 @@ class Form extends Model
     public function scopeFormStatus($query)
     {
         return $query->where('form_status', 1);
+    }
+
+    public function scopeReviewStatus($query)
+    {
+        return $query->where('review_status', 1);
     }
 }

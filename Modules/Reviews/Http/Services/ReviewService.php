@@ -6,7 +6,9 @@ use App\Models\Company;
 use App\Models\Form;
 use App\Models\ReviewOfficer;
 use App\Models\ReviewOfficerTemp;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use PHPUnit\Runner\Exception;
 
 class ReviewService
 {
@@ -51,19 +53,42 @@ class ReviewService
         return $status;
     }
 
+    /**
+     * @throws \Exception
+     */
+    public final function reviewFormStatus(Request $request): bool
+    {
+        $data = [
+            'review_status' => 1,
+            'review_date' => Carbon::now(),
+        ];
+        $status = Form::where('form_code', $request->post('form_code'))->update($data);
+        if ($status === false) throw new \Exception('Gagal Posting Data.');
+        return $status;
+    }
+
+    /**
+     * @throws \Exception
+     */
     public final function addReviewOfficers(Request $request)
     {
         $officersTemp = $this->getReviewOfficeTemp($request->form_code);
-        $data = [];
-        foreach ($officersTemp as $officer) {
-            $dd['form_code'] = $request->form_code;
-            $dd['nip_nik'] = $officer['nip_nik'];
-            $dd['employee_name'] = $officer['employee_name'];
-            $dd['position'] = $officer['position'];
-            $data[] = $dd;
+//        return $officersTemp;
+        if ($officersTemp->isEmpty()) {
+            throw new \Exception("officer can't be empty");
+        } else {
+            $data = [];
+            foreach ($officersTemp as $officer) {
+                $dd['form_code'] = $request->form_code;
+                $dd['nip_nik'] = $officer['nip_nik'];
+                $dd['employee_name'] = $officer['employee_name'];
+                $dd['position'] = $officer['position'];
+                $data[] = $dd;
+            }
+            ReviewOfficerTemp::where('form_code', $request->form_code)->delete();
+            return ReviewOfficer::insert($data);
         }
-//        ReviewOfficerTemp::where('form_code', $request->form_code)->delete();
-        return ReviewOfficer::insert($data);
+
     }
 
 

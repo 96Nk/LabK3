@@ -24,6 +24,8 @@ class HomeController extends Controller
             return view('home::company', $data);
         } elseif ($data['data_user']->level_id == 4) {
             return view('home::manager_teknis', $data);
+        } elseif ($data['data_user']->level_id == 5) {
+            return view('home::manager_mutu', $data);
         } else {
             return view('home::index', $data);
         }

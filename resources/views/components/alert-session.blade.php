@@ -1,4 +1,4 @@
-<div class="row m-5">
+<div class="row m-5 justify-content-end">
     <div class="col-md-{{$col ?? '12'}}">
         @if(session()->has('message'))
             <div class="alert alert-{{session('status') ? 'success' : 'danger'}} alert-dismissible fade show"

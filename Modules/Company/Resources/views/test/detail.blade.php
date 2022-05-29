@@ -38,7 +38,7 @@
                                 <td>{{ formatDateIndo($form->application_date) }}</td>
                             </tr>
                             <tr>
-                                <td>Tanggal Pengujian</td>
+                                <td>Rencana Pengujian</td>
                                 <td>
                                     {{ formatDateIndo($form->test_date_plan) }}
                                 </td>
@@ -75,6 +75,24 @@
                     @slot('header')
                         <h5>Tracking Application</h5>
                     @endslot
+                    <x-card>
+                        <h5>Review Application Test</h5>
+                        @if($form->review_status == 1)
+                            <span>Date Test Review : {{ formatDateIndo($form->test_date_review) }} </span>
+                            <br>
+                            <span class="font-info" style="font-size: 8pt">{{ $form->review_date }}</span>
+                        @else
+                            <h6>Waiting . . . </h6>
+                        @endif
+                    </x-card>
+                    <x-card>
+                        <h5>Verification Application Test</h5>
+                        @if($form->verification_status == 1)
+                            <span style="font-size: 10pt">Date Validated :  {{ $form->verification_date }}</span>
+                        @else
+                            <h6>Waiting . . . </h6>
+                        @endif
+                    </x-card>
                 </x-card>
             </div>
             <div class="col-md-7">
@@ -131,7 +149,7 @@
                         </div>
                     @endforeach
                 </x-card>
-
+                {{ json_encode($form) }}
             </div>
         </div>
     </div>

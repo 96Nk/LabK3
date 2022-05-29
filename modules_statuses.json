@@ -6,5 +6,6 @@
     "Services": true,
     "Utility": true,
     "Gallery": true,
-    "Reviews": true
+    "Reviews": true,
+    "Archive": true
 }
