@@ -8,7 +8,7 @@
             <div class="col-md-5">
                 <x-card>
                     <form class="form-verification" method="post"
-                          action="{{ url("reviews/test-application/verification/$form->form_code") }}">
+                          action="{{ url('reviews.verification') }}">
                         @csrf
                         @method('put')
                         @slot('header')
@@ -63,14 +63,15 @@
                             <x-input type="date" title="Tanggal Penetapan Pengujian" name="test_date_review"
                                      value="{{ old('test_date_review') ?? $form->test_date_review }}" required="true"/>
                             <input type="hidden" class="form-control" name="form_code" value="{{ $form->form_code }}">
-                            <input type="hidden" class="form-control" name="action" value="true">
                         </div>
                         <div class="d-flex justify-content-between">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
-                            <button type="button" class="btn btn-danger-gradien btn-cancel"><i class="fa fa-save"></i>
-                                Cancel
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-check"></i> Verification
                             </button>
-                            <a href="{{ route('reviews.test-application') }}" class="btn btn-danger-gradien"><i
+                            <button type="button" class="btn btn-danger-gradien btn-cancel">
+                                <i class="fa fa-remove"></i> Cancel
+                            </button>
+                            <a href="{{ route('reviews.verification') }}" class="btn btn-danger-gradien"><i
                                     class="fa fa-backward"></i> Back</a>
                         </div>
                     </form>
@@ -100,8 +101,8 @@
                                     <td>{{$officer['nip_nik']}}</td>
                                     <td>{{$officer['employee_name']}}</td>
                                     <td>{{$officer['position']}}</td>
-                                    <td>
-                                        {!! btnAction('delete', attrBtn: "data-temp_id='$officer->temp_id'", classBtn: 'btn-delete') !!}
+                                    <td class="text-center">
+                                        {!! btnAction('delete', attrBtn: "data-review_officer_id='$officer->review_officer_id'", classBtn: 'btn-delete') !!}
                                     </td>
                                 </tr>
                             @endforeach
@@ -174,7 +175,7 @@
     <div class="modal fade" id="modal-add" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="post" class="form-officer" action="{{ url('reviews/test-application/officer-temp') }}">
+                <form method="post" class="form-officer" action="{{ url('reviews/verification/officer') }}">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title"></h5>
@@ -217,9 +218,9 @@
     <div class="modal fade" id="modal-cancel" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="post" class="form-verification"
-                      action="{{ url('reviews/test-application/cancel') }}">
+                <form method="post" class="form-verification" action="{{ route('reviews.verification') }}">
                     @csrf
+                    @method('put')
                     <div class="modal-header">
                         <h5 class="modal-title"></h5>
                         <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"
@@ -261,7 +262,12 @@
                 const tagModal = $('#modal-cancel');
                 tagModal.modal('show');
                 tagModal.find('.modal-title').text('Form Cancel Application')
+                // tagModal.find('.form_code').val($(this).data('form_code'))
             });
+
+            $('.btn-test').click(function () {
+                console.log('test')
+            })
 
             $('.selected-employee').change(function () {
                 const params = $(this).find('option:selected').data('params');
@@ -284,52 +290,26 @@
                             $('.btn-save').html(`<i class="fa fa-save"></i> Save`);
                         },
                         success: function (result) {
-                            if (result.status === true) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Sukses',
-                                    html: result.message,
-                                    timer: 2200,
-                                    showConfirmButton: false,
-                                });
-                                loadTable(result.data)
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Failed !!!',
-                                    html: result.message,
-                                    timer: 2200,
-                                    showConfirmButton: false,
-                                });
-                            }
-                            $('#modal-add').modal('hide')
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Sukses',
+                                html: result.message,
+                                timer: 2200,
+                                showConfirmButton: false,
+                            });
+                            window.location.reload();
                         }
                     });
                     return false;
                 });
             });
 
-            const loadTable = (dataTemp) => {
-                let htmls = '';
-                dataTemp.forEach((temp) => {
-                    htmls += `<tr>
-                                    <td>${temp.nip_nik}</td>
-                                    <td>${temp.employee_name}</td>
-                                    <td>${temp.position}</td>
-                                    <td class='text-center'>
-                                    <button data-temp_id='${temp.temp_id}' class="btn btn-danger-gradien btn-sm btn-delete" ><i class="bi bi-trash"></i></button>
-                    </td>
-              </tr>`
-                })
-                $('.table-body').html(htmls)
-            }
-
             $(document).on('click', '.btn-delete', function () {
-                const temp_id = $(this).data('temp_id');
+                const review_officer_id = $(this).data('review_officer_id');
                 $.ajax({
-                    url: BASEURL(`reviews/test-application/officer-temp/${temp_id}`),
+                    url: BASEURL(`reviews/verification/officer/${review_officer_id}`),
                     type: 'DELETE',
-                    data: {temp_id, _token: "{{ csrf_token() }}"},
+                    data: {review_officer_id, _token: "{{ csrf_token() }}"},
                     success: (response) => {
                         console.log(response)
                         response.status === true ?

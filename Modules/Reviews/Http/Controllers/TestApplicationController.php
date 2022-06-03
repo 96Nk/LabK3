@@ -40,13 +40,25 @@ class TestApplicationController extends Controller
         return to_route('reviews.test-application');
     }
 
+    public final function reviewCancel(Request $request, ReviewService $reviewService)
+    {
+        try {
+            $reviewService->reviewFormStatus($request);
+            $response = ResponseHelper::success();
+        } catch (\Exception $exception) {
+            $response = ResponseHelper::error($exception->getMessage());
+        }
+        $this->setFlash($response['message'], $response['status']);
+        return to_route('reviews.test-application');
+    }
+
+
+
     public function posting(Request $request, ReviewService $reviewService)
     {
-//        echo json_encode($reviewService->addReviewOfficers($request));
-//        die();
         try {
             DB::beginTransaction();
-            $reviewService->addReviewOfficers($request);
+            $reviewService->addReviewOfficersAll($request);
             $reviewService->reviewFormStatus($request);
             $this->setFlash('Berhasil Posting', true);
             DB::commit();

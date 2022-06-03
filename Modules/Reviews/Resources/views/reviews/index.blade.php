@@ -39,7 +39,7 @@
                                     <td>{{ $application->application_about }}</td>
                                     <td>{{ formatDateIndo($application->application_date) }}</td>
                                     <td>{{ formatDateIndo($application->test_date_plan) }}</td>
-                                    <td>{{ formatDateIndo($application->test_date_review) }}</td>
+                                    <td>{{  $application->test_date_review ? formatDateIndo($application->test_date_review) : 'null' }}</td>
                                     <td class="text-center">
                                         <a href="{{ url("reviews/test-application/$application->form_code") }}"
                                            class="btn btn-primary-gradien btn-sm">
@@ -83,6 +83,7 @@
                             </li>
                         </ul>
                         <x-input type="hidden" name="form_code" required="true"/>
+                        <input type="hidden" class="form-control action" name="action" value="true">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

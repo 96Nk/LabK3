@@ -2,8 +2,6 @@
     <x-loader-theme/>
     <x-alert-session col="4"/>
     <x-admin.page-header title="Reviews Page" items="Reviews"/>
-    <!-- Container-fluid starts-->
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -21,7 +19,7 @@
                                 <th>About</th>
                                 <th>Date</th>
                                 <th>Plan Date</th>
-                                <th>Review Date</th>
+                                <th>Status</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -37,16 +35,19 @@
                                     <td>{{ $application->application_about }}</td>
                                     <td>{{ formatDateIndo($application->application_date) }}</td>
                                     <td>{{ formatDateIndo($application->test_date_plan) }}</td>
-                                    <td>{{ formatDateIndo($application->test_date_review) }}</td>
+                                    <td>
+                                        @if($application->desc_cancelled)
+                                            <span class="badge badge-danger"> Cancel</span>
+                                        @else
+                                            <span class="badge badge-warning"> Waiting</span>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
                     </div>
                 </x-card>
-                <pre>
-                    {{ json_encode($applications, 128) }}
-                </pre>
             </div>
         </div>
     </div>

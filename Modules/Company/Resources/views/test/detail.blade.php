@@ -59,14 +59,12 @@
                     @if($form->form_status == 0)
                         @slot('footer')
                             <div class="d-flex justify-content-between">
-
                                 <button data-form_code="{{ $form->form_code }}"
                                         class="btn btn-primary btn-sm btn-posting">
                                     <i class="bi bi-send"></i> Posting
                                 </button>
                                 <a href="{{ route('test.application') }}" class="btn btn-danger-gradien btn-sm"><i
-                                        class="bi bi-skip-backward"></i>
-                                    Kembali</a>
+                                        class="bi bi-skip-backward"></i> Kembali</a>
                             </div>
                         @endslot
                     @endif
@@ -77,22 +75,32 @@
                     @endslot
                     <x-card>
                         <h5>Review Application Test</h5>
-                        @if($form->review_status == 1)
+                        @if($form->review_status == 0)
+                            <h6>Waiting . . . </h6>
+                        @elseif($form->review_status == 1)
                             <span>Date Test Review : {{ formatDateIndo($form->test_date_review) }} </span>
                             <br>
-                            <span class="font-info" style="font-size: 8pt">{{ $form->review_date }}</span>
+                            <span style="font-size: 10pt">Date Validated :  {{ $form->review_date }}</span>
                         @else
-                            <h6>Waiting . . . </h6>
+                            <h6 class="alert alert-danger">Status Application Cancel</h6>
+                            <span style="font-size: 10pt">Date Validated :  {{ $form->review_date }}</span>
+                            <p>With Reason : <span>{{$form->desc_cancelled}}</span></p>
                         @endif
                     </x-card>
-                    <x-card>
-                        <h5>Verification Application Test</h5>
-                        @if($form->verification_status == 1)
-                            <span style="font-size: 10pt">Date Validated :  {{ $form->verification_date }}</span>
-                        @else
-                            <h6>Waiting . . . </h6>
-                        @endif
-                    </x-card>
+                    @if($form->review_status == 1)
+                        <x-card>
+                            <h5>Verification Application Test</h5>
+                            @if($form->verification_status == 0)
+                                <h6>Waiting . . . </h6>
+                            @elseif($form->verification_status == 1)
+                                <span style="font-size: 10pt">Date Validated :  {{ $form->verification_date }}</span>
+                            @else
+                                <h6 class="alert alert-danger">Status Application Cancel</h6>
+                                <span style="font-size: 10pt">Date Validated :  {{ $form->verification_date }}</span>
+                                <p>With Reason : <span>{{$form->desc_cancelled}}</span></p>
+                            @endif
+                        </x-card>
+                    @endif
                 </x-card>
             </div>
             <div class="col-md-7">
@@ -149,7 +157,6 @@
                         </div>
                     @endforeach
                 </x-card>
-                {{ json_encode($form) }}
             </div>
         </div>
     </div>

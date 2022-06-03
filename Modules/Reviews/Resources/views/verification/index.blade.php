@@ -40,7 +40,7 @@
                                     <td>{{ formatDateIndo($application->test_date_plan) }}</td>
                                     <td>{{ formatDateIndo($application->test_date_review) }}</td>
                                     <td class="text-center">
-                                        <a href="{{ url("reviews/verification/$application->form_code") }}"
+                                        <a href="{{ url("reviews/verification/{$application->form_code}") }}"
                                            class="btn btn-primary-gradien btn-sm">
                                             <i class="bi bi-search"></i> Verification
                                         </a>

@@ -24,6 +24,13 @@ class ReviewService
             : ReviewOfficerTemp::all();
     }
 
+    public final function getReviewOffice(string $form_code = ''): \Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|array
+    {
+        return $form_code
+            ? ReviewOfficer::where('form_code', $form_code)->get()
+            : ReviewOfficer::all();
+    }
+
     /**
      * @throws \Exception
      */
@@ -59,9 +66,12 @@ class ReviewService
     public final function reviewFormStatus(Request $request): bool
     {
         $data = [
-            'review_status' => 1,
+            'review_status' => $request->post('action') == 'false' ? 2 : 1,
             'review_date' => Carbon::now(),
         ];
+        if ($request->post('action') == 'false')
+            $data['desc_cancelled'] = $request->post('desc_cancelled');
+
         $status = Form::where('form_code', $request->post('form_code'))->update($data);
         if ($status === false) throw new \Exception('Gagal Posting Data.');
         return $status;
@@ -70,10 +80,9 @@ class ReviewService
     /**
      * @throws \Exception
      */
-    public final function addReviewOfficers(Request $request)
+    public final function addReviewOfficersAll(Request $request): bool
     {
         $officersTemp = $this->getReviewOfficeTemp($request->form_code);
-//        return $officersTemp;
         if ($officersTemp->isEmpty()) {
             throw new \Exception("officer can't be empty");
         } else {
@@ -89,6 +98,41 @@ class ReviewService
             return ReviewOfficer::insert($data);
         }
 
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public final function addReviewOfficers(Request $request): bool
+    {
+
+        $attributes = $request->validate([
+            'form_code' => 'required',
+            'nip_nik' => 'required',
+            'employee_name' => 'required',
+            'position' => 'required',
+        ]);
+        $status = ReviewOfficer::insert($attributes);
+        if ($status === false) throw new \Exception('Gagal Input Data.');
+        return $status;
+
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public final function verificationFormStatus(Request $request): bool
+    {
+        $data = [
+            'verification_status' => $request->post('action') == 'false' ? 2 : 1,
+            'verification_date' => Carbon::now(),
+        ];
+        if ($request->post('action') == 'false') {
+            $data['desc_cancelled'] = $request->post('desc_cancelled');
+        }
+        $status = Form::where('form_code', $request->post('form_code'))->update($data);
+        if ($status === false) throw new \Exception('Gagal Verifikasi Data.');
+        return $status;
     }
 
 

@@ -11,7 +11,7 @@ class ArchiveController extends Controller
 
     public function index()
     {
-        $applications = Form::reviewStatus()->latest()->get();
+        $applications = Form::latest()->get();
         return view('reviews::archive.index', compact('applications'));
     }
 

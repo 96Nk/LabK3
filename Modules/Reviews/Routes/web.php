@@ -9,6 +9,7 @@ Route::middleware(['auth', 'check-user'])->group(function () {
         Route::get('/', 'index')->name('reviews.test-application');
         Route::put('/verification/{form}', 'reviewForm');
         Route::post('/posting', 'posting')->name('reviews.posting');
+        Route::post('/cancel', 'reviewCancel');
         Route::get('/{form}', 'formVerification');
         Route::post('/officer-temp', 'storeOfficerTemp');
         Route::delete('/officer-temp/{temp}', 'deleteOfficerTemp');
@@ -20,6 +21,10 @@ Route::middleware(['auth', 'check-user'])->group(function () {
 
     Route::prefix('reviews/verification')->controller(VerificationController::class)->group(function () {
         Route::get('/', 'index')->name('reviews.verification');
+        Route::get('/{form}', 'formVerification');
+        Route::put('/', 'verificationForm');
+        Route::post('/officer', 'storeOfficer');
+        Route::delete('/officer/{officer}', 'deleteOfficer');
     });
 });
 
