@@ -8,7 +8,7 @@
             <div class="col-md-5">
                 <x-card>
                     <form class="form-verification" method="post"
-                          action="{{ url('reviews.verification') }}">
+                          action="{{ route('reviews.verification') }}">
                         @csrf
                         @method('put')
                         @slot('header')

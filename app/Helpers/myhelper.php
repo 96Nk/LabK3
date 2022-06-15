@@ -55,3 +55,46 @@ function formatDateIndo(string $date): string
 {
     return \Carbon\Carbon::parse($date)->format('d-m-Y');
 }
+
+function formatDateMonthIndo($date): string
+{
+    if (!$date) return 'NULL';
+    $day = day($date);
+    $month = monthIndo(month($date));
+    $year = year($date);
+    return $day . ' ' . $month . ' ' . $year;
+}
+
+function day($date): string
+{
+    return date("d", strtotime($date));
+}
+
+function month($date): string
+{
+    return date("m", strtotime($date));
+}
+
+function year($date): string
+{
+    return date("Y", strtotime($date));
+}
+
+function monthIndo(int $month): string
+{
+    return match ($month) {
+        1 => "Januari",
+        2 => "Februari",
+        3 => "Maret",
+        4 => "April",
+        5 => "Mei",
+        6 => "Juni",
+        7 => "Juli",
+        8 => "Agustus",
+        9 => "September",
+        10 => "Oktober",
+        11 => "November",
+        12 => "Desember",
+        default => 'NULL'
+    };
+}

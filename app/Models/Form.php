@@ -44,6 +44,10 @@ class Form extends Model
             ->groupBy('form_services.service_body_id');
     }
 
+    public final function letter_assignment(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(LetterAssignment::class, 'form_code', 'form_code');
+    }
 
     public final function getRouteKeyName(): string
     {
@@ -58,5 +62,10 @@ class Form extends Model
     public function scopeReviewStatus($query)
     {
         return $query->where('review_status', 1);
+    }
+
+    public function scopeVerificationStatus($query)
+    {
+        return $query->where('verification_status', 1);
     }
 }
