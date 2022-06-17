@@ -7,11 +7,15 @@ use App\Http\Services\AuthService;
 use App\Models\RefProvince;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Modules\Company\Http\Services\CompanyService;
+use Modules\Settings\Http\Services\UserService;
 
 class AuthController extends Controller
 {
-    public function __construct()
+    public function __construct(
+        private UserService $userService
+    )
     {
     }
 
@@ -39,7 +43,8 @@ class AuthController extends Controller
                 'username' => ['required'],
                 'password' => ['required', 'min:3'],
             ]);
-            $response = $authService->validation($attributes['username'], $attributes['password']);
+            $authService->validation($attributes['username'], $attributes['password']);
+            $response = ResponseHelper::success('Login Berhasil');
         } catch (\Exception $exception) {
             $response = ResponseHelper::error($exception->getMessage());
         }
@@ -54,12 +59,19 @@ class AuthController extends Controller
     public final function registrationStore(Request $request, CompanyService $companyService): \Illuminate\Http\RedirectResponse
     {
         try {
-            $companyService->addCompany($request);
+            $company = $companyService->addCompany($request);
+            if (!$company) throw new \Exception('failed to enter company data');
+            $this->userService->addUserCompany($request, $company);
             $response = ResponseHelper::success('Registration complete.');
             $this->setFlash($response['message'], $response['status']);
             return redirect()->route('login');
         } catch (\Exception $exception) {
-            $response = ResponseHelper::error($exception->getMessage());
+            if ($exception instanceof \PDOException) {
+                $message = 'Duplicate entre. the data you entered is already in the database';
+            } else {
+                $message = $exception->getMessage();
+            }
+            $response = ResponseHelper::error($message);
             $this->setFlash($response['message'], $response['status']);
             return redirect()->back();
         }

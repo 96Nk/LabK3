@@ -1,6 +1,6 @@
 <x-admin.app-layout title="Company">
     <x-loader-theme/>
-    <x-admin.page-header title="Company Page" items="Company"/>
+    <x-admin.page-header title="Letter Agreement" items="Report"/>
     <!-- Container-fluid starts-->
     <x-alert-session col="6"/>
     <div class="container-fluid">
@@ -11,7 +11,7 @@
                         <h5>Form Application Company</h5>
                     @endslot
                     <div class="table-responsive">
-                        <table class="table table-bordered table-sm table-1">
+                        <table class="table table-bordered table-xs table-1">
                             <thead>
                             <tr>
                                 <th>Application</th>
@@ -27,7 +27,7 @@
                             </thead>
                             <tbody>
                             @foreach($applications as $application)
-                                @php($params = json_encode($application->letter_assignment))
+                                @php($params = json_encode($application->letter_agreement))
                                 <tr>
                                     <td>
                                         <a href="{{ url("company/test-application/detail/$application->form_code") }}"
@@ -40,33 +40,29 @@
                                     <td>{{ formatDateIndo($application->application_date) }}</td>
                                     <td>{{  $application->test_date_review ? formatDateIndo($application->test_date_review) : 'null' }}</td>
                                     <td class="text-center">
-                                        @if($application->letter_assignment)
-                                            @if($application->letter_assignment->assignment_status == 0)
-                                                <a href="{{ url("report/letter-assignment/input/$application->form_code") }}"
+                                        @if($application->letter_agreement)
+                                            @if($application->letter_agreement->agreement_status == 0)
+                                                <a href="{{ url("report/letter-agreement/input/$application->form_code") }}"
                                                    class="btn btn-primary-gradien btn-sm">
                                                     <i class="bi bi-plus"></i> Letter Assignment
                                                 </a>
                                             @else
-                                                <span class="badge badge-primary">Selesai</span>
+                                                <span
                                             @endif
                                         @else
-                                            <a href="{{ url("report/letter-assignment/input/$application->form_code") }}"
+                                            <a href="{{ url("report/letter-agreement/input/$application->form_code") }}"
                                                class="btn btn-primary-gradien btn-sm">
-                                                <i class="bi bi-plus"></i> Letter Assignment
+                                                <i class="bi bi-plus"></i> Letter Agreement
                                             </a>
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        @if($application->letter_assignment)
-                                            @if($application->letter_assignment->assignment_status == 0)
-                                                @php($disabled = '')
-                                                @if(!$application->letter_assignment)
-                                                    @php($disabled = 'disabled')
-                                                @endif
+                                        @if($application->letter_agreement)
+                                            @if($application->letter_agreement->agreement_status == 0)
+                                                @php($disabled = !$application->letter_agreement ? 'disabled' : '')
                                                 {!! btnAction('posting', attrBtn: "data-params='$params' $disabled", labelBtn: 'Posting', classBtn: 'btn-posting') !!}
-
                                             @else
-                                                <a href="{{ url("report/letter-assignment/print-pdf/$application->form_code") }}"
+                                                <a href="{{ url("report/letter-agreement/print-pdf/$application->form_code") }}"
                                                    class="btn btn-warning-gradien btn-sm">
                                                     <i class="bi bi-printer"></i> Print
                                                 </a>
@@ -88,7 +84,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form class="form-verification" method="post"
-                          action="{{ url('report/letter-assignment/posting') }}">
+                          action="{{ url('report/letter-agreement/posting') }}">
                         @csrf
                         <div class="modal-header">
                             <h5 class="modal-title"></h5>
@@ -101,7 +97,7 @@
                                 <li> - Klik posting untuk menyimpan dan melakukan Cetak data.</li>
                                 <li> - Apabila sudah di Posting data tidak dapat di Edit ?</li>
                             </ul>
-                            <x-input type="" name="assignment_id"/>
+                            <x-input type="" name="agreement_id"/>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -120,7 +116,7 @@
                 const tagModal = $('#modal-posting');
                 tagModal.modal('show');
                 tagModal.find('.modal-title').text('Form Posting')
-                tagModal.find('.assignment_id').val(params.assignment_id)
+                tagModal.find('.agreement_id').val(params.agreement_id)
             });
         </script>
     @endslot

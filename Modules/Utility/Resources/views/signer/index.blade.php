@@ -16,7 +16,7 @@
                             <x-input title="NIP" name="nip" placeholder="NIP"/>
                             <x-input title="Nama Penandatangan" name="signer_name" placeholder="Penandatangan"/>
                             <x-input title="Nama Jabatan" name="signer_position" placeholder="Jabatan"/>
-                            <x-input type="" name="signer_id" required="false"/>
+                            <x-input type="hidden" name="signer_id" required="false"/>
                         </div>
                         {!! btnAction('save', labelBtn: 'Save') !!}
                     </form>

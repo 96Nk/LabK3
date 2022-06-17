@@ -17,11 +17,12 @@ class AuthService
     /**
      * @throws \Exception
      */
-    public final function validation(string $username, string $password): array
+    public final function validation(string $username, string $password): bool
     {
         $user = User::where('username', $username)->first();
-        if (!$user or !Auth::attempt(['username' => $username, 'password' => $password])) throw new \Exception('Gagal Login.!!!');
-        return ResponseHelper::success('Login Berhasil');
+        if (!$user) throw new \Exception('login failed !!!');
+        if ($user->is_active != 1) throw new \Exception('Your user is not active.');
+        return Auth::attempt(['username' => $username, 'password' => $password]);
     }
 
 }

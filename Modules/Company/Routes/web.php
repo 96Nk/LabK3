@@ -20,12 +20,27 @@ Route::middleware(['auth', 'check-user'])->group(function () {
         Route::middleware(['administrator'])->group(function () {
             Route::get('/', 'index')->name('company');
             Route::post('verification', 'verification')->name('company.verification');
-            Route::post('resending', 'resending')->name('company.resending');
+            Route::post('reset', 'reset')->name('company.reset');
             Route::put('/{company}', 'update');
             Route::delete('/{company}', 'destroy');
         });
         Route::put('/{company}', 'update');
     });
+
+    Route::prefix('company/test-form')->controller(TestFormController::class)->group(function () {
+        Route::get('/', 'index')->name('test.form');
+        Route::get('edit/{form:form_code}', 'edit');
+        Route::put('/{form}', 'update');
+        Route::post('/', 'store');
+        Route::delete('/{form}', 'destroy');
+    });
+
+    Route::prefix('company/test-application')->controller(TestApplicationController::class)->group(function () {
+        Route::get('/', 'index')->name('test.application');
+        Route::get('/detail/{form:form_code}', 'detail');
+        Route::put('/{form}', 'updatePosting');
+    });
+
 
 //    Route::prefix('company')->middleware(['company'])->group(function () {
 
@@ -51,17 +66,4 @@ Route::middleware(['auth', 'check-user'])->group(function () {
 });
 
 
-Route::prefix('company/test-form')->controller(TestFormController::class)->group(function () {
-    Route::get('/', 'index')->name('test.form');
-    Route::get('edit/{form:form_code}', 'edit');
-    Route::put('/{form}', 'update');
-    Route::post('/', 'store');
-    Route::delete('/{form}', 'destroy');
-});
-
-Route::prefix('company/test-application')->controller(TestApplicationController::class)->group(function () {
-    Route::get('/', 'index')->name('test.application');
-    Route::get('/detail/{form:form_code}', 'detail');
-    Route::put('/{form}', 'updatePosting');
-});
 

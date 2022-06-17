@@ -46,7 +46,6 @@
                                     <th>Parameter</th>
                                     <th>Harga</th>
                                     <th>Jumlah Titik</th>
-                                    <th>Total Harga</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -55,7 +54,6 @@
                                     <tr style="font-weight: bold">
                                         <td>{{ $noBody }}</td>
                                         <td>{{ $body->service_body_name }}</td>
-                                        <td></td>
                                         <td></td>
                                         <td></td>
                                     </tr>
@@ -73,7 +71,6 @@
                                                         class="input-group-text">{{ $detail->service_detail_unit }}</span>
                                                 </div>
                                             </td>
-                                            <td><span class="total-cost"></span></td>
                                         </tr>
                                     @endforeach
                                     @php($noBody++)

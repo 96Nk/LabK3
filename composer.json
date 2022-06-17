@@ -16,7 +16,8 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "mpdf/mpdf": "^8.1",
-        "nwidart/laravel-modules": "^9.0"
+        "nwidart/laravel-modules": "^9.0",
+      "ext-pdo": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

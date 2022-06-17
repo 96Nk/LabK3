@@ -33,7 +33,7 @@
                                     <td>{{ $company->company_phone }}</td>
                                     <td>{{ $company->company_address }}</td>
                                     <td class="text-center">
-                                        @if (!$company->user)
+                                        @if (!$company->user->is_active)
                                             {!! btnAction('add', attrBtn:$params, labelBtn: ' Verification', classBtn: 'btn-pill btn-verification', icon: 'pencil') !!}
                                         @else
                                             <span class="badge badge-success">Selesai Validasi</span>
@@ -41,10 +41,10 @@
 
                                     </td>
                                     <td class="text-center">
-                                        @if (!$company->user)
+                                        @if (!$company->user->is_active)
                                             {!! btnAction('delete', attrBtn: "data-company_id='{$company['company_id']}'", classBtn: 'btn-delete') !!}
                                         @else
-                                            {!! btnAction('update', attrBtn:$params, labelBtn: 'Resend', classBtn: 'btn-resending', icon: 'send') !!}
+                                            {!! btnAction('update', attrBtn:$params, labelBtn: 'Reset Password', classBtn: 'btn-resending', icon: 'send') !!}
                                         @endif
                                     </td>
                                 </tr>
@@ -52,7 +52,6 @@
                             </tbody>
                         </table>
                     </div>
-
                 </x-card>
             </div>
         </div>
@@ -69,20 +68,16 @@
                     </div>
                     <div class="modal-body">
                         <h5 class="company-name"></h5>
-                        <p>
-                            Verifikasi akan mengirim data username dan password ke Email
-                            <span style="font-weight: bold" class="company-email"></span>.
-                        </p>
-                        <input type="hidden" class="form-control company_id" name="company_id" required>
-                        <input type="hidden" class="form-control company_email" name="username" required>
-                        <input type="hidden" class="form-control company_name" name="name" required>
-                        <input type="hidden" class="form-control" name="password" value="{{ $random }}" required>
-                        <input type="hidden" class="form-control" name="level_id" value="2" required>
-                        <input type="hidden" class="form-control" name="is_active" value="1" required>
+                        {{--                        <p>--}}
+                        {{--                            Verifikasi akan mengirim data username dan password ke Email--}}
+                        {{--                            <span style="font-weight: bold" class="company-email"></span>.--}}
+                        {{--                        </p>--}}
+                        <p>Apakah anda yakin untuk memverifikasi Perusahaan ini.?</p>
+                        <input type="hidden" class="form-control company-email" name="company_email" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+                        <button class="btn btn-success"><i class="fa fa-save"></i> Verification</button>
                     </div>
                 </form>
 
@@ -92,7 +87,7 @@
     <div class="modal fade" id="modal-resending" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form class="form-verification" method="post" action="{{ route('company.resending') }}">
+                <form class="form-verification" method="post" action="{{ route('company.reset') }}">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title"></h5>
@@ -102,15 +97,14 @@
                     <div class="modal-body">
                         <h5 class="company-name"></h5>
                         <p>
-                            Mengirim ulang Username dan Password ke Email
-                            <span style="font-weight: bold" class="company-email"></span>.
+                            Reset password akun Perusahaan menjadi
+                            <span style="font-weight: bold">123456</span>.
                         </p>
-                        <input type="hidden" class="form-control company_email" name="username" required>
-                        <input type="hidden" class="form-control" name="password" value="{{ $random }}" required>
+                        <input type="hidden" class="form-control company-email" name="company_email" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button class="btn btn-success"><i class="bi bi-send"></i> Send Mail</button>
+                        <button class="btn btn-success"><i class="bi bi-send"></i> Reset</button>
                     </div>
                 </form>
             </div>
@@ -124,22 +118,15 @@
                 const tagModal = $('#modal-verification');
                 tagModal.modal('show');
                 tagModal.find('.modal-title').text('Form Verification Company')
-                tagModal.find('.company-name').text(params.company_name)
-                tagModal.find('.company-email').text(params.company_email)
-                tagModal.find('.company_id').val(params.company_id)
-                tagModal.find('.company_email').val(params.company_email)
-                tagModal.find('.company_name').val(params.company_name)
+                tagModal.find('.company-email').val(params.company_email)
             })
 
             $('.btn-resending').click(function () {
                 const params = $(this).data('params')
                 const tagModal = $('#modal-resending');
                 tagModal.modal('show');
-                tagModal.find('.modal-title').text('Form Resending User Company')
-                tagModal.find('.company-name').text(params.company_name)
-                tagModal.find('.company-email').text(params.company_email)
-                tagModal.find('.company_id').val(params.company_id)
-                tagModal.find('.company_email').val(params.company_email)
+                tagModal.find('.modal-title').text('Form Reset Password User Company')
+                tagModal.find('.company-email').val(params.company_email)
             })
 
             $('.btn-delete').click(function () {

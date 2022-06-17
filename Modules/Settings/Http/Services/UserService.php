@@ -3,6 +3,7 @@
 namespace Modules\Settings\Http\Services;
 
 use App\Mail\NotifUserMail;
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Mail;
@@ -33,6 +34,19 @@ class UserService
         return User::create($data);
     }
 
+    public final function addUserCompany(Request $request, Company $company): \Illuminate\Database\Eloquent\Model|User
+    {
+        $data = [
+            'username' => $request['company_email'],
+            'password' => $request['password'],
+            'name' => $request['company_name'],
+            'level_id' => 2,
+            'is_active' => 0,
+            'company_id' => $company->company_id,
+        ];
+        return User::create($data);
+    }
+
     public final function deleteUserCompany(string $username): ?bool
     {
         return User::where('username', $username)->delete();
@@ -49,15 +63,37 @@ class UserService
         return $user->update(['password', $request->post('password')]);
     }
 
-    public final function sendMailUser(Request $request): void
+    /**
+     * @throws \Exception
+     */
+    public final function verificationUser(Request $request): bool|int
     {
-        $mailData = [
-            'title' => 'Notifikasi User Perusahaan',
-            'body' => 'Tidak untuk di balas.',
-            'username' => $request->post('username'),
-            'password' => $request->post('password'),
-        ];
-        Mail::to($mailData['username'])->send(new NotifUserMail($mailData));
+        $email = $request->company_email;
+        $user = User::where('username', $email)->first();
+        if (!$user) throw new \Exception('user not found');
+        return $user->update(['is_active' => 1]);
     }
+
+    /**
+     * @throws \Exception
+     */
+    public final function resetPassword(Request $request): bool|int
+    {
+        $email = $request->company_email;
+        $user = User::where('username', $email)->first();
+        if (!$user) throw new \Exception('user not found');
+        return $user->update(['password' => 123456]);
+    }
+
+//    public final function sendMailUser(Request $request): void
+//    {
+//        $mailData = [
+//            'title' => 'Notifikasi User Perusahaan',
+//            'body' => 'Tidak untuk di balas.',
+//            'username' => $request->post('username'),
+//            'password' => $request->post('password'),
+//        ];
+//        Mail::to($mailData['username'])->send(new NotifUserMail($mailData));
+//    }
 
 }

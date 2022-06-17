@@ -214,16 +214,7 @@
                             </x-card>
                         </div>
                     </div>
-                    <pre>{{ json_encode(auth()->user(), 128) }}</pre>
                 </x-card>
-                <div class="card">
-                    <div class="card-header pb-0">
-
-                    </div>
-                    <div class="card-body">
-
-                    </div>
-                </div>
             </div>
         </div>
     </div>

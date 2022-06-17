@@ -37,7 +37,7 @@ class LetterAssignmentController extends Controller
 
     public function index()
     {
-        $applications = Form::with('letter_assignment')
+        $applications = Form::with(['letter_assignment', 'company'])
             ->reviewStatus()
             ->formStatus()
             ->verificationStatus()

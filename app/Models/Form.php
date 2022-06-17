@@ -24,6 +24,11 @@ class Form extends Model
         return $this->hasMany(FormService::class, 'form_code', 'form_code');
     }
 
+    public final function company(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Company::class, 'company_id', 'company_id');
+    }
+
     public final function form_services_head(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(FormService::class, 'form_code', 'form_code')
@@ -48,6 +53,11 @@ class Form extends Model
     public final function letter_assignment(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(LetterAssignment::class, 'form_code', 'form_code');
+    }
+
+    public final function letter_agreement(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(LetterAgreement::class, 'form_code', 'form_code');
     }
 
     public final function getRouteKeyName(): string
