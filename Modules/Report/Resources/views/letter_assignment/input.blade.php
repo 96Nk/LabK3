@@ -88,7 +88,8 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <x-input type="date" title="Tanggal Pulang"
-                                                                     name="date_end" {{$form->letter_assignment->date_end?? ''}}/>
+                                                                     name="date_end"
+                                                                     value="{{$form->letter_assignment->date_end ?? ''}}"/>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -99,7 +100,7 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <x-input type="date" name="assignment_date"
-                                                                     value="{{$form->letter_assignment->assignment_date??''}}"/>
+                                                                     value="{{$form->letter_assignment->assignment_date ??''}}"/>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -112,8 +113,10 @@
                                                         <option selected disabled value="">.: Penanda Tangan :.</option>
                                                         @foreach($signers as $signer)
                                                             @php($selected = '')
-                                                            @if($form->letter_assignment->signer_employee_nip == $signer->nip)
-                                                                @php($selected = 'selected')
+                                                            @if($form->letter_assignment)
+                                                                @if($form->letter_assignment->signer_employee_nip == $signer->nip)
+                                                                    @php($selected = 'selected')
+                                                                @endif
                                                             @endif
                                                             <option {{$selected}}
                                                                     value="{{$signer->nip}}">{{ $signer->signer_name.' ('.$signer->signer_position.')' }}</option>

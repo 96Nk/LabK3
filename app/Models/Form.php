@@ -16,6 +16,7 @@ class Form extends Model
 //    protected $with = ['form_services', 'form_services_head', 'form_services_body'];
 
     protected $hidden = ['created_at', 'updated_at'];
+    protected $with = ['letter_assignment'];
 
 
     public final function form_services(): \Illuminate\Database\Eloquent\Relations\HasMany

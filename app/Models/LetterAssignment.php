@@ -13,5 +13,10 @@ class LetterAssignment extends Model
     protected $guarded = ['assignment_id'];
     protected $primaryKey = 'assignment_id';
     protected $hidden = ['created_at', 'updated_at'];
+    
+    public final function getRouteKeyName(): string
+    {
+        return 'form_code';
+    }
 
 }

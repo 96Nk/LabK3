@@ -9,10 +9,31 @@ use App\Models\LetterAssignment;
 use App\Models\ReviewOfficer;
 use App\Models\UtiLetterSigner;
 use Illuminate\Http\Request;
-use Modules\Report\Http\Services\ReportService;
+use Modules\Report\Http\Services\AssignmentService;
+use Mpdf\Mpdf;
 
 class LetterAssignmentController extends Controller
 {
+
+    private Mpdf $MPDF;
+    private const CONSTRUCT_PDF = [
+        'mode' => 'utf-8',
+        'format' => 'Legal-P',
+        'default_font_size' => 1,
+        'default_font' => 'Tahoma',
+        'margin_left' => 8,
+        'margin_right' => 8,
+        'margin_top' => 8,
+        'margin_bottom' => 35,
+        'margin_header' => 8,
+        'margin_footer' => 35
+    ];
+
+
+    public function __construct()
+    {
+        $this->MPDF = new Mpdf(static::CONSTRUCT_PDF);
+    }
 
     public function index()
     {
@@ -22,6 +43,21 @@ class LetterAssignmentController extends Controller
             ->verificationStatus()
             ->latest()->get();
         return view('report::letter_assignment.index', compact('applications'));
+    }
+
+    /**
+     * @throws \Mpdf\MpdfException
+     */
+    public function printPdf(Form $form)
+    {
+        $data = [
+            'printQrCode' => 'Test PDF',
+            'form' => $form,
+        ];
+        $html = view('report::letter_assignment.print_pdf', $data);
+        $this->MPDF->WriteHTML($html);
+        header('Content-Type', 'application/pdf');
+        $this->MPDF->Output('Test', 'I');
     }
 
 
@@ -36,10 +72,8 @@ class LetterAssignmentController extends Controller
         return view('report::letter_assignment.input', $data);
     }
 
-    public function store(Request $request, ReportService $reportService)
+    public final function store(Request $request, AssignmentService $reportService)
     {
-//        echo json_encode($request->post());
-//        die();
         try {
             $reportService->addLetterAssignment($request);
             $this->setFlash('Input data SPT', true);
@@ -48,8 +82,18 @@ class LetterAssignmentController extends Controller
             $this->setFlash($exception->getMessage());
             return back();
         }
-
-
     }
+
+    public final function posting(Request $request, AssignmentService $assignmentService)
+    {
+        try {
+            $assignmentService->postingLetterAssignment($request);
+            $this->setFlash('Posting data SPT', true);
+        } catch (\Exception $exception) {
+            $this->setFlash($exception->getMessage());
+        }
+        return back();
+    }
+
 
 }

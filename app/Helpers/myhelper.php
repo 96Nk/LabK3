@@ -1,5 +1,7 @@
 <?php
 
+use JetBrains\PhpStorm\Pure;
+
 function btnAction($action = '', $attrBtn = '', $labelBtn = '', $classBtn = '', $typeBtn = '', $icon = ''): string
 {
     switch ($action) {
@@ -97,4 +99,15 @@ function monthIndo(int $month): string
         12 => "Desember",
         default => 'NULL'
     };
+}
+
+function sprintfNumber(int $number, int $length = 3): string
+{
+    return sprintf("%'.0" . $length . "s", $number);
+}
+
+function sptNumber(int $number): string
+{
+    $number = sprintfNumber($number);
+    return "090/{$number}/Disnakertrans/LK3";
 }

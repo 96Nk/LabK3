@@ -121,7 +121,6 @@
         <script>
             $('.btn-verification').click(function () {
                 const params = $(this).data('params')
-                console.log(params)
                 const tagModal = $('#modal-verification');
                 tagModal.modal('show');
                 tagModal.find('.modal-title').text('Form Verification Company')
