@@ -111,3 +111,14 @@ function sptNumber(int $number): string
     $number = sprintfNumber($number);
     return "090/{$number}/Disnakertrans/LK3";
 }
+
+function spkNumber(int $number): string
+{
+    $number = sprintfNumber($number, 3);
+    return "566/SPK.{$number}/Disnakertrans/LK3";
+}
+
+function lastOfMonth($year, $month)
+{
+    return date("Y-m-d", strtotime('-1 second', strtotime('+1 month', strtotime($month . '/01/' . $year . ' 00:00:00'))));
+}

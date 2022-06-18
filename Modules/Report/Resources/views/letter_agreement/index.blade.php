@@ -47,7 +47,7 @@
                                                     <i class="bi bi-plus"></i> Letter Assignment
                                                 </a>
                                             @else
-                                                <span
+                                                <span class="badge badge-primary">Selesai</span>
                                             @endif
                                         @else
                                             <a href="{{ url("report/letter-agreement/input/$application->form_code") }}"
@@ -97,11 +97,11 @@
                                 <li> - Klik posting untuk menyimpan dan melakukan Cetak data.</li>
                                 <li> - Apabila sudah di Posting data tidak dapat di Edit ?</li>
                             </ul>
-                            <x-input type="" name="agreement_id"/>
+                            <x-input type="hidden" name="agreement_id"/>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button class="btn btn-success"><i class="bi bi-send"></i> Send Mail</button>
+                            <button class="btn btn-success"><i class="bi bi-send"></i> Posting</button>
                         </div>
                     </form>
                 </div>

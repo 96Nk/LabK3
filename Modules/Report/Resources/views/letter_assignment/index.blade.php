@@ -105,7 +105,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button class="btn btn-success"><i class="bi bi-send"></i> Send Mail</button>
+                            <button class="btn btn-success"><i class="bi bi-send"></i> Posting</button>
                         </div>
                     </form>
                 </div>

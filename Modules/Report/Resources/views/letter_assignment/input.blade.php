@@ -1,6 +1,6 @@
-<x-admin.app-layout title="Company">
+<x-admin.app-layout title="Report">
     <x-loader-theme/>
-    <x-admin.page-header title="Company Page" items="Company"/>
+    <x-admin.page-header title="Assigment Letter" items="Report"/>
     <!-- Container-fluid starts-->
     <x-alert-session col="6"/>
     <div class="container-fluid">
@@ -163,3 +163,5 @@
         </script>
     @endslot
 </x-admin.app-layout>
+
+

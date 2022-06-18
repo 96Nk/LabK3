@@ -64,8 +64,6 @@
             });
             $('.login-form').submit(function (event) {
                 event.preventDefault();
-                console.log($(this).serialize());
-
                 $.ajax({
                     type: 'POST',
                     url: $(this).attr('action'),
