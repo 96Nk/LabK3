@@ -1,0 +1,13 @@
+{
+    "name": "Signer",
+    "alias": "signer",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Signer\\Providers\\SignerServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
