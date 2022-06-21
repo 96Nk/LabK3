@@ -15,7 +15,9 @@ class AssignmentController extends Controller
     public function index()
     {
         $assignments = LetterAssignment::with('form')
-            ->assignmentStatus()->latest()->get();
+            ->assignmentStatus()
+            ->where(['assignment_signer' => 0])
+            ->latest()->get();
         return view('signer::assignment.index', compact('assignments'));
     }
 

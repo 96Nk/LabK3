@@ -18,4 +18,15 @@ class LetterAgreement extends Model
     {
         return 'form_code';
     }
+
+    public final function scopeAgreementStatus($query)
+    {
+        return $query->where('agreement_status', 1);
+    }
+
+
+    public final function form(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Form::class, 'form_code', 'form_code');
+    }
 }

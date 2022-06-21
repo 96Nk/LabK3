@@ -12,5 +12,8 @@ Route::middleware(['auth', 'check-user'])->group(function () {
     });
     Route::prefix('signer/agreement')->controller(AgreementController::class)->group(function () {
         Route::get('/', 'index')->name('signer-agreement');
+        Route::post('/', 'signerAgreement');
+        Route::get('/{agreement}', 'verification');
+        Route::post('/correct', 'correctAgreement');
     });
 });

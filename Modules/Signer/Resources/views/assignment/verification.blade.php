@@ -17,8 +17,8 @@
                     @endslot
                     <form method="post" action="{{ route('signer-assignment') }}" class="form-input">
                         @csrf
-                        <x-input type="" name="form_code" value="{{ $assignment->form_code }}"/>
-                        <x-input type="" name="assignment_id" value="{{ $assignment->assignment_id }}"/>
+                        <x-input type="hidden" name="form_code" value="{{ $assignment->form_code }}"/>
+                        <x-input type="hidden" name="assignment_id" value="{{ $assignment->assignment_id }}"/>
                         <div class="row justify-content-center">
                             <div class="row">
                                 <div class="col-md-12">
@@ -170,5 +170,3 @@
         </script>
     @endslot
 </x-admin.app-layout>
-
-

@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UtiRegulation extends Model
+class UtiUnit extends Model
 {
     use HasFactory;
 
-    protected $table = 'uti_regulation';
-    protected $primaryKey = 'regulation_id';
-    protected $guarded = ['regulation_id'];
+    protected $table = 'uti_unit';
+    protected $primaryKey = 'unit_id';
+    protected $guarded = ['unit_id'];
     protected $hidden = ['created_at', 'updated_at'];
 }

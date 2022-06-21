@@ -62,7 +62,7 @@ function formatDateMonthIndo($date): string
 {
     if (!$date) return 'NULL';
     $day = day($date);
-    $month = monthIndo(month($date));
+    $month = nameMonthIndo(month($date));
     $year = year($date);
     return $day . ' ' . $month . ' ' . $year;
 }
@@ -82,7 +82,7 @@ function year($date): string
     return date("Y", strtotime($date));
 }
 
-function monthIndo(int $month): string
+function nameMonthIndo(int $month): string
 {
     return match ($month) {
         1 => "Januari",
@@ -98,6 +98,24 @@ function monthIndo(int $month): string
         11 => "November",
         12 => "Desember",
         default => 'NULL'
+    };
+}
+
+function nameDayIndo($date): string
+{
+    $day = day($date);
+    $month = month($date);
+    $year = year($date);
+    $nameDay = date("l", mktime(0, 0, 0, $month, $day, $year));
+    return match ($nameDay) {
+        "Sunday" => "Minggu",
+        "Monday" => "Senin",
+        "Tuesday" => "Selasa",
+        "Wednesday" => "Rabu",
+        "Thursday" => "Kamis",
+        "Friday" => "Jum'at",
+        "Saturday" => "Sabtu",
+        default => 'NULL',
     };
 }
 
@@ -121,4 +139,33 @@ function spkNumber(int $number): string
 function lastOfMonth($year, $month)
 {
     return date("Y-m-d", strtotime('-1 second', strtotime('+1 month', strtotime($month . '/01/' . $year . ' 00:00:00'))));
+}
+
+function convertNumber($value): string
+{
+    $value = abs($value);
+    $huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
+    $temp = "";
+    if ($value < 12) {
+        $temp = " " . $huruf[$value];
+    } else if ($value < 20) {
+        $temp = convertNumber($value - 10) . " belas";
+    } else if ($value < 100) {
+        $temp = convertNumber((int)($value / 10)) . " puluh" . convertNumber($value % 10);
+    } else if ($value < 200) {
+        $temp = " seratus" . convertNumber($value - 100);
+    } else if ($value < 1000) {
+        $temp = convertNumber((int)($value / 100)) . " ratus" . convertNumber($value % 100);
+    } else if ($value < 2000) {
+        $temp = " seribu" . convertNumber($value - 1000);
+    } else if ($value < 1000000) {
+        $temp = convertNumber((int)($value / 1000)) . " ribu" . convertNumber($value % 1000);
+    } else if ($value < 1000000000) {
+        $temp = convertNumber((int)($value / 1000000)) . " juta" . convertNumber($value % 1000000);
+    } else if ($value < 1000000000000) {
+        $temp = convertNumber((int)($value / 1000000000)) . " milyar" . convertNumber(fmod($value, 1000000000));
+    } else if ($value < 1000000000000000) {
+        $temp = convertNumber((int)($value / 1000000000000)) . " trilyun" . convertNumber(fmod($value, 1000000000000));
+    }
+    return ucwords($temp);
 }
