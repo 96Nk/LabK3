@@ -13,4 +13,6 @@ class UtiRegulation extends Model
     protected $primaryKey = 'regulation_id';
     protected $guarded = ['regulation_id'];
     protected $hidden = ['created_at', 'updated_at'];
+
+    public $timestamps = false;
 }
