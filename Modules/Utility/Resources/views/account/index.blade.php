@@ -1,6 +1,6 @@
 <x-admin.app-layout title="Utility">
     {{--    <x-loader-theme/>--}}
-    <x-admin.page-header title="Regulation" items="Utility|Regulation"/>
+    <x-admin.page-header title="Account" items="Utility|Account"/>
     <!-- Container-fluid starts-->
     <div class="container-fluid">
         <x-alert-session col="6"/>
@@ -10,39 +10,39 @@
                     @slot('header')
                         <h5>Form Input</h5>
                     @endslot
-                    <form method="post" action="{{ route('utility.regulation') }}">
+                    <form method="post" action="{{ route('utility.account') }}">
                         @csrf
                         @method('put')
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">Number Regulation</span>
-                                    <input type="number" class="form-control"
-                                           name="regulation_number"
-                                           value="{{ $regulation->regulation_number }}"
+                                    <span class="input-group-text" id="basic-addon1">Account Number</span>
+                                    <input type="text" class="form-control"
+                                           name="account_number"
+                                           value="{{ $account->account_number }}"
                                            required>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">Year Regulation</span>
-                                    <input type="number" class="form-control"
-                                           name="regulation_year"
-                                           value="{{ $regulation->regulation_year }}"
+                                    <span class="input-group-text" id="basic-addon1">Account Bank</span>
+                                    <input type="text" class="form-control"
+                                           name="account_bank"
+                                           value="{{ $account->account_bank }}"
                                            required>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                About Regulation
+                                Account Name
                             </div>
                             <div class="col-md-8">
-                                <textarea class="form-control" name="regulation_about" rows="3"
-                                          required>{{ $regulation->regulation_about }}</textarea>
+                                <textarea class="form-control" name="account_name" rows="3"
+                                          required>{{ $account->account_name }}</textarea>
                             </div>
                         </div>
-                        <x-input type="hidden" name="regulation_id" value="{{ $regulation->regulation_id }}"/>
+                        <x-input type="hidden" name="account_id" value="{{ $account->account_id }}"/>
 
                         {!! btnAction('save', labelBtn: 'Save') !!}
                     </form>

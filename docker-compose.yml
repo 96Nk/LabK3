@@ -1,0 +1,57 @@
+version: '3.7'
+services:
+
+    #PHP Service
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: hiperkes-app
+        container_name: app
+        restart: unless-stopped
+        tty: true
+        environment:
+            SERVICE_NAME: app
+            SERVICE_TAGS: dev
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+            - ./docker-compose/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+        networks:
+            - network-hiperkes
+
+#    db:
+#        image: mysql:8.0
+#        container_name: db
+#        restart: unless-stopped
+#        ports:
+#            - "3306:3306"
+#        environment:
+#            - MYSQL_ROOT_PASSWORD=hiperkes-pass
+#            - MYSQL_PASSWORD=hiperkes-pass
+#            - MYSQL_DATABASE=hiperkes
+#        volumes:
+#            - ./sql-dump:/docker-entrypoint-initdb.d
+#        command: '--default-authentication-plugin=mysql_native_password'
+#        networks:
+#            - network-hiperkes
+
+    #Nginx Service
+    webserver:
+        image: nginx:alpine
+        container_name: webserver
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "8000:80"
+        volumes:
+            - ./:/var/www
+            - ./docker-compose/nginx/conf.d/:/etc/nginx/conf.d/
+        networks:
+            - network-hiperkes
+
+#Docker Networks
+networks:
+    network-hiperkes:
+        driver: bridge
+
