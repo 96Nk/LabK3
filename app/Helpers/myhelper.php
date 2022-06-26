@@ -130,6 +130,11 @@ function sptNumber(int $number): string
     return "090/{$number}/Disnakertrans/LK3";
 }
 
+function isoIecNumber(): string
+{
+    return "SNI ISO/IEC 17025:2008";
+}
+
 function spkNumber(int $number): string
 {
     $number = sprintfNumber($number, 3);

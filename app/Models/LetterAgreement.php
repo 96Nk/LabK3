@@ -24,6 +24,11 @@ class LetterAgreement extends Model
         return $query->where('agreement_status', 1);
     }
 
+    public final function scopeAgreementSigner($query)
+    {
+        return $query->where('agreement_signer', 1);
+    }
+
 
     public final function form(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

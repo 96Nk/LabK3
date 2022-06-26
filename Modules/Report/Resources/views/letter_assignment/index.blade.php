@@ -1,6 +1,6 @@
-<x-admin.app-layout title="Company">
+<x-admin.app-layout title="Report">
     <x-loader-theme/>
-    <x-admin.page-header title="Company Page" items="Company"/>
+    <x-admin.page-header title="Assignment Letter" items="Report|Assignment"/>
     <!-- Container-fluid starts-->
     <x-alert-session col="6"/>
     <div class="container-fluid">
@@ -66,7 +66,7 @@
                                                 {!! btnAction('posting', attrBtn: "data-params='$params' $disabled", labelBtn: 'Posting', classBtn: 'btn-posting') !!}
 
                                             @else
-                                                <a href="{{ url("report/letter-assignment/print-pdf/$application->form_code") }}"
+                                                <a href="{{ url("report/archive-assignment/print-pdf/$application->form_code") }}"
                                                    class="btn btn-warning-gradien btn-sm">
                                                     <i class="bi bi-printer"></i> Print
                                                 </a>
@@ -80,9 +80,6 @@
                     </div>
                 </x-card>
             </div>
-            <pre>
-                {{ json_encode($applications, 128) }}
-            </pre>
         </div>
         <div class="modal fade" id="modal-posting" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">

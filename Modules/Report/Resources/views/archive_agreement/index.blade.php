@@ -11,31 +11,30 @@
                         <h5>Form Application Company</h5>
                     @endslot
                     <div class="table-responsive">
-                        <table class="table table-bordered table-sm table-1">
+                        <table class="table table-bordered table-xs table-1">
                             <thead>
                             <tr>
-                                <th>No Assignment</th>
-                                <th>Application</th>
+                                <th>No Agreement</th>
                                 <th>Date</th>
+                                <th>Application</th>
                                 <th>About</th>
-                                <th>Activity</th>
+                                <th>Company</th>
                                 <th><i class="bi bi-plus-circle"></i></th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($assignments as $assignment)
-                                @php($params = json_encode($assignment))
+                            @foreach($agreements as $agreement)
                                 <tr>
-                                    <td>{{ sptNumber($assignment->assignment_number) }}</td>
+                                    <td>{{ spkNumber($agreement->agreement_number) }}</td>
+                                    <td>{{ formatDateIndo($agreement->agreement_date)  }}</td>
                                     <td>
-                                        <a href="{{ url("company/test-application/detail/$assignment->form_code") }}"
-                                           class="btn btn-link">{{ $assignment->form->application_number }}</a>
+                                        <a href="{{ url("company/test-application/detail/$agreement->form_code") }}"
+                                           class="btn btn-link">{{ $agreement->form->application_number }}</a>
                                     </td>
-                                    <td>{{ formatDateIndo($assignment->assignment_date)  }}</td>
-                                    <td>{{ $assignment->assignment_about }}</td>
-                                    <td>{{ $assignment->assignment_activity }}</td>
+                                    <td>{{ $agreement->form->application_about}}</td>
+                                    <td>{{ $agreement->form->company->company_name }}</td>
                                     <td class="text-center">
-                                        <a href="{{ url("report/archive-assignment/print-pdf/$assignment->form_code") }}"
+                                        <a href="{{ url("report/archive-agreement/print-pdf/$agreement->form_code") }}"
                                            class="btn btn-warning-gradien btn-sm">
                                             <i class="bi bi-printer"></i> Print
                                         </a>

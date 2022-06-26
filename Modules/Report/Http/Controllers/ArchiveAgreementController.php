@@ -5,16 +5,19 @@ namespace Modules\Report\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\Form;
+use App\Models\LetterAgreement;
 use App\Models\LetterAssignment;
 use App\Models\ReviewOfficer;
+use App\Models\UtiAccount;
 use App\Models\UtiLetterSigner;
+use App\Models\UtiRegulation;
 use App\Models\UtiUnit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Modules\Report\Http\Services\AssignmentService;
 use Mpdf\Mpdf;
 
-class ArchiveAssignmentController extends Controller
+class ArchiveAgreementController extends Controller
 {
 
     private Mpdf $MPDF;
@@ -26,7 +29,7 @@ class ArchiveAssignmentController extends Controller
         'margin_left' => 15,
         'margin_right' => 15,
         'margin_top' => 8,
-        'margin_bottom' => 8,
+        'margin_bottom' => 20,
         'margin_header' => 8,
         'margin_footer' => 8
     ];
@@ -39,36 +42,37 @@ class ArchiveAssignmentController extends Controller
 
     public function index()
     {
-        $assignments = LetterAssignment::with(['form'])->AssignmentStatus()->latest()->get();
-        return view('report::archive_assignment.index', compact('assignments'));
+        $agreements = LetterAgreement::with(['form'])
+            ->agreementStatus()
+            ->agreementSigner()
+            ->latest()->get();
+        return view('report::archive_agreement.index', compact('agreements'));
     }
 
     /**
      * @throws \Mpdf\MpdfException
      */
-    public function printPdf(LetterAssignment $assignment)
+    public function printPdf(LetterAgreement $agreement)
     {
+
         $data = [
-            'printQrCode' => $this->printQrCode(url()->current()),
-            'assignment' => $assignment,
-            'officers' => ReviewOfficer::where('form_code', $assignment->form_code)
-                ->select('review_officers.*', 'ref_positions.position_status')
-                ->join('ref_employees', 'ref_employees.nip_nik', '=', 'review_officers.nip_nik')
-                ->join('ref_positions', 'ref_positions.position_id', '=', 'ref_employees.position_id')
-                ->orderBy(DB::raw('ref_positions.position_status, ref_positions.position_id'))->get(),
-            'unit' => UtiUnit::first()
+            'agreement' => $agreement,
+            'unit' => UtiUnit::first(),
+            'regulation' => UtiRegulation::first(),
+            'account' => UtiAccount::first()
         ];
-        $html = view('report::archive_assignment.print_pdf', $data);
-        $this->MPDF->SetHTMLFooter('<table width="100%" border="0" style="font-family: serif; font-size: 8pt; color: #000000; font-weight: bold; font-style: italic;">
+        $qrCode = $agreement->agreement_signer == 1 ? '<img src="' . $this->printQrCode(url()->current()) . '" width="50px" height="50px">' : '';
+        $html = view('report::archive_agreement.print_pdf', $data);
+        $this->MPDF->SetHTMLFooter('<table width="100%" border="0" style="font-family: serif; font-size: 8pt; color: #000000;">
     <tr>
-        <td><img src="assets/images/logo-kan.png" width="15%" hidden="10%"></td>
-        <td>' . isoIecNumber() . ' </td >
-        <td width="50%"></td >
+        <td width="10%">' . $qrCode . '</td>
+        <td>DL 7.1.3.1</td>
+        <td width="20%" style="text-align: right;border-left: 0px ; ">Halaman {PAGENO} Dari {nbpg}</td>
     </tr>
 </table>');
         $this->MPDF->WriteHTML($html);
-//        header('Content-Type', 'application/pdf');
-        $this->MPDF->Output($assignment->form_code . '.pdf', 'I');
+        header('Content-Type', 'application/pdf');
+        $this->MPDF->Output($agreement->form_code . '.pdf', 'I');
         $this->MPDF->debug = true;
     }
 

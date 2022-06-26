@@ -7,7 +7,12 @@
     <style type="text/css">
         body {
             font-family: Tahoma, Verdana, Segoe, sans-serif;
-            font-size: 12px
+            font-size: 12pt
+        }
+
+        p {
+            font-size: 11pt;
+            text-align: justify;
         }
 
         #wrapper {

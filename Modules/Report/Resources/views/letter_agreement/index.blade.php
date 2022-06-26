@@ -1,6 +1,6 @@
-<x-admin.app-layout title="Company">
+<x-admin.app-layout title="Report">
     <x-loader-theme/>
-    <x-admin.page-header title="Letter Agreement" items="Report"/>
+    <x-admin.page-header title="Letter Agreement" items="Report|Agreement"/>
     <!-- Container-fluid starts-->
     <x-alert-session col="6"/>
     <div class="container-fluid">
@@ -62,7 +62,7 @@
                                                 @php($disabled = !$application->letter_agreement ? 'disabled' : '')
                                                 {!! btnAction('posting', attrBtn: "data-params='$params' $disabled", labelBtn: 'Posting', classBtn: 'btn-posting') !!}
                                             @else
-                                                <a href="{{ url("report/letter-agreement/print-pdf/$application->form_code") }}"
+                                                <a href="{{ url("report/archive-agreement/print-pdf/$application->form_code") }}"
                                                    class="btn btn-warning-gradien btn-sm">
                                                     <i class="bi bi-printer"></i> Print
                                                 </a>
@@ -76,9 +76,6 @@
                     </div>
                 </x-card>
             </div>
-            <pre>
-                {{ json_encode($applications, 128) }}
-            </pre>
         </div>
         <div class="modal fade" id="modal-posting" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">

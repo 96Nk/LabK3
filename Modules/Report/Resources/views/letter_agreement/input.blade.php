@@ -17,14 +17,21 @@
                         <x-input type="hidden" name="form_code" value="{{ $form->form_code }}"/>
                         <div class="row">
                             <div class="col-auto">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">566/SPK.</span>
-                                    <input type="number" class="form-control agreement_number"
-                                           name="agreement_number"
-                                           value="{{ $form->letter_agreement->agreement_number ?? $maxNumber}}"
-                                           required>
-                                    <span class="input-group-text"
-                                          id="basic-addon1">/Disnakertrans/LK3</span>
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <label>Nomor SPK</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="basic-addon1">566/SPK.</span>
+                                            <input type="number" class="form-control agreement_number"
+                                                   name="agreement_number"
+                                                   value="{{ $form->letter_agreement->agreement_number ?? $maxNumber}}"
+                                                   required>
+                                            <span class="input-group-text"
+                                                  id="basic-addon1">/Disnakertrans/LK3</span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-4">
@@ -37,7 +44,26 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-4">
-                                        <label>Penanda Tangan</label>
+                                        <label>Tanggal Mulai</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="date" class="form-control" name="agreement_date_start"
+                                               value="{{$form->letter_agreement->agreement_date_start ??''}}" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <label>Tanggal Berakhir</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="date" class="form-control" name="agreement_date_end"
+                                               value="{{$form->letter_agreement->agreement_date_end ?? lastOfMonth(date('Y'), "12")}}"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <label>TTD Pihak I</label>
                                     </div>
                                     <div class="col-md-8">
                                         <select class="form-select"
@@ -58,21 +84,29 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-4">
-                                        <label>Tanggal Mulai</label>
+                                        <label>TTD Pihak II</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="date" class="form-control" name="agreement_date_start"
-                                               value="{{$form->letter_agreement->agreement_date_start ??''}}" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-4">
-                                        <label>Tanggal Berakhir</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="date" class="form-control" name="agreement_date_end"
-                                               value="{{$form->letter_agreement->agreement_date_end ?? lastOfMonth(date('Y'), "12")}}"
-                                               required>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                Nama
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input class="form-control" name="signer_company_name"
+                                                       value="{{ $form->letter_agreement->signer_company_name ?? $form->company->signer_name }}"
+                                                       required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                Jabatan
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input class="form-control" name="signer_company_position"
+                                                       value="{{ $form->letter_agreement->signer_company_position ?? $form->company->signer_position }}"
+                                                       required>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -98,9 +132,6 @@
                     </form>
                 </x-card>
             </div>
-            <pre>
-                {{ json_encode($form, 128) }}
-            </pre>
         </div>
     </div>
     @include('js.admin')

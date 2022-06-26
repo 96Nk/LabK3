@@ -1,6 +1,6 @@
 <x-admin.app-layout title="Report">
     <x-loader-theme/>
-    <x-admin.page-header title="Assigment Letter" items="Report"/>
+    <x-admin.page-header title="Assignment Letter" items="Report|Assignment|Input"/>
     <!-- Container-fluid starts-->
     <x-alert-session col="6"/>
     <div class="container-fluid">
@@ -151,9 +151,6 @@
                     </form>
                 </x-card>
             </div>
-            <pre>
-                {{ json_encode($form, 128) }}
-            </pre>
         </div>
     </div>
     @include('js.admin')

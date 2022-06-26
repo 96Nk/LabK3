@@ -4,13 +4,8 @@
         @if($dataUser->level_id == 2)
             @if($dataUser->company->logo_file)
                 <img class="img-90 rounded-circle" src="{{ asset('storage/'.$dataUser->company->logo_file) }}"
-                     width="75px" height="75px"
-                     alt="">
-            @else
-                <img class="img-90 rounded-circle" src="{{ asset('assets/images/logo-k3.png') }}" alt="">
+                     width="75px" height="75px">
             @endif
-        @else
-            <img class="img-90 rounded-circle" src="{{ asset('assets/images/logo-k3.png') }}" alt="">
         @endif
         <h6 class="f-w-600 mt-3">{{ Str::upper($dataUser->name) }}</h6>
     </div>
