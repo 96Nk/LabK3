@@ -1,5 +1,7 @@
 <?php
 
+use Modules\Report\Http\Controllers\ArchiveAgreementController;
+use Modules\Report\Http\Controllers\ArchiveAssignmentController;
 use Modules\Report\Http\Controllers\LetterAgreementController;
 use Modules\Report\Http\Controllers\LetterAssignmentController;
 
@@ -18,4 +20,21 @@ Route::middleware(['auth', 'check-user'])->group(function () {
         Route::get('/print-pdf/{form}', 'printPdf');
         Route::get('input/{form}', 'inputAgreement');
     });
+
+    Route::prefix('report/archive-assignment')->controller(ArchiveAssignmentController::class)->group(function () {
+        Route::get('/', 'index')->name('archive-assignment');
+    });
+
+    Route::prefix('report/archive-agreement')->controller(ArchiveAgreementController::class)->group(function () {
+        Route::get('/', 'index')->name('archive-agreement');
+    });
+
+});
+
+Route::prefix('report/archive-assignment')->controller(ArchiveAssignmentController::class)->group(function () {
+    Route::get('/print-pdf/{assignment}', 'printPdf');
+});
+
+Route::prefix('report/archive-agreement')->controller(ArchiveAgreementController::class)->group(function () {
+    Route::get('/print-pdf/{agreement}', 'printPdf');
 });

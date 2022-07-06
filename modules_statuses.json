@@ -9,5 +9,9 @@
     "Reviews": true,
     "Archive": true,
     "Report": true,
+<<<<<<< HEAD
     "LandingPageService": true
+=======
+    "Signer": true
+>>>>>>> 31f7dccadca39afcc72c03a9d188cb4f6ea04418
 }

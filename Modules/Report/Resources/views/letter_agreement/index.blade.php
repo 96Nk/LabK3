@@ -1,6 +1,6 @@
-<x-admin.app-layout title="Company">
+<x-admin.app-layout title="Report">
     <x-loader-theme/>
-    <x-admin.page-header title="Letter Agreement" items="Report"/>
+    <x-admin.page-header title="Letter Agreement" items="Report|Agreement"/>
     <!-- Container-fluid starts-->
     <x-alert-session col="6"/>
     <div class="container-fluid">
@@ -47,7 +47,7 @@
                                                     <i class="bi bi-plus"></i> Letter Assignment
                                                 </a>
                                             @else
-                                                <span
+                                                <span class="badge badge-primary">Selesai</span>
                                             @endif
                                         @else
                                             <a href="{{ url("report/letter-agreement/input/$application->form_code") }}"
@@ -62,7 +62,7 @@
                                                 @php($disabled = !$application->letter_agreement ? 'disabled' : '')
                                                 {!! btnAction('posting', attrBtn: "data-params='$params' $disabled", labelBtn: 'Posting', classBtn: 'btn-posting') !!}
                                             @else
-                                                <a href="{{ url("report/letter-agreement/print-pdf/$application->form_code") }}"
+                                                <a href="{{ url("report/archive-agreement/print-pdf/$application->form_code") }}"
                                                    class="btn btn-warning-gradien btn-sm">
                                                     <i class="bi bi-printer"></i> Print
                                                 </a>
@@ -76,9 +76,6 @@
                     </div>
                 </x-card>
             </div>
-            <pre>
-                {{ json_encode($applications, 128) }}
-            </pre>
         </div>
         <div class="modal fade" id="modal-posting" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -97,11 +94,11 @@
                                 <li> - Klik posting untuk menyimpan dan melakukan Cetak data.</li>
                                 <li> - Apabila sudah di Posting data tidak dapat di Edit ?</li>
                             </ul>
-                            <x-input type="" name="agreement_id"/>
+                            <x-input type="hidden" name="agreement_id"/>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button class="btn btn-success"><i class="bi bi-send"></i> Send Mail</button>
+                            <button class="btn btn-success"><i class="bi bi-send"></i> Posting</button>
                         </div>
                     </form>
                 </div>

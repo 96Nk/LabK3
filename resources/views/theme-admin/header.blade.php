@@ -3,9 +3,9 @@
         <div class="main-header-left">
             <div class="logo-wrapper">
                 <a href="{{ route('home') }}">
-                    <img class="img-fluid w-25" src="{{ asset('assets/images/logo-k3.png') }}"
+                    <img class="img-fluid" width="10%" src="{{ asset('assets/images/logo-prov.png') }}"
                          alt="">
-                    <span style="font-size: 14pt">Application</span>
+                    <span style="font-size: 14pt"> Lab. K3</span>
                 </a>
             </div>
             <div class="toggle-sidebar">

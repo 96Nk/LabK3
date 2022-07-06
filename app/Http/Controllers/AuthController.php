@@ -19,7 +19,7 @@ class AuthController extends Controller
     {
     }
 
-    public final function login(): \Illuminate\Contracts\View\View
+    public final function login()
     {
         return view('auth.login');
     }

@@ -6,18 +6,24 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-header pb-0">
-                        <h5>Manager Teknis</h5>
-                        <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
+                    <div class="card-header pb-0 text-center">
+                        <h5>{{ auth()->user()->name }}</h5>
                     </div>
                     <div class="card-body">
-                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                            deserunt mollit anim id est laborum."</p>
-                        <pre>{{ json_encode(auth()->user()) }}</pre>
+                        <div class="col-sm-6 col-xl-3 col-lg-6">
+                            <div class="card o-hidden border-0">
+                                <div class="bg-primary b-r-4 card-body">
+                                    <div class="media static-top-widget">
+                                        <div class="align-self-center text-center">
+                                            <i class="bi bi-file-arrow-down" style="font-size: 30pt"></i>
+                                        </div>
+                                        <div class="media-body"><span class="m-0">Form Company</span>
+                                            <h4 class="mb-0 counter">000</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

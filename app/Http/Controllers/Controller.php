@@ -45,8 +45,8 @@ class Controller extends BaseController
 
     private function _qrLogo(): Logo
     {
-        return Logo::create(public_path('assets/img/logo-k3.png'))
-            ->setResizeToWidth(150)
+        return Logo::create(public_path('assets/images/logo-prov.png'))
+            ->setResizeToWidth(120)
             ->setResizeToHeight(150);
     }
 
