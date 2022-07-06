@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +24,16 @@ Route::middleware('guest')->group(function () {
         Route::get('registration', 'registration')->name('registration');
         Route::post('registration-store', 'registrationStore');
     });
-    Route::get('/', HomeController::class)->name('home');
+//    Route::get('/', HomeController::class)->name('home');
+    Route::controller(HomeController::class)->group(function () {
+        Route::get('/', 'index')->name('home');
+    });
+    Route::controller(GalleryController::class)->group(function () {
+        Route::get('gallery/{galleryCategoryId}', 'index');
+    });
+    Route::controller(ServiceController::class)->group(function () {
+        Route::get('layanan-kami/{serviceLandingId}', 'index');
+    });
 });
 
 Route::middleware('auth')->prefix('auth')->controller(AuthController::class)->group(function () {

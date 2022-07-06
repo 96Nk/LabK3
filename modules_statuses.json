@@ -8,5 +8,6 @@
     "Gallery": true,
     "Reviews": true,
     "Archive": true,
-    "Report": true
+    "Report": true,
+    "LandingPageService": true
 }
