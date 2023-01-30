@@ -14,7 +14,7 @@
                         @csrf
                         <div class="form-group">
                             <x-input title="Name Head" name="service_head_name" placeholder="Name Head"/>
-                            <x-input type="" name="service_head_id"/>
+                            <x-input type="hidden" name="service_head_id"/>
                         </div>
                         {!! btnAction('save', labelBtn: 'Save') !!}
                     </form>

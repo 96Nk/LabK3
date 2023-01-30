@@ -68,10 +68,11 @@ class UserService
      */
     public final function verificationUser(Request $request): bool|int
     {
-        $email = $request->company_email;
+        $email = $request->username;
+        $password = $request->password;
         $user = User::where('username', $email)->first();
         if (!$user) throw new \Exception('user not found');
-        return $user->update(['is_active' => 1]);
+        return $user->update(['is_active' => 1, 'password' => $password]);
     }
 
     /**
@@ -79,21 +80,22 @@ class UserService
      */
     public final function resetPassword(Request $request): bool|int
     {
-        $email = $request->company_email;
+        $email = $request->username;
+        $password = $request->password;
         $user = User::where('username', $email)->first();
         if (!$user) throw new \Exception('user not found');
-        return $user->update(['password' => 123456]);
+        return $user->update(['password' => $password]);
     }
 
-//    public final function sendMailUser(Request $request): void
-//    {
-//        $mailData = [
-//            'title' => 'Notifikasi User Perusahaan',
-//            'body' => 'Tidak untuk di balas.',
-//            'username' => $request->post('username'),
-//            'password' => $request->post('password'),
-//        ];
-//        Mail::to($mailData['username'])->send(new NotifUserMail($mailData));
-//    }
+    public final function sendMailUser(Request $request): void
+    {
+        $mailData = [
+            'title' => 'Notifikasi User Perusahaan',
+            'body' => 'Tidak untuk di balas.',
+            'username' => $request->post('username'),
+            'password' => $request->post('password'),
+        ];
+        Mail::to($mailData['username'])->send(new NotifUserMail($mailData));
+    }
 
 }

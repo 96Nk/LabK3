@@ -24,14 +24,14 @@ class CompanyController extends Controller
     public function index()
     {
         $get['companies'] = Company::with('user')->get();
-//        $get['random'] = \Str::lower(Str::random(8));
+        $get['random'] = \Str::lower(Str::random(8));
         return view('company::index', $get);
     }
 
     public final function verification(Request $request): \Illuminate\Http\RedirectResponse
     {
         try {
-//            $this->userService->sendMailUser($request);
+            $this->userService->sendMailUser($request);
             $this->userService->verificationUser($request);
             $response = ResponseHelper::success('Berhasil Verifikasi Data Perusahaan');
         } catch (\Exception $exception) {
@@ -44,6 +44,7 @@ class CompanyController extends Controller
     public final function reset(Request $request): \Illuminate\Http\RedirectResponse
     {
         try {
+            $this->userService->sendMailUser($request);
             $this->userService->resetPassword($request);
             $response = ResponseHelper::success('Berhasil Reset Password Perusahaan');
         } catch (\Exception $exception) {
@@ -53,18 +54,18 @@ class CompanyController extends Controller
         return back();
     }
 
-//    public final function resending(Request $request)
-//    {
-//        try {
-//            $this->userService->sendMailUser($request);
-//            $this->userService->forgetPasswordUser($request);
-//            $response = ResponseHelper::success('Berhasil mengirim ulang email');
-//        } catch (\Exception $exception) {
-//            $response = ResponseHelper::error($exception->getMessage());
-//        }
-//        $this->setFlash($response['message'], $response['status']);
-//        return back();
-//    }
+    public final function resending(Request $request)
+    {
+        try {
+            $this->userService->sendMailUser($request);
+            $this->userService->forgetPasswordUser($request);
+            $response = ResponseHelper::success('Berhasil mengirim ulang email');
+        } catch (\Exception $exception) {
+            $response = ResponseHelper::error($exception->getMessage());
+        }
+        $this->setFlash($response['message'], $response['status']);
+        return back();
+    }
 
     public final function update(Request $request, Company $company)
     {

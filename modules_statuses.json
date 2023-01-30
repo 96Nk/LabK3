@@ -1,17 +1,13 @@
 {
-    "Home": true,
-    "Settings": true,
-    "Referensi": true,
     "Company": true,
-    "Services": true,
-    "Utility": true,
     "Gallery": true,
-    "Reviews": true,
-    "Archive": true,
+    "Home": true,
+    "LandingPageService": true,
+    "Referensi": true,
     "Report": true,
-<<<<<<< HEAD
-    "LandingPageService": true
-=======
-    "Signer": true
->>>>>>> 31f7dccadca39afcc72c03a9d188cb4f6ea04418
+    "Reviews": true,
+    "Services": true,
+    "Settings": true,
+    "Signer": true,
+    "Utility": true
 }

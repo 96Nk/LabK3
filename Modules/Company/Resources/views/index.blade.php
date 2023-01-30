@@ -68,12 +68,14 @@
                     </div>
                     <div class="modal-body">
                         <h5 class="company-name"></h5>
-                        {{--                        <p>--}}
-                        {{--                            Verifikasi akan mengirim data username dan password ke Email--}}
-                        {{--                            <span style="font-weight: bold" class="company-email"></span>.--}}
-                        {{--                        </p>--}}
+                        <p>
+                            Verifikasi akan mengirim data username dan password ke Email
+                            <span style="font-weight: bold" class="company-email"></span>.
+                        </p>
                         <p>Apakah anda yakin untuk memverifikasi Perusahaan ini.?</p>
-                        <input type="hidden" class="form-control company-email" name="company_email" required>
+                        <input type="hidden" class="form-control company-email" name="username" required>
+                        <input type="hidden" class="form-control password" name="password" value="{{ $random }}"
+                               required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -96,11 +98,10 @@
                     </div>
                     <div class="modal-body">
                         <h5 class="company-name"></h5>
-                        <p>
-                            Reset password akun Perusahaan menjadi
-                            <span style="font-weight: bold">123456</span>.
-                        </p>
-                        <input type="hidden" class="form-control company-email" name="company_email" required>
+                        <p>Reset password akan dikirim ke Email akun Perusahaan</p>
+                        <input type="hidden" class="form-control company-email" name="username" required>
+                        <input type="hidden" class="form-control password" name="password" value="{{ $random }}"
+                               required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

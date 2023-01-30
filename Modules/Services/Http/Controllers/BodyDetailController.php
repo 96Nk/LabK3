@@ -29,7 +29,15 @@ class BodyDetailController extends Controller
             'bodies' => ServiceBody::all(),
             'details' => ServiceDetail::all(),
         ];
-        return view('services::body_detail.index', $get);
+        $data['heads'] = ServiceHead::all();
+        $data['head_id'] = $request->get('head');
+
+        if ($data['head_id']) {
+            $data['bodies'] = ServiceBody::where('service_head_id', $data['head_id'])->get();
+            $data['details'] = ServiceDetail::where('service_head_id', $data['head_id'])->get();
+        }
+
+        return view('services::body_detail.index', $data);
     }
 
 

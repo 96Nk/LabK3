@@ -72,7 +72,10 @@
             </ul>
     </section>
     @include('landing-page.sections.section-2')
-    @include('landing-page.sections.section-3')
+    <section class="core-feature section-py-space  bg-white" id="layanan">
+        <x-landing-page.layanan-kami/>
+    </section>
+
     @include('landing-page.sections.section-4')
     @include('landing-page.sections.section-5')
     <x-landing-page.footer></x-landing-page.footer>
