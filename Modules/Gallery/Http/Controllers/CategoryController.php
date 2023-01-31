@@ -23,6 +23,8 @@ class CategoryController extends Controller
             'categories' => GalleryCategory::active()->get(),
         ];
         return view('gallery::index', $get);
+//        echo json_encode('day');
+//        die();
     }
 
     public function store(Request $request)

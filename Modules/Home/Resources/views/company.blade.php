@@ -176,14 +176,14 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-md-4">Singer Name</label>
+                                        <label class="col-md-4">Signer Name</label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" name="signer_name" required
                                                    value="{{ $data_user->company->signer_name }}">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-md-4">Singer Position</label>
+                                        <label class="col-md-4">Signer Position</label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" name="signer_position" required
                                                    value="{{ $data_user->company->signer_position }}">

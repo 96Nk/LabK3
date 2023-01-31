@@ -40,7 +40,6 @@ class BodyDetailController extends Controller
         return view('services::body_detail.index', $data);
     }
 
-
     public function storeBody(BodyRequest $request)
     {
         try {

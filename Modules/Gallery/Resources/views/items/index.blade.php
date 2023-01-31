@@ -55,7 +55,7 @@
         <script>
             $('.btn-delete').click(function () {
                 const params = $(this).data('params')
-                swalAction(BASEURL(`gallery/items/${params.gallery_item_id}`),
+                swalAction(BASEURL(`admin/items/${params.gallery_item_id}`),
                     {_token: "{{ csrf_token() }}"},
                     {method: 'DELETE'}
                 )

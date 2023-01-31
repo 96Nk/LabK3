@@ -14,7 +14,7 @@
 Route::prefix('landing-page')->group(function () {
     Route::prefix('services')->group(function () {
         Route::get('/', 'LandingPageServiceController@index');
-        Route::get('create', 'LandingPageServiceController@create');
+        Route::get('create', 'LandingPageServiceController@create')->name('landing-page-service.create');
         Route::post('store', 'LandingPageServiceController@store');
         Route::post('upload', 'LandingPageServiceController@upload')->name('landingPage_service_upload');
         Route::get('show/{serviceLandingId}', 'LandingPageServiceController@show');

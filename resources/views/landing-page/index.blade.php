@@ -9,8 +9,8 @@
                     <div class="landing-home-contain">
                         <div>
                             <div class="landing-logo">
-                                <img class="img-fluid" src="{{asset('assets/images/landing/landing-home/logo.png')}}"
-                                     alt="">
+                                <img class="img-fluid" src="{{asset('assets/images/logo-k3.png')}}"
+                                     alt="" width="100" >
                             </div>
                             <h6>Selamat Datang di situs</h6>
                             <h2><span>Balai Laboratorium Kesehatan dan Kesalamatan Kerja</span></h2>

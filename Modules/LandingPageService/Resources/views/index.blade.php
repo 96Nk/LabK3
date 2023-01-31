@@ -3,9 +3,10 @@
     <x-admin.page-header title="Services" items="Landing Page|Service"/>
     <div class="container-fluid">
         <x-alert-session col="6"/>
-        <div class="card shadow-sm">
-            <div class="card-header">
-
+        <div class="row">
+            <div class="col-md-3">
+                <a href="{{ route('landing-page-service.create') }}" class="btn btn-primary"><i class="bi bi-plus"></i>
+                    Add</a>
             </div>
         </div>
         <div class="row">

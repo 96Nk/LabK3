@@ -42,7 +42,7 @@
                                     <td>{{ $category->gallery_category_name }}</td>
                                     <td>{{ $category->gallery_category_status }}</td>
                                     <td class="text-center">
-                                        <a href="/gallery/items/{{$category->gallery_category_id}}"
+                                        <a href="/admin/items/{{$category->gallery_category_id}}"
                                            class="btn btn-primary btn-xs"><i
                                                 class="bi bi-plus-circle"></i>
                                             Items</a>
@@ -65,7 +65,7 @@
         <script>
             $('.btn-delete').click(function () {
                 const params = $(this).data('params')
-                swalAction(BASEURL(`gallery/category/${params.gallery_category_id}`),
+                swalAction(BASEURL(`admin/gallery/${params.gallery_category_id}`),
                     {_token: "{{ csrf_token() }}"},
                     {method: 'DELETE'}
                 )
