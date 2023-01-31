@@ -2,8 +2,8 @@
     <div class="row p-50">
         <div class="col-md-3 text-center">
             <img
-                src="https://balaik3jakarta.kemnaker.go.id/__asset/__images/content/files13180kepala_depanxx.png"
-                alt="">
+                src="{{ asset('assets/images/ibulili4x6-min.png')}}"
+                alt="" style="width: 128px;">
         </div>
         <div class="col-md-8">
             <div class="col-12">
@@ -15,9 +15,9 @@
                     dan produktivitas dapat optimal sehingga barang/jasa yang dihasilkan memiliki daya saing
                     untuk merebut pasar baik dalam maupun luar negeri."
                 </p>
-                <h6 class="mb-0">Dr. Agus Triyono, S.Si. M. Kes
+                <h6 class="mb-0">Noorlianisyah, SKM
                 </h6>
-                <p>Kepala Balai Laboratorium K3</p>
+                <p>Kepala Laboratorium Kesehatan dan Keselamatan Kerja</p>
             </div>
         </div>
     </div>
