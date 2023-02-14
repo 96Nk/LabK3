@@ -1,7 +1,7 @@
 <x-admin.app-layout title="Reviews">
     <x-loader-theme/>
     <x-alert-session col="4"/>
-    <x-admin.page-header title="Reviews Page" items="Reviews"/>
+    <x-admin.page-header title="Halaman Petinjauan" items="Petinjauan"/>
     <!-- Container-fluid starts-->
 
     <div class="container-fluid">
@@ -9,19 +9,19 @@
             <div class="col-md-12">
                 <x-card>
                     @slot('header')
-                        <h5>Form Application</h5>
+                        <h5>Permohonan Pengujian :</h5>
                     @endslot
                     <div class="table-responsive">
                         <table class="table table-bordered table-sm table-1">
                             <thead>
                             <tr>
-                                <th>Application</th>
-                                <th>Signer Name</th>
-                                <th>Signer Position</th>
-                                <th>About</th>
-                                <th>Date</th>
-                                <th>Plan Date</th>
-                                <th>Review Date</th>
+                                <th>No.</th>
+                                <th>TTD</th>
+                                <th>Jabatan</th>
+                                <th>Perihal</th>
+                                <th>Tanggal</th>
+                                <th>Rencana Pengujian</th>
+                                <th>Kaji Ulang</th>
                                 <th><i class="bi bi-plus-circle"></i></th>
                                 <th><i class="bi bi-send-check"></i></th>
                             </tr>

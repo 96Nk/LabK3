@@ -3,8 +3,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="footer-contain">
-                    <h3>Laboratorium Kesehatan dan Keselamatan Kerja Provinsi Kalimantan Selatan<br>(Balai Hiperkes Dan
-                        Keselamatan Kerja)</h3>
+                    <h3>Laboratorium Kesehatan dan Keselamatan Kerja Provinsi Kalimantan Selatan</h3>
                     <p>Jl. Brigjen H. Hasan Basry No.56, Sungai Miai, Kec. Banjarmasin Utara, Kota Banjarmasin,
                         Kalimantan Selatan 70123</p>
                 </div>

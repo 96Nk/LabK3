@@ -1,6 +1,6 @@
 <x-admin.app-layout title="Home">
     <x-loader-theme/>
-    <x-admin.page-header title="Home Page" items="Home"/>
+    <x-admin.page-header title="Halaman Home" items="Home"/>
     <!-- Container-fluid starts-->
     <div class="container-fluid">
         <div class="row">
@@ -9,28 +9,21 @@
                 <x-card>
                     @slot('header')
                         <div class="text-center">
-                            <h5>Welcome {{ $data_user->company->company_name }}</h5>
-                            <span>System Information Testing Lab. K3</span>
+                            <h5>{{ $data_user->company->company_name }}</h5>
+                            <span>Sistem Informasi Pelayanan Pengujian Lab. K3</span>
                         </div>
                     @endslot
                     <div class="row">
                         <div class="col-md-6">
                             <x-card>
-                                <h5>Description :</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cumque ipsa
-                                    ipsam laborum magni, nisi ratione soluta voluptatem. Cum eius facere itaque
-                                    laborum
-                                    magnam minus nulla officia, possimus temporibus voluptatibus?</p>
-                            </x-card>
-                            <x-card>
-                                <h3>Test Application</h3>
+                                <h3>Permohonan Pengujian</h3>
                                 <div class="table-responsive">
                                     <table class="table table-sm table-bordered table-1">
                                         <thead>
                                         <tr>
-                                            <th>Application</th>
-                                            <th>About</th>
-                                            <th>Date</th>
+                                            <th>No.</th>
+                                            <th>Perihal</th>
+                                            <th>Tanggal</th>
                                             <th>Status</th>
                                         </tr>
                                         </thead>
@@ -61,20 +54,20 @@
                         </div>
                         <div class="col-md-6">
                             <x-card>
-                                <h5>Profile Company</h5>
+                                <h5>Profil Perusahaan</h5>
                                 <form action="{{ url('admin/company/'. $data_user->company->company_id) }}"
                                       method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('put')
                                     <div class="row mb-3">
-                                        <label class="col-md-4">Name Company</label>
+                                        <label class="col-md-4">Nama Perusahaan</label>
                                         <div class="col-md-8">
                                             <input class="form-control" name="company_name" required
                                                    value="{{ $data_user->company->company_name }}">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-md-4">Email Company</label>
+                                        <label class="col-md-4">Email Perusahaan</label>
                                         <div class="col-md-8">
                                             <input class="form-control" name="company_email" readonly required
                                                    value="{{ $data_user->company->company_email }}">
@@ -82,7 +75,7 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-md-4">Number Phone</label>
+                                        <label class="col-md-4">No. HP</label>
                                         <div class="col-md-8">
                                             <div class="input-group">
                                                 <span class="input-group-text"><i class="bi bi-phone"></i></span>
@@ -99,7 +92,7 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-md-4">Province</label>
+                                        <label class="col-md-4">Provinsi</label>
                                         <div class="col-md-8">
                                             <select class="form-select select-province select2" name="prov_id" required>
                                                 <option selected value="">.: Provinsi :.</option>
@@ -112,10 +105,10 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-md-4">City</label>
+                                        <label class="col-md-4">Kab/Kota</label>
                                         <div class="col-md-8">
                                             <select class="form-select select-city select2" name="city_id" required>
-                                                <option selected disabled value="">.: City :.</option>
+                                                <option selected disabled value="">.: Kab/Kota :.</option>
                                                 @foreach($cities as $city)
                                                     @if($city['prov_id'] == $data_user->company->prov_id)
                                                         @php($selectedCity = $city['city_id'] == $data_user->company->city_id ? 'selected' :'')
@@ -127,11 +120,11 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-md-4">District</label>
+                                        <label class="col-md-4">Kecamatan</label>
                                         <div class="col-md-8">
                                             <select class="form-select select-district select2" name="district_id"
                                                     required>
-                                                <option selected disabled value="">.: District :.</option>
+                                                <option selected disabled value="">.: Kecamatan :.</option>
                                                 @foreach($districts as $district)
                                                     @if($district['city_id'] == $data_user->company->city_id)
                                                         @php($selectedDistrict = $district['district_id'] == $data_user->company->district_id ? 'selected' :'')
@@ -144,7 +137,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label class="col-md-4">Village</label>
+                                        <label class="col-md-4">Desa</label>
                                         <div class="col-md-8">
                                             <select class="form-select select-village select2" name="village_id"
                                                     required>
@@ -160,7 +153,7 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-md-4">Address</label>
+                                        <label class="col-md-4">Alamat</label>
                                         <div class="col-md-8">
                                         <textarea class="form-control"
                                                   name="company_address"
@@ -168,7 +161,7 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-md-4">Description Company</label>
+                                        <label class="col-md-4">Tentang Perusahaan</label>
                                         <div class="col-md-8">
                                         <textarea class="form-control"
                                                   name="company_description"
@@ -176,21 +169,21 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-md-4">Signer Name</label>
+                                        <label class="col-md-4">Penanda Tangan</label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" name="signer_name" required
                                                    value="{{ $data_user->company->signer_name }}">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-md-4">Signer Position</label>
+                                        <label class="col-md-4">Jabatan</label>
                                         <div class="col-md-8">
                                             <input type="text" class="form-control" name="signer_position" required
                                                    value="{{ $data_user->company->signer_position }}">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-md-4">Logo Company</label>
+                                        <label class="col-md-4">Logo Perusahaan</label>
                                         <div class="col-md-8">
                                             <div class="mb-3">
                                                 <label for="formFile" class="form-label">Upload File Images</label>

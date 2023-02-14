@@ -10,16 +10,15 @@
                         <div>
                             <div class="landing-logo">
                                 <img class="img-fluid" src="{{asset('assets/images/logo-k3.png')}}"
-                                     alt="" width="100" >
+                                     alt="" width="100">
                             </div>
                             <h6>Selamat Datang di situs</h6>
-                            <h2><span>Balai Laboratorium Kesehatan dan Kesalamatan Kerja</span></h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est maxime nam ratione vel!
-                                Adipisci, aliquam dolore eligendi eum in inventore labore, magnam maiores molestias,
-                                nobis non perferendis quidem quod tempora.</p><a class="btn-landing btn-lg"
-                                                                                 href="index.html" target="_blank">view
-                                demo
-                            </a>
+                            <h2><span>Laboratorium Kesehatan dan Kesalamatan Kerja</span></h2>
+                            <p> Berdasarkan Peraturan Gubernur No. 0143 Tahun 2017 Laboratorium Kesehatan dan
+                                Keselamatan Kerja Bertugas Melaksanakan Kegiatan Teknis Operasional Dinas Tenaga Kerja
+                                dan Transmigrasi di Bidang Pelayanan Jasa Pengujian, Fasilitasi, Supervisi, Penyuluhan
+                                dan Bimbingan Teknis Higiene Perusahaan, Ergonomi, Kesehatan dan Keselamatan Kerja
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -38,35 +37,40 @@
                     <img class="img-fluid img-parten top-parten"
                          src="{{asset('assets/images/landing/landing-home/home-position/img-parten.png')}}" alt="">
                     <div>
-                        <img class="img-fluid img1 v-align-t m-t-30"
-                             src="{{asset('assets/images/landing/landing-home/home-position/img-1.jpg')}}" alt="">
-                        <img class="img-fluid img2 v-align-t"
-                             src="{{asset('assets/images/landing/landing-home/home-position/img-2.jpg')}}" alt="">
-                        <img class="img-fluid img3 v-align-b"
-                             src="{{asset('assets/images/landing/landing-home/home-position/img-3.jpg')}}" alt="">
-                        <img class="img-fluid img4 v-align-b"
-                             src="{{asset('assets/images/landing/landing-home/home-position/img-4.jpg')}}" alt="">
+                        <img class="img-fluid img-70 v-align-t m-t-30"
+                             src="{{asset('assets/images/front/1.jpg')}}" alt="">
+                        <img class="img-fluid img-70 v-align-t"
+                             src="{{asset('assets/images/front/2.jpg')}}" alt="">
+                        <img class="img-fluid img-70 v-align-b"
+                             src="{{asset('assets/images/front/3.jpg')}}" alt="">
+                        <img class="img-fluid img-70 v-align-b"
+                             src="{{asset('assets/images/front/4.jpeg')}}" alt="">
                     </div>
                 </li>
                 <li>
                     <div>
-                        <img class="img-fluid img5"
-                             src="{{asset('assets/images/landing/landing-home/home-position/img-5.png')}}" alt="">
-                        <img class="img-fluid img6 v-align-c"
-                             src="{{asset('assets/images/landing/landing-home/home-position/img-6.jpg')}}" alt="">
+                        <img class="img-fluid img-50"
+                             src="{{asset('assets/images/front/5.jpeg')}}" alt="">
+                        <img class="img-fluid img-50 v-align-c"
+                             src="{{asset('assets/images/front/6.jpg')}}" alt="">
+                        <img class="img-fluid img-50 v-align-c"
+                             src="{{asset('assets/images/front/7.jpg')}}" alt="">
                     </div>
                 </li>
                 <li>
                     <img class="img-fluid img-parten bottom-parten"
                          src="{{asset('assets/images/landing/landing-home/home-position/img-parten.png')}}" alt="">
                     <div>
-                        <img class="img-fluid img7 v-align-t"
-                             src="{{asset('assets/images/landing/landing-home/home-position/img-7.jpg')}}" alt="">
-                        <img class="img-fluid img8 v-align-t"
-                             src="{{asset('assets/images/landing/landing-home/home-position/img-8.jpg')}}" alt="">
-                        <img class="img-fluid img9"
-                             src="{{asset('assets/images/landing/landing-home/home-position/img-9.jpg')}}"
-                             alt="">
+                        <img class="img-fluid img-50 v-align-t"
+                             src="{{asset('assets/images/front/8.jpg')}}" alt="">
+                        <img class="img-fluid img-50 v-align-t"
+                             src="{{asset('assets/images/front/9.jpg')}}" alt="">
+                        <img class="img-fluid img-50 v-align-t"
+                             src="{{asset('assets/images/front/10.jpg')}}" alt="">
+                        <img class="img-fluid img-50 v-align-t"
+                             src="{{asset('assets/images/front/11.jpg')}}" alt="">
+                        <img class="img-fluid img-50 v-align-t"
+                             src="{{asset('assets/images/front/12.jpg')}}" alt="">
                     </div>
                 </li>
             </ul>

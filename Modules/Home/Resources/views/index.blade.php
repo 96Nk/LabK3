@@ -1,23 +1,24 @@
 <x-admin.app-layout title="Home">
     <x-loader-theme/>
-    <x-admin.page-header title="Home Page" items="Home" />
+    <x-admin.page-header title="Home Page" items="Home"/>
     <!-- Container-fluid starts-->
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-md-4">
+                <div class="alert alert-success" role="alert">
+                    Perusahaan Belum di Verifikasi sebanyak 5 Perusahaan.
+                </div>
+            </div>
+            <div class="col-sm-8">
                 <div class="card">
                     <div class="card-header pb-0">
-                        <h5>Sample Card</h5>
-                        <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
+                        <h5>Welcome App. Layanan Lab. K3</h5>
+                        <span>Laboratorium Kesehatan dan Keselamatan Kerja</span>
                     </div>
                     <div class="card-body">
-                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                            deserunt mollit anim id est laborum."</p>
-                        <pre>{{ json_encode(auth()->user()) }}</pre>
+                        <p>" Lab k3 provinsi kalsel merupakan salah satu unit pelaksana teknis daerah dinas tenaga kerja
+                            dan transmigrasi provinsi kalsel yang mempunyai tugas pokok berupa pelayanan jasa pengujian
+                            Saya sangat mendukung sekali adanya sistem informasi."</p>
                     </div>
                 </div>
             </div>

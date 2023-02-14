@@ -1,6 +1,6 @@
-<x-admin.app-layout title="Company">
+<x-admin.app-layout title="Perusahaan">
     <x-loader-theme/>
-    <x-admin.page-header title="Company Page" items="Company"/>
+    <x-admin.page-header title="Halaman Perusahaan" items="Perusahaan"/>
     <!-- Container-fluid starts-->
     <x-alert-session col="6"/>
     <div class="container-fluid">
@@ -8,29 +8,31 @@
             <div class="col-md-8">
                 <x-card>
                     @slot('header')
-                        <h5>Form Test</h5>
+                        <h5>Formulir Pengujian</h5>
                     @endslot
                     <form method="POST" action="{{ route('test.form') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-6">
-                                <x-input title="Signer Name" name="signer_name"
+                                <x-input title="Nama Penanda Tangan" name="signer_name"
                                          value="{{ $company['signer_name'] }}" required="true"/>
-                                <x-input title="Signer Name" name="signer_position"
+                                <x-input title="Jabatan" name="signer_position"
                                          value="{{ $company['signer_position'] }}" required="true"/>
-                                <x-input type="date" title="Test Date Plan" name="test_date_plan" required="true"/>
+                                <x-input type="date" title="Tanggal Rencana Pengujian" name="test_date_plan"
+                                         required="true"/>
                             </div>
                             <div class="col-6">
 
-                                <x-input type="date" title="Date Application" name="application_date" required="true"/>
-                                <x-input title="Number Application" name="application_number" required="true"/>
-                                <x-input title="About Application" name="application_about" required="true"/>
+                                <x-input type="date" title="Tanggal Surat Permohonan" name="application_date"
+                                         required="true"/>
+                                <x-input title="No. Permohonan" name="application_number" required="true"/>
+                                <x-input title="Perihal Permohonan" name="application_about" required="true"/>
 
                                 <div class="mb-3">
-                                    <label>File Application</label>
+                                    <label>File Permohonan</label>
                                     <input class="form-control custom-file-input" name="file"
                                            type="file" id="formFile">
-                                    <note>Note : The uploaded file format must be an PDF</note>
+                                    <note>Note : Format file yang diunggah harus berupa PDF</note>
                                 </div>
                             </div>
                         </div>
@@ -39,7 +41,7 @@
                         {{--                    <pre>{{ json_encode($services, 128) }}</pre>--}}
                         @foreach($services as $service)
                             <span>{{ $service->service_head_name }}</span>
-                            <table class="table table-bordered table-sm">
+                            <table class="table table-bordered table-sm table-2">
                                 <thead>
                                 <tr>
                                     <th>No</th>

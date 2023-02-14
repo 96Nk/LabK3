@@ -5,6 +5,7 @@ namespace Modules\Reviews\Http\Controllers;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Form;
+use App\Models\FormAdditional;
 use App\Models\RefEmployee;
 use App\Models\ReviewOfficerTemp;
 use Illuminate\Http\Request;
@@ -25,7 +26,8 @@ class TestApplicationController extends Controller
     {
         $employees = RefEmployee::all();
         $officers = ReviewOfficerTemp::where('form_code', $form->form_code)->get();
-        return view('reviews::reviews.form_verification', compact('form', 'employees', 'officers'));
+        $additionals = FormAdditional::where('form_code', $form->form_code)->get();
+        return view('reviews::reviews.form_verification', compact('form', 'employees', 'officers', 'additionals'));
     }
 
     public final function reviewForm(Request $request, Form $form, ReviewService $reviewService)
@@ -51,7 +53,6 @@ class TestApplicationController extends Controller
         $this->setFlash($response['message'], $response['status']);
         return to_route('reviews.test-application');
     }
-
 
 
     public function posting(Request $request, ReviewService $reviewService)
@@ -87,6 +88,43 @@ class TestApplicationController extends Controller
             $temp->delete();
             $data = $reviewService->getReviewOfficeTemp($temp->form_code);
             $response = ResponseHelper::success(data: $data->toArray());
+        } catch (\Exception $exception) {
+            $response = ResponseHelper::error($exception->getMessage());
+        }
+        return response()->json($response);
+    }
+
+    public function storeCostTemp(Request $request, ReviewService $reviewService)
+    {
+        try {
+            $reviewService->addCostTemp($request);
+            $response = ResponseHelper::success();
+        } catch (\Exception $exception) {
+            $response = ResponseHelper::error($exception->getMessage());
+        }
+        $this->setFlash($response['message'], $response['status']);
+        return back();
+    }
+
+    public function updateCostTemp(Request $request, FormAdditional $additional, ReviewService $reviewService)
+    {
+        try {
+//            echo json_encode($additional);
+//            die();
+            $reviewService->updateCostTemp($request, $additional);
+            $response = ResponseHelper::success();
+        } catch (\Exception $exception) {
+            $response = ResponseHelper::error($exception->getMessage());
+        }
+        $this->setFlash($response['message'], $response['status']);
+        return back();
+    }
+
+    public function deleteCostTemp(Request $request, FormAdditional $additional)
+    {
+        try {
+            $additional->delete();
+            $response = ResponseHelper::success();
         } catch (\Exception $exception) {
             $response = ResponseHelper::error($exception->getMessage());
         }

@@ -4,6 +4,7 @@ namespace Modules\Reviews\Http\Services;
 
 use App\Models\Company;
 use App\Models\Form;
+use App\Models\FormAdditional;
 use App\Models\ReviewOfficer;
 use App\Models\ReviewOfficerTemp;
 use Carbon\Carbon;
@@ -46,6 +47,32 @@ class ReviewService
         if ($status === false) throw new \Exception('Gagal Input Data.');
         return $status;
     }
+
+
+    public final function addCostTemp(Request $request): bool
+    {
+        $attributes = $request->validate([
+            'form_code' => 'required',
+            'form_additional_desc' => 'required',
+            'form_additional_cost' => 'required',
+        ]);
+        $status = FormAdditional::insert($attributes);
+        if ($status === false) throw new \Exception('Gagal Input Data.');
+        return $status;
+    }
+
+    public final function updateCostTemp(Request $request, FormAdditional $additional): bool
+    {
+        $attributes = $request->validate([
+            'form_code' => 'required',
+            'form_additional_desc' => 'required',
+            'form_additional_cost' => 'required',
+        ]);
+        $status = $additional->update($attributes);
+        if ($status === false) throw new \Exception('Gagal Input Data.');
+        return $status;
+    }
+
 
     /**
      * @throws \Exception

@@ -13,6 +13,9 @@ Route::middleware(['auth', 'check-user'])->group(function () {
         Route::get('/{form}', 'formVerification');
         Route::post('/officer-temp', 'storeOfficerTemp');
         Route::delete('/officer-temp/{temp}', 'deleteOfficerTemp');
+        Route::post('/cost-temp', 'storeCostTemp');
+        Route::put('/cost-temp/{additional}', 'updateCostTemp');
+        Route::delete('/cost-temp/{additional}', 'deleteCostTemp');
     });
 
     Route::prefix('reviews/archive')->controller(ArchiveController::class)->group(function () {

@@ -1,6 +1,6 @@
-<x-admin.app-layout title="Company">
+<x-admin.app-layout title="Perusahaan">
     <x-loader-theme/>
-    <x-admin.page-header title="Application Test" items="Company|Application|Detail"/>
+    <x-admin.page-header title="Permohonan Pengujian" items="Perusahaan|Permohonan|Detail"/>
     <!-- Container-fluid starts-->
     <x-alert-session col="6"/>
     <div class="container-fluid">
@@ -8,7 +8,7 @@
             <div class="col-md-5">
                 <x-card>
                     @slot('header')
-                        <h5>Application</h5>
+                        <h5>Permohonan</h5>
                     @endslot
                     <div class="table-responsive">
                         <table class="table table-xs table-borderless">
@@ -71,33 +71,33 @@
                 </x-card>
                 <x-card>
                     @slot('header')
-                        <h5>Tracking Application</h5>
+                        <h5>Pelacakan Permohonan</h5>
                     @endslot
                     <x-card>
-                        <h5>Review Application Test</h5>
+                        <h5>Petinjauan : </h5>
                         @if($form->review_status == 0)
-                            <h6>Waiting . . . </h6>
+                            <h6>Menunggu . . . </h6>
                         @elseif($form->review_status == 1)
-                            <span>Date Test Review : {{ formatDateIndo($form->test_date_review) }} </span>
+                            <span>Tanggal Petinjauan : {{ formatDateIndo($form->test_date_review) }} </span>
                             <br>
-                            <span style="font-size: 10pt">Date Validated :  {{ $form->review_date }}</span>
+                            <span style="font-size: 10pt">Tanggal Validasi :  {{ $form->review_date }}</span>
                         @else
-                            <h6 class="alert alert-danger">Status Application Cancel</h6>
-                            <span style="font-size: 10pt">Date Validated :  {{ $form->review_date }}</span>
-                            <p>With Reason : <span>{{$form->desc_cancelled}}</span></p>
+                            <h6 class="alert alert-danger">Status Pembatalan Permohonan</h6>
+                            <span style="font-size: 10pt">Tanggal Validasi :  {{ $form->review_date }}</span>
+                            <p>Alasan : <span>{{$form->desc_cancelled}}</span></p>
                         @endif
                     </x-card>
                     @if($form->review_status == 1)
                         <x-card>
-                            <h5>Verification Application Test</h5>
+                            <h5>Verifikasi Permohonan</h5>
                             @if($form->verification_status == 0)
-                                <h6>Waiting . . . </h6>
+                                <h6>Menunggu . . . </h6>
                             @elseif($form->verification_status == 1)
-                                <span style="font-size: 10pt">Date Validated :  {{ $form->verification_date }}</span>
+                                <span style="font-size: 10pt">Tanggal Validasi :  {{ $form->verification_date }}</span>
                             @else
-                                <h6 class="alert alert-danger">Status Application Cancel</h6>
-                                <span style="font-size: 10pt">Date Validated :  {{ $form->verification_date }}</span>
-                                <p>With Reason : <span>{{$form->desc_cancelled}}</span></p>
+                                <h6 class="alert alert-danger">Status Pembatalan</h6>
+                                <span style="font-size: 10pt">Tanggal Validasi :  {{ $form->verification_date }}</span>
+                                <p>Alasan : <span>{{$form->desc_cancelled}}</span></p>
                             @endif
                         </x-card>
                     @endif
@@ -106,7 +106,7 @@
             <div class="col-md-7">
                 <x-card>
                     @slot('header')
-                        <h5>Cost Breakdown</h5>
+                        <h5>Rincian Biaya</h5>
                     @endslot
                     @foreach($form->form_services_head as $head)
                         <span>{{$head->service_head_name}}</span>

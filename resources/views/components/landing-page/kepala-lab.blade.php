@@ -9,11 +9,14 @@
             <div class="col-12">
                 <br>
                 <p style="text-align: justify; font-style: italic">
-                    "Kebijakan penerapan K3 bertujuan untuk menciptakan budaya K3 di tempat kerja dalam
-                    rangka mencegah dan mengurangi kecelakaan atau penyakit akibat kerja, Dengan demikian
-                    diharapkan efisiensi
-                    dan produktivitas dapat optimal sehingga barang/jasa yang dihasilkan memiliki daya saing
-                    untuk merebut pasar baik dalam maupun luar negeri."
+                    "Pelaksanaan Kesehatan dan Keselamatan Kerja (K3) adalah salah satu bentuk upaya untuk
+                    menciptakan tempat kerja yang aman, sehat, bebas dari pencemaran lingkungan, sehingga
+                    dapat mengurangi dan atau bebas dari kecelakaan kerja dan penyakit akibat kerja
+                    yang pada akhirnya dapat meningkatkan efisiensi dan produktivitas kerja.
+                    <br>
+                    Kecelakaan kerja tidak saja menimbulkan korban jiwa maupun kerugian materi bagi pekerja
+                    dan pengusaha, tetapi juga dapat mengganggu prosesproduksi secara menyeluruh, merusak
+                    lingkungan yang pada akhirnya akan berdampak pada masyarakat luas."
                 </p>
                 <h6 class="mb-0">Noorlianisyah, SKM
                 </h6>
