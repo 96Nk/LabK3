@@ -5,6 +5,7 @@ namespace Modules\Reviews\Http\Controllers;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Form;
+use App\Models\FormAdditional;
 use App\Models\RefEmployee;
 use App\Models\ReviewOfficer;
 use Illuminate\Http\Request;
@@ -25,7 +26,8 @@ class VerificationController extends Controller
     {
         $employees = RefEmployee::all();
         $officers = ReviewOfficer::where('form_code', $form->form_code)->get();
-        return view('reviews::verification.form_verification', compact('form', 'employees', 'officers'));
+        $additionals = FormAdditional::where('form_code', $form->form_code)->get();
+        return view('reviews::verification.form_verification', compact('form', 'employees', 'officers', 'additionals'));
     }
 
     public function verificationForm(Request $request, ReviewService $reviewService)

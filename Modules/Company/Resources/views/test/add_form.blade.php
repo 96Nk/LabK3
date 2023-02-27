@@ -5,7 +5,7 @@
     <x-alert-session col="6"/>
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <x-card>
                     @slot('header')
                         <h5>Formulir Pengujian</h5>
@@ -38,7 +38,7 @@
                         </div>
                         <h4>Rincian Biaya</h4>
                         <hr>
-                        {{--                    <pre>{{ json_encode($services, 128) }}</pre>--}}
+                        {{--                        <pre>{{ json_encode($services, 128) }}</pre>--}}
                         @foreach($services as $service)
                             <span>{{ $service->service_head_name }}</span>
                             <table class="table table-bordered table-sm table-2">
@@ -66,12 +66,17 @@
                                             <td>{{ $detail->service_detail_name }}</td>
                                             <td class="text-right">{{ numberFormat($detail->service_detail_cost) }}</td>
                                             <td>
-                                                <div class="input-group">
-                                                    <input class="form-control "
-                                                           name="point_sample[{{ $detail->service_detail_id }}]">
+                                                @if($detail->status_disabled == 0)
+                                                    <div class="input-group">
+                                                        <input class="form-control "
+                                                               name="point_sample[{{ $detail->service_detail_id }}]">
+                                                        <span
+                                                            class="input-group-text">{{ $detail->service_detail_unit }}</span>
+                                                    </div>
+                                                @else
                                                     <span
                                                         class="input-group-text">{{ $detail->service_detail_unit }}</span>
-                                                </div>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

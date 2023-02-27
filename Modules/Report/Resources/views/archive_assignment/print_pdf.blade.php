@@ -32,7 +32,7 @@
                 dengan nomor surat : {{$assignment->form->application_number}}
                 tanggal {{$assignment->form->application_date}}
                 untuk {{$assignment->form->application_about}}.
-                <br> - {{ $assignment->assignment_activity }}
+                <br> - {{ $assignment->assignment_charge }}
             </td>
         </tr>
         <tr>
@@ -76,7 +76,7 @@
         <tr>
             <td>Pembebanan SPT</td>
             <td>:</td>
-            <td>{{ $assignment->assignment_activity }}</td>
+            <td>{{ $assignment->assignment_charge }}</td>
         </tr>
     </table>
     <p>Demikian Surat Perintah ini dibuat untuk dilaksanakan sebagaimana mestinya dan setelah

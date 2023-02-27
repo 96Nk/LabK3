@@ -22,7 +22,9 @@ class AuthService
         $user = User::where('username', $username)->first();
         if (!$user) throw new \Exception('login failed !!!');
         if ($user->is_active != 1) throw new \Exception('Your user is not active.');
-        return Auth::attempt(['username' => $username, 'password' => $password]);
+        $status = Auth::attempt(['username' => $username, 'password' => $password]);
+        if (!$status) throw new \Exception('User failed !!!');
+        return $status;
     }
 
 }

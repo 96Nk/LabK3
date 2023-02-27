@@ -22,7 +22,7 @@ Route::middleware(['auth', 'check-user'])->group(function () {
             Route::post('verification', 'verification')->name('company.verification');
             Route::post('reset', 'reset')->name('company.reset');
             Route::put('/{company}', 'update');
-            Route::delete('/{company}', 'destroy');
+            Route::delete('/delete/{company}', 'destroy');
         });
         Route::put('/{company}', 'update');
     });

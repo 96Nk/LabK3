@@ -1,6 +1,6 @@
-<x-admin.app-layout title="Report">
+<x-admin.app-layout title="Laporan">
     <x-loader-theme/>
-    <x-admin.page-header title="Agreement Letter" items="Report"/>
+    <x-admin.page-header title="Perjanjian Kerja" items="Laporan|Perjanjian Kerja"/>
     <!-- Container-fluid starts-->
     <x-alert-session col="6"/>
     <div class="container-fluid">

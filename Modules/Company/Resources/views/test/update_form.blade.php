@@ -5,7 +5,7 @@
     <x-alert-session col="6"/>
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <x-card>
                     @slot('header')
                         <h5>Form Update Test</h5>
@@ -48,14 +48,13 @@
                         {{--                    <pre>{{ json_encode($services, 128) }}</pre>--}}
                         @foreach($services as $service)
                             <span>{{ $service->service_head_name }}</span>
-                            <table class="table table-bordered table-sm">
+                            <table class="table table-bordered table-sm table-2">
                                 <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>Parameter</th>
                                     <th>Harga</th>
                                     <th>Jumlah Titik</th>
-                                    <th>Total Harga</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -66,14 +65,14 @@
                                         <td>{{ $body->service_body_name }}</td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
                                     </tr>
                                     @php($noDetail = 1)
                                     @foreach($body->service_details as $detail)
-                                        @php($point_sample)
+                                        @php($point_sample = '')
                                         @foreach($form->form_services as $form_service)
                                             @if($detail->service_detail_id == $form_service->service_detail_id)
                                                 @php($point_sample = $form_service->point_sample)
+                                                @break
                                             @endif
                                         @endforeach
                                         <tr>
@@ -81,15 +80,19 @@
                                             <td>{{ $detail->service_detail_name }}</td>
                                             <td class="text-right">{{ numberFormat($detail->service_detail_cost) }}</td>
                                             <td>
-                                                <div class="input-group">
-                                                    <input class="form-control "
-                                                           name="point_sample[{{ $detail->service_detail_id }}]"
-                                                           value="{{$point_sample}}">
+                                                @if($detail->status_disabled == 0)
+                                                    <div class="input-group">
+                                                        <input class="form-control "
+                                                               name="point_sample[{{ $detail->service_detail_id }}]"
+                                                               value="{{$point_sample}}">
+                                                        <span
+                                                            class="input-group-text">   {{ $detail->service_detail_unit }}</span>
+                                                    </div>
+                                                @else
                                                     <span
-                                                        class="input-group-text">   {{ $detail->service_detail_unit }}</span>
-                                                </div>
+                                                        class="input-group-text">{{ $detail->service_detail_unit }}</span>
+                                                @endif
                                             </td>
-                                            <td><span class="total-cost"></span></td>
                                         </tr>
                                     @endforeach
                                     @php($noBody++)

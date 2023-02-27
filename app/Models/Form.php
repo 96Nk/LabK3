@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -13,14 +14,19 @@ class Form extends Model
     protected $table = 'forms';
     protected $primaryKey = 'form_id';
     protected $guarded = ['form_id'];
-//    protected $with = ['form_services', 'form_services_head', 'form_services_body'];
+    protected $with = ['form_services', 'form_additionals'];
 
     protected $hidden = ['created_at', 'updated_at'];
-
+    protected $appends = ['sum_service', 'sum_additional'];
 
     public final function form_services(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(FormService::class, 'form_code', 'form_code');
+    }
+
+    public final function form_additionals(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(FormAdditional::class, 'form_code', 'form_code');
     }
 
     public final function company(): \Illuminate\Database\Eloquent\Relations\HasOne
@@ -31,7 +37,8 @@ class Form extends Model
     public final function form_services_head(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(FormService::class, 'form_code', 'form_code')
-            ->select('form_services.form_code', 'service_head.service_head_id', 'service_head.service_head_name', DB::raw('sum(form_services.service_detail_cost * form_services.point_sample) as total_head'))
+            ->select('form_services.form_code', 'service_head.service_head_id', 'service_head.service_head_name',
+                DB::raw('sum(form_services.service_detail_cost * form_services.point_sample) as total_head'))
             ->join('service_head', 'service_head.service_head_id', '=', 'form_services.service_head_id')
             ->groupBy('form_services.service_head_id');
     }
@@ -59,6 +66,11 @@ class Form extends Model
         return $this->hasOne(LetterAgreement::class, 'form_code', 'form_code');
     }
 
+    public final function letter_receipt(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(LetterReceipt::class, 'form_code', 'form_code');
+    }
+
     public final function getRouteKeyName(): string
     {
         return 'form_code';
@@ -77,5 +89,19 @@ class Form extends Model
     public function scopeVerificationStatus($query)
     {
         return $query->where('verification_status', 1);
+    }
+
+    public final function sumService(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => $this->form_services->map(fn($val) => $val->total_cost)->sum(),
+        );
+    }
+
+    public final function sumAdditional(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => $this->form_additionals->map(fn($val) => $val->form_additional_cost)->sum(),
+        );
     }
 }

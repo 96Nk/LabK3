@@ -4,16 +4,6 @@
     <!-- Container-fluid starts-->
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header pb-0 text-center">
-                        <h5>{{ auth()->user()->name }}</h5>
-                    </div>
-                    <div class="card-body">
-
-                    </div>
-                </div>
-            </div>
             <div class="col-sm-6 col-xl-3 col-lg-6">
                 <div class="card o-hidden border-0">
                     <div class="bg-primary b-r-4 card-body">

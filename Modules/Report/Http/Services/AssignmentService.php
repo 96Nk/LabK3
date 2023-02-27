@@ -25,6 +25,7 @@ class AssignmentService
             'date_end' => 'required',
             'assignment_about' => 'required',
             'signer_employee_nip' => 'required',
+            'assignment_charge' => 'required',
         ]);
         $signer = UtiLetterSigner::where('nip', $request->post('signer_employee_nip'))->first();
         $addition = [

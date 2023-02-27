@@ -6,8 +6,15 @@
         <ul class="framworks-list">
             @foreach($partners as $partner)
                 <li class="fadeInUp">
-                    <div><img style="width : 60px; height : 60px" src="{{asset('/storage/'. $partner['logo_file'])}}"
-                              alt=""></div>
+                    <div>
+                        @if($partner['logo_file'])
+                            <img style="width : 60px; height : 60px" src="{{asset('/storage/'. $partner['logo_file'])}}"
+                                 alt="">
+                        @else
+                            <img style="width : 60px; height : 60px" src="{{asset('assets/images/favicon.png')}}"
+                                 alt="">
+                        @endif
+                    </div>
                     <h6>{{$partner['company_name']}}</h6>
                 </li>
             @endforeach

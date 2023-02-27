@@ -130,6 +130,15 @@ function sptNumber(int $number): string
     return "090/{$number}/Disnakertrans/LK3";
 }
 
+function kuitansiNumber(int $number, $year = ''): string
+{
+    $number = sprintfNumber($number);
+    if ($year) {
+        $year = date('Y');
+    }
+    return "07.01/Kwt.{$number}/Disnakertrans/LK3/{$year}";
+}
+
 function isoIecNumber(): string
 {
     return "SNI ISO/IEC 17025:2008";

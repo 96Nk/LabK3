@@ -106,8 +106,10 @@
             <div class="col-md-7">
                 <x-card>
                     @slot('header')
-                        <h5>Rincian Biaya</h5>
+                        <h5>Total Biaya : {{ numberFormat($form->sum_service+$form->sum_additional)  }}</h5>
                     @endslot
+                    <h6>Rincian Biaya </h6>
+                    <hr>
                     @foreach($form->form_services_head as $head)
                         <span>{{$head->service_head_name}}</span>
                         <div class="table-responsive">
@@ -156,6 +158,37 @@
                             </table>
                         </div>
                     @endforeach
+                    <hr>
+                    <h5>Biaya Tambahan :</h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Keterangan</th>
+                                <th>Biaya</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @php($totalCost = 0)
+                            @foreach($form->form_additionals as $additional)
+                                @php($totalCost += $additional->form_additional_cost)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $additional->form_additional_desc }}</td>
+                                    <td class="text-end">{{ numberFormat($additional->form_additional_cost) }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="2">Total</td>
+                                <td class="text-end">{{ numberFormat($totalCost) }}</td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                        <note>Biaya tambahan akan di isi oleh manajer <teknis class=""></teknis></note>
+                    </div>
                 </x-card>
             </div>
         </div>

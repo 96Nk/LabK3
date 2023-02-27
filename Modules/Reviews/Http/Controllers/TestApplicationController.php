@@ -19,6 +19,8 @@ class TestApplicationController extends Controller
     public function index()
     {
         $applications = Form::where(['review_status' => '0'])->formStatus()->latest()->get();
+//        echo json_encode($applications);
+//        die();
         return view('reviews::reviews.index', compact('applications'));
     }
 

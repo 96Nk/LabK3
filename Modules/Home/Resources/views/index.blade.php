@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="alert alert-success" role="alert">
-                    Perusahaan Belum di Verifikasi sebanyak 5 Perusahaan.
+                    Perusahaan Belum di Verifikasi sebanyak --- Perusahaan.
                 </div>
             </div>
             <div class="col-sm-8">

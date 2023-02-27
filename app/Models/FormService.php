@@ -14,10 +14,11 @@ class FormService extends Model
     protected $primaryKey = 'form_service_id';
     protected $guarded = ['form_service_id'];
     protected $hidden = ['created_at', 'updated_at'];
+    protected $appends = ['total_cost'];
 
 //    protected $with = ['service_detail'];
 
-    protected final function totalCost(): Attribute
+    public final function totalCost(): Attribute
     {
         return Attribute::make(
             get: fn($value, $attributes) => $attributes['service_detail_cost'] * $attributes['point_sample'],
@@ -33,8 +34,6 @@ class FormService extends Model
 //    {
 //        return $this->service_detail_cost * $this->point_sample;
 //    }
-
-
 
 
 }

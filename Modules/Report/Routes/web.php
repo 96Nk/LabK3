@@ -4,6 +4,7 @@ use Modules\Report\Http\Controllers\ArchiveAgreementController;
 use Modules\Report\Http\Controllers\ArchiveAssignmentController;
 use Modules\Report\Http\Controllers\LetterAgreementController;
 use Modules\Report\Http\Controllers\LetterAssignmentController;
+use Modules\Report\Http\Controllers\LetterReceiptController;
 
 Route::middleware(['auth', 'check-user'])->group(function () {
     Route::prefix('report/letter-assignment')->controller(LetterAssignmentController::class)->group(function () {
@@ -19,6 +20,11 @@ Route::middleware(['auth', 'check-user'])->group(function () {
         Route::post('/posting', 'posting');
         Route::get('/print-pdf/{form}', 'printPdf');
         Route::get('input/{form}', 'inputAgreement');
+    });
+
+    Route::prefix('report/letter-receipt')->controller(LetterReceiptController::class)->group(function () {
+        Route::get('/', 'index')->name('letter-receipt');
+        Route::get('input/{form}', 'create');
     });
 
     Route::prefix('report/archive-assignment')->controller(ArchiveAssignmentController::class)->group(function () {

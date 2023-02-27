@@ -1,6 +1,6 @@
 <x-admin.app-layout title="Report">
     <x-loader-theme/>
-    <x-admin.page-header title="Assignment Letter" items="Report|Assignment|Input"/>
+    <x-admin.page-header title="Surat Tugas" items="Laporan|Surat Tugas|Input"/>
     <!-- Container-fluid starts-->
     <x-alert-session col="6"/>
     <div class="container-fluid">
@@ -101,6 +101,17 @@
                                                         <div class="col-md-6">
                                                             <x-input type="date" name="assignment_date"
                                                                      value="{{$form->letter_assignment->assignment_date ??''}}"/>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pembebanan Biaya :</td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" name="assignment_charge"
+                                                                      rows="2">{{$form->letter_assignment->assignment_charge ??''}}</textarea>
                                                         </div>
                                                     </div>
                                                 </td>

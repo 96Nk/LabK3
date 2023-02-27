@@ -61,8 +61,9 @@ class ArchiveAgreementController extends Controller
             'regulation' => UtiRegulation::first(),
             'account' => UtiAccount::first()
         ];
-        $qrCode = $agreement->agreement_signer == 1 ? '<img src="' . $this->printQrCode(url()->current()) . '" width="50px" height="50px">' : '';
         $html = view('report::archive_agreement.print_pdf', $data);
+        $qrCode = $agreement->agreement_signer == 1 ? '<img src="' . $this->printQrCode(url()->current()) . '" width="50px" height="50px">' : '';
+        $qrCode = '';
         $this->MPDF->SetHTMLFooter('<table width="100%" border="0" style="font-family: serif; font-size: 8pt; color: #000000;">
     <tr>
         <td width="10%">' . $qrCode . '</td>
@@ -71,7 +72,7 @@ class ArchiveAgreementController extends Controller
     </tr>
 </table>');
         $this->MPDF->WriteHTML($html);
-        header('Content-Type', 'application/pdf');
+//        header('Content-Type', 'application/pdf');
         $this->MPDF->Output($agreement->form_code . '.pdf', 'I');
         $this->MPDF->debug = true;
     }

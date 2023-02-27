@@ -132,7 +132,10 @@
 
             $('.btn-delete').click(function () {
                 const company_id = $(this).data('company_id')
-                swalAction(BASEURL(`admin/company/delete/${company_id}`), {_token: "{{ csrf_token() }}"})
+                swalAction(BASEURL(`admin/company/delete/${company_id}`), {
+                    _token: "{{ csrf_token() }}",
+                    method: 'delete'
+                })
             });
         </script>
     @endslot

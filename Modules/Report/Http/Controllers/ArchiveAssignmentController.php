@@ -60,6 +60,9 @@ class ArchiveAssignmentController extends Controller
         ];
         $html = view('report::archive_assignment.print_pdf', $data);
         $this->MPDF->SetHTMLFooter('<table width="100%" border="0" style="font-family: serif; font-size: 8pt; color: #000000; font-weight: bold; font-style: italic;">
+<tr>
+        <td colspan="3">DL 7.1.4.1</td>
+    </tr>
     <tr>
         <td><img src="assets/images/logo-kan.png" width="15%" hidden="10%"></td>
         <td>' . isoIecNumber() . ' </td >

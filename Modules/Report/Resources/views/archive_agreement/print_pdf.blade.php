@@ -238,7 +238,7 @@
     <table style="width: 100%; font-weight: bold">
         <tr>
             <td width="50%" class="text-center">
-                PIHAK II
+                PIHAK I
                 <br>
                 {{ Str::upper($agreement->form->company->company_name) }}
 

@@ -1,6 +1,6 @@
 <x-admin.app-layout title="Report">
     <x-loader-theme/>
-    <x-admin.page-header title="Assignment Letter" items="Report|Assignment"/>
+    <x-admin.page-header title="Surat Tugas" items="Surat Tugas"/>
     <!-- Container-fluid starts-->
     <x-alert-session col="6"/>
     <div class="container-fluid">
@@ -8,19 +8,19 @@
             <div class="col-md-12">
                 <x-card>
                     @slot('header')
-                        <h5>Form Application Company</h5>
+                        <h5>Permohonan Pengujian</h5>
                     @endslot
                     <div class="table-responsive">
                         <table class="table table-bordered table-sm table-1">
                             <thead>
                             <tr>
-                                <th>Application</th>
-                                <th>Company</th>
-                                <th>Signer Name</th>
-                                <th>Signer Position</th>
-                                <th>About</th>
-                                <th>Date</th>
-                                <th>Review Date</th>
+                                <th>No</th>
+                                <th>Perusahaan</th>
+                                <th>TTD</th>
+                                <th>Jabatan</th>
+                                <th>Perihal</th>
+                                <th>Tanggal</th>
+                                <th>Pengujian</th>
                                 <th><i class="bi bi-plus-circle"></i></th>
                                 <th><i class="bi bi-plus-circle"></i></th>
                             </tr>
@@ -98,7 +98,7 @@
                                 <li> - Klik posting untuk menyimpan dan melakukan Cetak data.</li>
                                 <li> - Apabila sudah di Posting data tidak dapat di Edit ?</li>
                             </ul>
-                            <x-input type="" name="assignment_id"/>
+                            <x-input type="hidden" name="assignment_id"/>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

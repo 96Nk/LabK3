@@ -48,7 +48,7 @@ class AuthController extends Controller
         } catch (\Exception $exception) {
             $response = ResponseHelper::error($exception->getMessage());
         }
-        return response()->json($response);
+        return response()->json($response, $response['statusCode']);
     }
 
     /**
