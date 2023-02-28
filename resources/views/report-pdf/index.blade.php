@@ -30,24 +30,19 @@
         }
 
         #wrapper2 {
-            max-width: 760px;
-            min-width: 760px;
-            margin: 0 auto;
-            margin-bottom: 50px;
-            margin-top: 20px;
             border: 1px solid;
             padding: 10px;
         }
 
         td {
             padding: 3px 5px 3px 5px;
-            font-size: 10pt;
+            font-size: 12pt;
             vertical-align: top;
         }
 
         th {
             padding: 8px;
-            font-size: 10pt;
+            font-size: 12pt;
         }
 
         table, table .table {

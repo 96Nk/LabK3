@@ -5,12 +5,20 @@ namespace Modules\Report\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Form;
 use App\Models\LetterReceipt;
+use App\Models\RefAccount;
 use App\Models\UtiLetterSigner;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Modules\Report\Http\Services\ReceiptService;
 
 class LetterReceiptController extends Controller
 {
+
+    public function __construct(
+        private ReceiptService $receiptService
+    )
+    {
+    }
 
     public function index()
     {
@@ -19,8 +27,8 @@ class LetterReceiptController extends Controller
             ->formStatus()
             ->verificationStatus()
             ->latest()->get();
-        echo json_encode($applications);
-        die();
+//        echo json_encode($applications);
+//        die();
         return view('report::letter_receipt.index', compact('applications'));
     }
 
@@ -30,59 +38,32 @@ class LetterReceiptController extends Controller
         $number = LetterReceipt::where('receipt_year', date('Y'))->max('receipt_number');
         $data['maxNumber'] = $number ? $number + 1 : 1;
         $data['signers'] = UtiLetterSigner::all();
+        $data['accounts'] = RefAccount::all();
         $data['form'] = $form->with(['letter_receipt', 'company'])->first();
         $data['total'] = $form->sum_service + $form->sum_additional;
         return view('report::letter_receipt.input', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
     public function store(Request $request)
     {
-        //
+        try {
+            $this->receiptService->addLetterReceipt($request);
+            $this->setFlash('Input data kuitansi', true);
+            return to_route('letter-receipt');
+        } catch (\Exception $exception) {
+            $this->setFlash($exception->getMessage());
+            return back();
+        }
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
+    public final function posting(Request $request)
     {
-        return view('report::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('report::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        try {
+            $this->receiptService->postingLetterReceipt($request);
+            $this->setFlash('Posting data Kuitansi', true);
+        } catch (\Exception $exception) {
+            $this->setFlash($exception->getMessage());
+        }
+        return back();
     }
 }

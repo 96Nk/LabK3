@@ -12,6 +12,7 @@
 */
 
 use Modules\Company\Http\Controllers\CompanyController;
+use Modules\Company\Http\Controllers\ComplaintController;
 use Modules\Company\Http\Controllers\TestApplicationController;
 use Modules\Company\Http\Controllers\TestFormController;
 
@@ -39,6 +40,14 @@ Route::middleware(['auth', 'check-user'])->group(function () {
         Route::get('/', 'index')->name('test.application');
         Route::get('/detail/{form:form_code}', 'detail');
         Route::put('/{form}', 'updatePosting');
+    });
+
+    Route::prefix('company/complaint')->controller(ComplaintController::class)->group(function () {
+        Route::get('/', 'index')->name('complaint');
+        Route::post('/', 'store');
+        Route::get('/{complaint}', 'show')->name('complaint.show');
+        Route::put('/posting/{complaint}', 'posting');
+        Route::delete('/{complaint}', 'destroy');
     });
 
 

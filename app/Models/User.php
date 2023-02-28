@@ -53,7 +53,7 @@ class User extends Authenticatable
         'employee_id',
     ];
 
-    protected $with = ['employee'];
+    protected $with = ['employee', 'company'];
 
     protected $hidden = ['password', 'created_at', 'updated_at'];
 

@@ -27,7 +27,7 @@
                             </thead>
                             <tbody>
                             @foreach($applications as $application)
-                                @php($params = json_encode($application->letter_assignment))
+                                @php($params = json_encode($application->letter_receipt))
                                 <tr>
                                     <td>
                                         <a href="{{ url("company/test-application/detail/$application->form_code") }}"

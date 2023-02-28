@@ -96,6 +96,16 @@
                                 <select class="form-select"
                                         name="account_code" required>
                                     <option selected disabled value="">.: Rekening :.</option>
+                                    @foreach($accounts as $account)
+                                        @php($selected = '')
+                                        @if($form->letter_receipt)
+                                            @if($form->letter_receipt->account_code == $account->account_code)
+                                                @php($selected = 'selected')
+                                            @endif
+                                        @endif
+                                        <option {{ $selected }}
+                                                value="{{ $account->account_code }}">{{ $account->account_code.' '.$account->account_name  }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

@@ -133,9 +133,7 @@ function sptNumber(int $number): string
 function kuitansiNumber(int $number, $year = ''): string
 {
     $number = sprintfNumber($number);
-    if ($year) {
-        $year = date('Y');
-    }
+    if (!$year) $year = date('Y');
     return "07.01/Kwt.{$number}/Disnakertrans/LK3/{$year}";
 }
 
@@ -181,5 +179,5 @@ function convertNumber($value): string
     } else if ($value < 1000000000000000) {
         $temp = convertNumber((int)($value / 1000000000000)) . " trilyun" . convertNumber(fmod($value, 1000000000000));
     }
-    return ucwords($temp);
+    return ucwords($temp );
 }
