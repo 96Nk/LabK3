@@ -29,7 +29,7 @@
                         <h5>Daftar Pengaduan</h5>
                     </x-slot:header>
                     @foreach($complaints as $complaint)
-                        <a href="{{ route('complaint.show', $complaint->complaint_code) }}"
+                        <a href="{{ $complaint->complaint_posting == 0 ? '#' : route('complaint.show', $complaint->complaint_code) }}"
                            class="list-group-item list-group-item-action mb-2" aria-current="true">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">{{ $complaint->complaint_code }}</h5>

@@ -39,29 +39,34 @@
                         </tr>
                         </tbody>
                     </table>
+                    <br>
+                    @if($complaint->complaint_status == 0)
+                        {!! btnAction('save', attrBtn: "data-complaint_code='$complaint->complaint_code'", labelBtn: ' Akhiri Pengaduan', classBtn: 'btn-end') !!}
+                    @else
+                        <label class="badge badge-success">Pengaduan Selesai</label>
+                    @endif
+                    <a class="btn btn-danger btn-sm" href="{{ route('complaint') }}"><i class="bi bi-backspace"></i>
+                        Kembali</a>
                 </x-card>
             </div>
             <div class="col-md-7">
-                <x-card>
-                    <x-slot:header>
-                        <h5>Data Balik :</h5>
-                    </x-slot:header>
-
-                </x-card>
+                @livewire('chats', ['complaint_code' => $complaint->complaint_code])
             </div>
         </div>
     </div>
     @include('js.admin')
     @slot('script')
         <script>
-
-
-            $('.btn-delete').click(function () {
-                const company_id = $(this).data('company_id')
-                swalAction(BASEURL(`admin/company/delete/${company_id}`), {
-                    _token: "{{ csrf_token() }}",
-                    method: 'delete'
-                })
+            $('.btn-end').click(function () {
+                const complaint_code = $(this).data('complaint_code')
+                swalAction(BASEURL(`company/complaint/end/${complaint_code}`),
+                    {_token: "{{ csrf_token() }}"},
+                    {
+                        method: 'put',
+                        title: 'Akhiri Pengaduan.',
+                        textBtn: 'Akhiri'
+                    }
+                )
             });
         </script>
     @endslot

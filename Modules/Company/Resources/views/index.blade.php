@@ -28,7 +28,10 @@
                                 @php($params = "data-params='".json_encode($company)."'" )
                                 <tr>
                                     <td class="text-center">{{ $i+1 }}</td>
-                                    <td>{{ $company->company_name }}</td>
+                                    <td>
+                                        <a href="{{ url("admin/company/$company->company_id") }}"
+                                           class="btn btn-link">{{ $company->company_name }}</a>
+                                    </td>
                                     <td>{{ $company->company_email }}</td>
                                     <td>{{ $company->company_phone }}</td>
                                     <td>{{ $company->company_address }}</td>
@@ -132,10 +135,10 @@
 
             $('.btn-delete').click(function () {
                 const company_id = $(this).data('company_id')
-                swalAction(BASEURL(`admin/company/delete/${company_id}`), {
-                    _token: "{{ csrf_token() }}",
-                    method: 'delete'
-                })
+                swalAction(BASEURL(`admin/company/${company_id}`), {_token: "{{ csrf_token() }}"},
+                    {
+                        method: 'delete'
+                    })
             });
         </script>
     @endslot

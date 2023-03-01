@@ -28,6 +28,16 @@ class CompanyController extends Controller
         return view('company::index', $get);
     }
 
+    public function show(int $companyID)
+    {
+        $company = Company::join('ref_provinces', 'ref_provinces.prov_id', '=', 'companies.prov_id')
+            ->join('ref_cities', 'ref_cities.city_id', '=', 'companies.city_id')
+            ->join('ref_districts', 'ref_districts.district_id', '=', 'companies.district_id')
+            ->join('ref_villages', 'ref_villages.village_id', '=', 'companies.village_id')
+            ->find($companyID);
+        return view('company::show', compact('company'));
+    }
+
     public final function verification(Request $request): \Illuminate\Http\RedirectResponse
     {
         try {

@@ -25,6 +25,16 @@ class TicketComplaint extends Model
         return $query->where('complaint_status', 1);
     }
 
+    public final function scopeComplaintPosting($query)
+    {
+        return $query->where('complaint_posting', 1);
+    }
+
+    public final function company(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Company::class, 'company_id', 'company_id');
+    }
+
     public final function feedbacks(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TicketFeedback::class, 'complaint_code', 'complaint_code');

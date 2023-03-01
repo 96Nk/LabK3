@@ -8,6 +8,8 @@
     <title> {{$title}} | Lab. K3</title>
     @include('css.global')
     @stack('after-style')
+    <livewire:styles/>
+    <livewire:scripts/>
 </head>
 <body>
 <!-- Loader starts-->

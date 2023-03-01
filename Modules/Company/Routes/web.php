@@ -20,10 +20,11 @@ Route::middleware(['auth', 'check-user'])->group(function () {
     Route::prefix('admin/company')->controller(CompanyController::class)->group(function () {
         Route::middleware(['administrator'])->group(function () {
             Route::get('/', 'index')->name('company');
+            Route::get('/{id}', 'show');
             Route::post('verification', 'verification')->name('company.verification');
             Route::post('reset', 'reset')->name('company.reset');
             Route::put('/{company}', 'update');
-            Route::delete('/delete/{company}', 'destroy');
+            Route::delete('/{company}', 'destroy');
         });
         Route::put('/{company}', 'update');
     });
@@ -47,6 +48,7 @@ Route::middleware(['auth', 'check-user'])->group(function () {
         Route::post('/', 'store');
         Route::get('/{complaint}', 'show')->name('complaint.show');
         Route::put('/posting/{complaint}', 'posting');
+        Route::put('/end/{complaint}', 'end');
         Route::delete('/{complaint}', 'destroy');
     });
 

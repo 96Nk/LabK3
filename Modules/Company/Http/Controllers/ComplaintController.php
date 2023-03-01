@@ -20,8 +20,7 @@ class ComplaintController extends Controller
     {
         $company = auth()->user()['company'];
         $complaints = TicketComplaint::where([
-            'company_id' => $company->company_id,
-            'complaint_status' => 0,
+            'company_id' => $company->company_id
         ])->latest()->get();
         return view('company::complaint.index', compact('complaints'));
     }
@@ -49,6 +48,17 @@ class ComplaintController extends Controller
         try {
             $complaint->update(['complaint_posting' => 1]);
             $response = ResponseHelper::success('Posting selesai');
+        } catch (\Exception $exception) {
+            $response = ResponseHelper::error($exception->getMessage());
+        }
+        return response()->json($response, $response['statusCode']);
+    }
+
+    public function end(TicketComplaint $complaint)
+    {
+        try {
+            $complaint->update(['complaint_status' => 1]);
+            $response = ResponseHelper::success('Akhir pengaduan.');
         } catch (\Exception $exception) {
             $response = ResponseHelper::error($exception->getMessage());
         }

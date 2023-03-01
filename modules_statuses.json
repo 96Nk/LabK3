@@ -9,5 +9,6 @@
     "Services": true,
     "Settings": true,
     "Signer": true,
-    "Utility": true
+    "Utility": true,
+    "Complaint": true
 }

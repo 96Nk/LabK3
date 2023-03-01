@@ -18,4 +18,6 @@ class Company extends Model
     {
         return $this->belongsTo(User::class, 'company_id', 'company_id');
     }
+
+
 }
