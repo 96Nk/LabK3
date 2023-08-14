@@ -38,7 +38,7 @@ class UserService
     {
         $data = [
             'username' => $request['company_email'],
-            'password' => $request['password'],
+            'password' => '123456',
             'name' => $request['company_name'],
             'level_id' => 2,
             'is_active' => 0,

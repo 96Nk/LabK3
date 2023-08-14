@@ -63,13 +63,9 @@
                             </div>
                             <hr>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <x-input type="email" name="company_email" placeholder="Email"
                                              title="Email Address"/>
-                                </div>
-                                <div class="col-md-6">
-                                    <x-input type="password" name="password" placeholder="Password"
-                                             title="Password"/>
                                 </div>
                             </div>
 

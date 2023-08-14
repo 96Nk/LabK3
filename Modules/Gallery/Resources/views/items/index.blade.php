@@ -10,7 +10,7 @@
                     @slot('header')
                         <h5>Form Input</h5>
                     @endslot
-                    <form action="{{ url('gallery/items') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ url('admin/items') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="formFile" class="form-label">Upload File Images</label>
